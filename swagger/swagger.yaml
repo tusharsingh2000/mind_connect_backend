@@ -1,0 +1,563 @@
+openapi: 3.0.0
+info:
+  title: psychologist
+  version: 1.0.0
+servers:
+    - url: https://appgrowthcompany.com:4210
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+tags:
+  - name: App
+  - name: App > OnBoarding
+  - name: Admin
+  - name: Admin > Onboarding
+  - name: Admin > User
+  - name: Admin > Notification
+paths:
+  /api/v1/user/login:
+    post:
+      tags:
+        - App > OnBoarding
+      summary: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: ab@yopmail.com
+                countryCode: ''
+                userName: ''
+                password: '12345'
+                role: user
+                deviceType: IOS
+                deviceToken: djnfjenjn
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/user/register:
+    post:
+      tags:
+        - App > OnBoarding
+      summary: Signup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                key: '8198041568'
+                countryCode: '+91'
+                role: user
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/user/profile:
+    post:
+      tags:
+        - App > OnBoarding
+      summary: Update Profile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                fullName: Rohn
+                userName: userName
+                email: ma1@yopmail.com
+                image: /image-1639641766392.png
+                deviceType: ANDROID
+                deviceToken: dsdss222wds
+                latitude: 327878
+                longitude: 765655
+                isProfileComplete: true
+                zipCode: ee
+                password: '12345'
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/user/setPassword:
+    post:
+      tags:
+        - App > OnBoarding
+      summary: Set Password
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                password: '12345'
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/user/changepassword:
+    post:
+      tags:
+        - App > OnBoarding
+      summary: change Password
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                oldPassword: '12345'
+                password: '12345'
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/user/verifyotp:
+    post:
+      tags:
+        - App > OnBoarding
+      summary: verify OTP
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                key: '8198041568'
+                countryCode: '+91'
+                code: '1234'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/user/forgotpassword:
+    post:
+      tags:
+        - App > OnBoarding
+      summary: forgot Password
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                key: '8198041568'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/user/socialLogin:
+    post:
+      tags:
+        - App > OnBoarding
+      summary: Social Login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: abcc@yopmail.com
+                phone: '9876543210'
+                countryCode: '+91'
+                firstName: Rohn
+                lastName: Ekka
+                userName: Himanshu
+                image: /image-1639641766392.png
+                socialId: '108603858274514210262'
+                socialType: GOOGLE
+                deviceType: ANDROID
+                deviceToken: >-
+                  ya29.a0ARrdaM8nUJljohUtU3Fud2HZUzPHY5A1kE99r9kfekMOsfc1-RsxfK7gnOnLjZZb91MgCdMtE2tft1GfX7jhbrFY_V2-6tfkJdVTOwLU18hZDplz5714zgeKwayMVonHQHFv-XayHxXpblSuTX1X8QaZYomB
+                role: user
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/user/logout:
+    post:
+      tags:
+        - App > OnBoarding
+      summary: logout
+      requestBody:
+        content: {}
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/user/upload:
+    post:
+      tags:
+        - App
+      summary: Upload
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/user/cms:
+    get:
+      tags:
+        - App
+      summary: CMS
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/admin/login:
+    post:
+      tags:
+        - Admin > Onboarding
+      summary: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                key: psychologist@yopmail.com
+                password: '123456'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/admin/forgotPassword:
+    post:
+      tags:
+        - Admin > Onboarding
+      summary: forgot password
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: psychologist@yopmail.com
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/admin/verifyOtp:
+    post:
+      tags:
+        - Admin > Onboarding
+      summary: Verify OTP
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                key: psychologist@yopmail.com
+                code: '1234'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/admin/setPassword:
+    post:
+      tags:
+        - Admin > Onboarding
+      summary: set Password
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                password: '12345'
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/admin/updateProfile:
+    put:
+      tags:
+        - Admin > Onboarding
+      summary: Update Profile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: psychologist@yopmail.com
+                name: ADMIN
+                countryCode: '+91'
+                phone: '9638527418'
+                address: '+83489579834'
+                image: /dbsdjfh
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/admin/profile:
+    get:
+      tags:
+        - Admin > Onboarding
+      summary: get Profile
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/admin/changePassword:
+    post:
+      tags:
+        - Admin > Onboarding
+      summary: change Password
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                oldPassword: '123456'
+                password: '12345'
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/admin/signup:
+    post:
+      tags:
+        - Admin > Onboarding
+      summary: signUp
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: psychologist@yopmail.com
+                password: '12345'
+                name: SUPER ADMIN
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/admin/users:
+    get:
+      tags:
+        - Admin > User
+      summary: get user
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+          example: '1'
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          example: '10'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/admin/users/620e116c3a5a7bffc90e6c9b:
+    get:
+      tags:
+        - Admin > User
+      summary: User by Id
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/admin/userBlock/620e116c3a5a7bffc90e6c9b:
+    put:
+      tags:
+        - Admin > User
+      summary: Block User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                isBlocked: true
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/admin/user/620e116c3a5a7bffc90e6c9b:
+    put:
+      tags:
+        - Admin > User
+      summary: Update User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: preeple1@yopmail.com
+                name: testdfdfdf
+                countryCode: '+91'
+                phone: '435808340583409'
+                address: '+83489579834'
+                image: /dbsdjfh
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Admin > User
+      summary: Delete user
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/admin/notification:
+    post:
+      tags:
+        - Admin > Notification
+      summary: post Notification
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                notificationType: Broadcast
+                type: All
+                tittle: aba
+                message: '999999999999999999999'
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - Admin > Notification
+      summary: Notification
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+          example: '1'
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          example: '10'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/admin/upload:
+    post:
+      tags:
+        - Admin
+      summary: Upload
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/admin/dashboard:
+    get:
+      tags:
+        - Admin
+      summary: Dashboard
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: personType
+          in: query
+          schema:
+            type: string
+          example: monthly
+        - name: newPersonType
+          in: query
+          schema:
+            type: string
+          example: monthly
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}

@@ -1,0 +1,1038 @@
+{
+	"info": {
+		"_postman_id": "acb2e4ed-acc7-436c-85f0-1059c8f417e5",
+		"name": "psychologist",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19360181"
+	},
+	"item": [
+		{
+			"name": "App",
+			"item": [
+				{
+					"name": "OnBoarding",
+					"item": [
+						{
+							"name": "login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"ab@yopmail.com\",\r\n    \"countryCode\" : \"\",\r\n    \"userName\" : \"\",\r\n    \"password\": \"12345\",\r\n    \"role\" : \"user\",\r\n    \"deviceType\": \"IOS\",\r\n    \"deviceToken\" : \"djnfjenjn\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/user/login",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Signup",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"key\" : \"8198041568\",\n    \"countryCode\" : \"+91\",\n    \"role\" : \"user\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/user/register",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Profile",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2I2NjlhNjdhNzI0MTQ1YTNjMTY3ZGUiLCJyb2xlIjoidXNlciIsImp0aSI6IjNiYzU0NjllYzcxYmE2MDgxODNmZmU0Nzg2Zjg0YTAzNWEyNzQ2NjMiLCJpYXQiOjE2NzI4OTkwNDcsImV4cCI6MTY3Mzc2MzA0N30.m55YmPvhVyCcB52J5qeI-DLXEaucvs9mwrg0FDCPpo4",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"fullName\": \"Rohn\",\r\n    \"userName\": \"userName\",\r\n    \"email\": \"ma1@yopmail.com\",\r\n    \"image\": \"/image-1639641766392.png\",\r\n    \"deviceType\": \"ANDROID\",\r\n    \"deviceToken\": \"dsdss222wds\",\r\n    \"latitude\": 327878,\r\n    \"longitude\": 765655,\r\n    \"isProfileComplete\": true,\r\n    \"zipCode\": \"ee\",\r\n    \"password\": \"12345\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/user/profile",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"profile"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Set Password",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjBlMTQxNDRkYWM4ZTY1N2M1YmMxNGQiLCJyb2xlIjoidXNlciIsImp0aSI6IjM0ODdjOTZiNGFlZTAyZTZjNTU3NGQ4ZDA4ZDgxYjAyYjVkNjQ2MGQiLCJpYXQiOjE2NDUwODk4MjksImV4cCI6MTY0NTM0OTAyOX0.iFNbLZiwx6txBqp9Ns4g7kRio2vMky0TPDLIU5Ma6xw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"password\" : \"12345\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/api/v1/user/setPassword",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"setPassword"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "change Password",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjBiODEzYmU0MDhkOTc3MDUyNjUyNjEiLCJyb2xlIjoidXNlciIsImp0aSI6IjI1ZGI0OTA4NzdmYzVjMWMyYzZlOTg4MDgyYWU5M2Q5YjJiZDM3NzIiLCJpYXQiOjE2NDQ5MjExNjAsImV4cCI6MTY0NTE4MDM2MH0._vFmb0tzRe6RmUlTLPQt48VRsI98OPpE9rs8wmJOU7A",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"oldPassword\" : \"12345\",\n    \"password\" : \"12345\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/user/changepassword",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"changepassword"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "verify OTP",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"key\": \"8198041568\",\n    \"countryCode\": \"+91\",\n    \"code\": \"1234\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/user/verifyotp",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"verifyotp"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "forgot Password",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"key\" : \"8198041568\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/user/forgotpassword",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"forgotpassword"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Social Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"abcc@yopmail.com\",\n    \"phone\": \"9876543210\",\n    \"countryCode\": \"+91\",\n    \"firstName\": \"Rohn\",\n    \"lastName\": \"Ekka\",\n    \"userName\": \"Himanshu\",\n    \"image\": \"/image-1639641766392.png\",\n    \"socialId\": \"108603858274514210262\",\n    \"socialType\": \"GOOGLE\",\n    \"deviceType\": \"ANDROID\",\n    \"deviceToken\": \"ya29.a0ARrdaM8nUJljohUtU3Fud2HZUzPHY5A1kE99r9kfekMOsfc1-RsxfK7gnOnLjZZb91MgCdMtE2tft1GfX7jhbrFY_V2-6tfkJdVTOwLU18hZDplz5714zgeKwayMVonHQHFv-XayHxXpblSuTX1X8QaZYomB\",\n    \"role\": \"user\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/user/socialLogin",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"socialLogin"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "logout",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjBlMTE2YzNhNWE3YmZmYzkwZTZjOWIiLCJyb2xlIjoidXNlciIsImp0aSI6IjNiYTVkMWQ3ZGI0ZDcwY2VmNzIxYWEyYjM1ZTg4MjhkYWRhZDRkZGYiLCJpYXQiOjE2NDY4MTY3NzksImV4cCI6MTY0NzA3NTk3OX0.r45U-uxb1A2XuH-Lq47GgD7vzGeS76RX6vB_QjDt-5M",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/api/v1/user/logout",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"logout"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Upload",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzJkMzQwOGU2NDVjNTZkNzUxZTdkZjAiLCJyb2xlIjoidXNlciIsImp0aSI6ImJjZmFiNTExZWU5YTM5OGRiMjc5MTUxNGM4NzFkM2M5OGViZDVkMWEiLCJlbWFpbCI6ImFiQHlvcG1haWwuY29tIiwiaWF0IjoxNjYzOTA3MTQ5LCJleHAiOjE2NjQ3NzExNDl9.a0eSj2-RN_gIEVxX6GR6lVFj_GNzR0_MHTMf1pimYSQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/home/robin/Pictures/image.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{local}}/api/v1/user/upload",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CMS",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzJkNDBiMmMxZWM1MDhkNThlOGRjZDkiLCJyb2xlIjoidXNlciIsImp0aSI6ImJiMTYxMzZlZTEwNzU1MGUzOWJhMzk2YjczZGRhYzQ5OTRhZjRlYTAiLCJlbWFpbCI6ImFiQHlvcG1haWwuY29tIiwiaWF0IjoxNjYzOTEwMDg1LCJleHAiOjE2NjQ3NzQwODV9.4AEofoy-bYO7v5BM_-e3mVW1BjARypcMqozYi58e9kk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/api/v1/user/cms",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"cms"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Onboarding",
+					"item": [
+						{
+							"name": "login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"key\" : \"psychologist@yopmail.com\",\n    \"password\" : \"123456\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/admin/login",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "forgot password",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"psychologist@yopmail.com\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/admin/forgotPassword",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"forgotPassword"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Verify OTP",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"key\" : \"psychologist@yopmail.com\",\n    \"code\": \"1234\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/admin/verifyOtp",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"verifyOtp"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "set Password",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2I2ODg0MGFhNDMzMjRlYjc3MjcwNzMiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE2NzI5MDcxMjMsImV4cCI6MTY3Mzc3MTEyM30.cCsgumUHy1iCfxwMzyIWnxTETQwG2qfd_H3voqqvipI",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"password\" : \"12345\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/admin/setPassword",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"setPassword"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Profile",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjIwNjBjZGYyMDZjZWI1MTc2NjMxNDIiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE2NDY4OTE2MTksImV4cCI6MTY0NzE1MDgxOX0.OB9KqPNyKZyW8Iva-J9snKBi63OhpYXL8SbCTm-w96A",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"psychologist@yopmail.com\",\n    \"name\": \"ADMIN\",\n    \"countryCode\": \"+91\",\n    \"phone\": \"9638527418\",\n    \"address\": \"+83489579834\",\n    \"image\": \"/dbsdjfh\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/admin/updateProfile",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"updateProfile"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get Profile",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2I2ODg0MGFhNDMzMjRlYjc3MjcwNzMiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE2NzI5MDY4MzUsImV4cCI6MTY3Mzc3MDgzNX0.AIeeuvrra3Ky7Dc-xgc49fmzpbcdGuIzlxAQ-nB4dJQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/api/v1/admin/profile",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"profile"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "change Password",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2I2ODg0MGFhNDMzMjRlYjc3MjcwNzMiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE2NzI5MDcxNTIsImV4cCI6MTY3Mzc3MTE1Mn0.raH-yU550h6pYUBSWLpB3MhMIJ8bKTG9IDhUPGlIzDc",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"oldPassword\" : \"123456\",\n    \"password\" : \"12345\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/admin/changePassword",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"changePassword"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "signUp",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n \"email\" : \"psychologist@yopmail.com\",\n \"password\" : \"12345\",\n \"name\" : \"SUPER ADMIN\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/api/v1/admin/signup",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"signup"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "get user",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjIwNjBjZGYyMDZjZWI1MTc2NjMxNDIiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE2NDY5NzkxNDgsImV4cCI6MTY0NzIzODM0OH0.KFQlGAveHmINckQQjXrQISNQyt7lgt0AuYf6vhmlxGQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/api/v1/admin/users?page=1&limit=10",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"users"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User by Id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjIwNjBjZGYyMDZjZWI1MTc2NjMxNDIiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE2NDY5NzkxNDgsImV4cCI6MTY0NzIzODM0OH0.KFQlGAveHmINckQQjXrQISNQyt7lgt0AuYf6vhmlxGQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/api/v1/admin/users/620e116c3a5a7bffc90e6c9b",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"users",
+										"620e116c3a5a7bffc90e6c9b"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Block User",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjIwNjBjZGYyMDZjZWI1MTc2NjMxNDIiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE2NDY5NzkxNDgsImV4cCI6MTY0NzIzODM0OH0.KFQlGAveHmINckQQjXrQISNQyt7lgt0AuYf6vhmlxGQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"isBlocked\": true\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/admin/userBlock/620e116c3a5a7bffc90e6c9b",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"userBlock",
+										"620e116c3a5a7bffc90e6c9b"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update User",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjIwNjBjZGYyMDZjZWI1MTc2NjMxNDIiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE2NDY5NzkxNDgsImV4cCI6MTY0NzIzODM0OH0.KFQlGAveHmINckQQjXrQISNQyt7lgt0AuYf6vhmlxGQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\":\"preeple1@yopmail.com\",\n    \"name\":\"testdfdfdf\",\n    \"countryCode\":\"+91\",\n    \"phone\":\"435808340583409\",\n    \"address\":\"+83489579834\",\n    \"image\":\"/dbsdjfh\"\n\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/admin/user/620e116c3a5a7bffc90e6c9b",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"user",
+										"620e116c3a5a7bffc90e6c9b"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete user",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjIwNjBjZGYyMDZjZWI1MTc2NjMxNDIiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE2NDY5NzkxNDgsImV4cCI6MTY0NzIzODM0OH0.KFQlGAveHmINckQQjXrQISNQyt7lgt0AuYf6vhmlxGQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/api/v1/admin/user/620e116c3a5a7bffc90e6c9b",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"user",
+										"620e116c3a5a7bffc90e6c9b"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Notification",
+					"item": [
+						{
+							"name": "post Notification",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjIwNjBjZGYyMDZjZWI1MTc2NjMxNDIiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE2NDc5MjI0MzksImV4cCI6MTY0ODE4MTYzOX0.fpAFz9_JYyA0CVgLy4xo96Lhcf2nxY44fJrlyfq-3-A",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"notificationType\": \"Broadcast\",\n    \"type\": \"All\",\n    \"tittle\": \"aba\",\n    \"message\": \"999999999999999999999\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/admin/notification",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"notification"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Notification",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjIwNjBjZGYyMDZjZWI1MTc2NjMxNDIiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE2NDc5MjI0MzksImV4cCI6MTY0ODE4MTYzOX0.fpAFz9_JYyA0CVgLy4xo96Lhcf2nxY44fJrlyfq-3-A",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/api/v1/admin/notification?page=1&limit=10",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"notification"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "10"
+										},
+										{
+											"key": "search",
+											"value": "abcc",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "Broadcast",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Upload",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/home/robin/Pictures/image.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{local}}/api/v1/admin/upload",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Dashboard",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjIwNjBjZGYyMDZjZWI1MTc2NjMxNDIiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE2NDg1NDcyOTMsImV4cCI6MTY0ODgwNjQ5M30.FH85u9bAWl4JopR3j2NT7BFcTmal7OrHiNKUi3vlwpw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/api/v1/admin/dashboard?personType=monthly&newPersonType=monthly",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"dashboard"
+							],
+							"query": [
+								{
+									"key": "personType",
+									"value": "monthly"
+								},
+								{
+									"key": "newPersonType",
+									"value": "monthly"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "local",
+			"value": "localhost:4210",
+			"type": "string"
+		},
+		{
+			"key": "server",
+			"value": "https://appgrowthcompany.com:4210",
+			"type": "string"
+		}
+	]
+}

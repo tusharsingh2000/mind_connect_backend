@@ -1,0 +1,17 @@
+{
+    "jwtOption": {
+        "jwtSecretKey": "ededwedwwpolfePtbefddfdffdgfEadRzVlewewf2323ferferf2323",
+        "jwtRefreshSecretKey": "ededwedwwpdfdfddfddffolfePtbEadRzVlewewf2323ferferf2323",
+        "issuer": "apptunix",
+        "subject": "apptunix",
+        "audience": "apptunix",
+        "algorithm": "SHA256",
+        "expiresIn": "10d"
+    },
+    "mongo": {
+        "url": "mongodb://localhost:27017/psychologist"
+    },
+    "self": {
+        "url": "http://appgrowthcompany.com:4210"
+    }
+}
