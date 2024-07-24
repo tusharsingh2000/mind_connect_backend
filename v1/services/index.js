@@ -5,5 +5,6 @@ module.exports = {
     authService : require('./AuthService'),
     fileUpload : require('./fileUpload'),
     admin : require('./admin'),
-    common :  require('./common')
+    common :  require('./common'),
+    swagger: require("./Swagger")
 };

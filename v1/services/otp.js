@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 
 
 // async function generatePhoneOtp(countryCode, phone, user, otpCode = Utility.generateRandom(4), expiredAt = moment().add(10, 'minutes').toDate()) {
-async function generatePhoneOtp(countryCode, phone, user, otpCode = '1234', expiredAt = moment().add(5, 'minutes').toDate()) {
+async function generatePhoneOtp(countryCode, phone, user, otpCode = '123456', expiredAt = moment().add(5, 'minutes').toDate()) {
     await Model.otp.deleteMany({
         phone: phone, countryCode: countryCode
     }); //Clear Old Send otp message
@@ -27,7 +27,7 @@ async function generatePhoneOtp(countryCode, phone, user, otpCode = '1234', expi
 }
 
 // async function generateEmailVerification(email, user, code = Utility.generateRandom(4), expiredAt = moment().add(60, 'minutes').toDate()) {
-async function generateEmailVerification(email, user, code = '1234', expiredAt = moment().add(60, 'minutes').toDate()) {
+async function generateEmailVerification(email, user, code = '123456', expiredAt = moment().add(60, 'minutes').toDate()) {
 
     console.log('email: ', email);
     email = email.toLowerCase();
@@ -41,7 +41,7 @@ async function generateEmailVerification(email, user, code = '1234', expiredAt =
     };
     if (!data.code) {
         // data.code = Utility.generateRandom(6);
-        data.code = '1234';
+        data.code = '123456';
     }
     if (user) {
         data.userId = user._id;

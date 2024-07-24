@@ -10,6 +10,11 @@ const categoryModel = new Schema({
         type: String,
         default: ""
     },
+    type: {
+        type: Number,
+        enum : [1, 2],
+        default: 1
+    },
     isDeleted: { type: Boolean, default: false, index: true },
     isBlocked: { type: Boolean, default: false, index: true }
 

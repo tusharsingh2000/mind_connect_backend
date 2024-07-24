@@ -40,7 +40,7 @@ app.use('/images/', express.static(__dirname + "/public/files"));
 app.use(express.static('./v1/uploads'));
 // app.use('/user/profile/image', express.static(__dirname + "/public/images/users"));
 app.use('/images', express.static(__dirname + "/public/images"));
-
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(function (req, res, next) {
   if (req.headers && req.headers.lang && req.headers.lang == 'ar') {

@@ -285,7 +285,17 @@ async function deleteDocument(req, res, next) {
     next(error);
   }
 }
+async function getCategory(req, res, next) {
+  try {
+    let data = await services.user.getCategory(req);
+    return response.sendSuccessResponse(req, res, data, responseCode.OK, process.lang.FETCH_SUCCESSFULLY);
+  } catch (error) {
+    next(error);
+  }
+}
 module.exports = {
+  getCategory,
+
   addDocument,
   getDocument,
   updateDocument,

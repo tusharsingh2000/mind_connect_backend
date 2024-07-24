@@ -52,7 +52,8 @@ router.delete("/document/:id", Service.authService.userAuth, Controllers.deleteD
 // Dsahboard
 router.get("/dashboard", Service.authService.userAuth, Controllers.dashboard);
 
-
+// category
+router.get("/category", Service.authService.userAuth, Controllers.getCategory);
 
 // Notifcation 
 router.get("/notification", Service.authService.userAuth, Controllers.userNotification);

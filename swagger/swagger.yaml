@@ -1,9 +1,9 @@
 openapi: 3.0.0
 info:
-  title: psychologist
+  title: mind_connect
   version: 1.0.0
 servers:
-    - url: https://appgrowthcompany.com:4210
+    - url: http://3.13.85.37 :3020
 components:
   securitySchemes:
     bearerAuth:

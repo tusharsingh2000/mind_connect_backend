@@ -38,7 +38,7 @@ async function createUser(data) {
                 await Model.user.deleteMany({ phone: data.phone, countryCode: data.countryCode, isDeleted: false, isPhoneVerify: false, role: data.role });
             }
             user = await Model.user.create(data);
-        } 
+        }
         Otp.generatePhoneOtp(data.countryCode, data.phone, user);
 
     }
@@ -222,10 +222,10 @@ async function updateprofile(req) {
         data.password = await utility.hashPasswordUsingBcrypt(data.password);
     }
 
-    let user = await Model.user.findOne({ email: req.body.email, isDeleted: false, _id: { $ne: ObjectId(req.user._id) } }).lean();
+    let user = await Model.user.findOne({ email: req.body.email, isDeleted: false, role: req.user.role, _id: { $ne: ObjectId(req.user._id) } }).lean();
     if (user) throw process.lang.DUPLICATE_EMAIL;
 
-    user = await Model.user.findOne({ phone: req.body.phone, isDeleted: false, _id: { $ne: ObjectId(req.user._id) } }).lean();
+    user = await Model.user.findOne({ phone: req.body.phone, isDeleted: false, role: req.user.role, _id: { $ne: ObjectId(req.user._id) } }).lean();
     if (user) throw process.lang.DUPLICATE_PHONE;
 
     // user = await Model.user.findOne({ userName: req.body.userName, isDeleted: false, _id: { $ne: ObjectId(req.user._id) } }).lean();
@@ -234,6 +234,7 @@ async function updateprofile(req) {
     return await Model.user.findOneAndUpdate({ _id: req.user._id }, data, { new: true });
 
 }
+
 async function login(data) {
     let planPassword = data.password;
     delete data.password;
@@ -549,8 +550,15 @@ async function deleteDocument(req) {
     await Model.document.findByIdAndUpdate({ _id: document._id, isDeleted: false }, { isDeleted: true });
     return {};
 }
-module.exports = {
+async function getCategory() {
 
+    let pipeline = [];
+    pipeline.push({ $match: { isDeleted: false } });
+    let [category] = await Model.category.aggregate(pipeline);
+    return category;
+}
+module.exports = {
+    getCategory,
     addDocument,
     getDocument,
     updateDocument,
