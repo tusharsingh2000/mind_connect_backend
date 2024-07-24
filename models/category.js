@@ -24,4 +24,4 @@ const categoryModel = new Schema({
     toJSON: { virtuals: true }
 });
 const category = mongoose.model('category', categoryModel);
-module.exports = category;
+module.exports = category; 
