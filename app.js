@@ -15,7 +15,7 @@ const v1Routes = require('./v1/routes');
 const constant = require('./messages/messages');
 const https = require('https');
 const fs = require('fs');
-const swaggerUi = require('swagger-ui-express');
+const swaggerUi = require('swagger-ui-express'); 
 const YAML = require('yamljs');
 const swaggerDocument = YAML.load('./swagger/swagger.yaml');
 
