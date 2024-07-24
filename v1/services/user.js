@@ -26,10 +26,9 @@ async function createUser(data) {
                 await Model.user.deleteMany({ email: data.email, isDeleted: false, isEmailVerify: false, role: data.role });
             }
             user = await Model.user.create(data);
-            Otp.generateEmailVerification(data.email, data);
-        } else {
-            throw process.lang.DUPLICATE_EMAIL;
+
         }
+        Otp.generateEmailVerification(data.email, data);
     } else {
         data.phone = data.key;
         user = await Model.user.findOne({ phone: data.phone, countryCode: data.countryCode, isPhoneVerify: true, isDeleted: false, role: data.role });
@@ -39,10 +38,9 @@ async function createUser(data) {
                 await Model.user.deleteMany({ phone: data.phone, countryCode: data.countryCode, isDeleted: false, isPhoneVerify: false, role: data.role });
             }
             user = await Model.user.create(data);
-            Otp.generatePhoneOtp(data.countryCode, data.phone, user);
-        } else {
-            throw process.lang.DUPLICATE_PHONE;
-        }
+        } 
+        Otp.generatePhoneOtp(data.countryCode, data.phone, user);
+
     }
     if (!user) {
         throw responseCode.BAD_REQUEST;
@@ -457,7 +455,6 @@ async function updateExperience(req) {
 
 async function deleteExperience(req) {
     let experience = await Model.experience.findOne({ _id: req.params.id, isDeleted: false }).select('-createdAt -updatedAt');
-    ;
     if (!experience) throw process.lang.INVALID_ID;
 
     await Model.experience.findByIdAndUpdate({ _id: experience._id, isDeleted: false }, { isDeleted: true }, { new: true });
