@@ -51,9 +51,8 @@ app.use(function (req, res, next) {
   next();
 });
 
-
-app.use('/api/v1', v1Routes);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api/v1', v1Routes);
 
 // eslint-disable-next-line no-unused-vars
 app.use(function (err, req, res, next) {
