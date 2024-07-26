@@ -14,6 +14,7 @@ const UserModel = new Schema({
     email: { type: String, lowercase: true, index: true, trim: true },
     phone: { type: String, trim: true, default: "", index: true },
     countryCode: { type: String, trim: true },
+    countryName: { type: String, trim: true },
     isProfileComplete: { type: Boolean, default: false },
     isEmailVerify: { type: Boolean, default: false },
     isPhoneVerify: { type: Boolean, default: false },
@@ -41,7 +42,11 @@ const UserModel = new Schema({
     isDeleted: { type: Boolean, default: false, index: true },
     isBlocked: { type: Boolean, default: false, index: true },
     latitude: { type: String, default: 0 },
-    longitude: { type: String, default: 0 }
+    longitude: { type: String, default: 0 },
+    types : [{ type: Schema.Types.ObjectId, ref: 'category' }], // user side used
+    isVerified: { type: Boolean, default: false },  // sp account verified from admin
+    categoryId: [{ type: Schema.Types.ObjectId, ref: 'category' }]
+
 
 
 }, {

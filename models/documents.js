@@ -1,5 +1,6 @@
 const MONGOOSE = require("mongoose");
 const Schema = MONGOOSE.Schema;
+const constant = require(".././utility/constant");
 
 const documentsModel = new Schema({
 
@@ -7,6 +8,11 @@ const documentsModel = new Schema({
     name: { type: String, default: "" },
     number: { type: String, default: "" },
     expiry_date: { type: String, default: "" },
+    type: {
+        type: Number,
+        enum: [constant.DOCUMENT_TYPE],
+        default: constant.DOCUMENT_TYPE.OTHER
+    },
 
     docs: [{
         front: {

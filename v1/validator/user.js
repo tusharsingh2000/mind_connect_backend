@@ -20,6 +20,7 @@ const validateSignUp = async (req, property = "body") => {
     schema = joi.object().keys({
         key: joi.string().optional(),
         countryCode: joi.string().optional(),
+        countryName: joi.string().optional(),
         // password: joi.string().optional(),
         role: joi.string().valid(constant.USER_ROLE.USER, constant.USER_ROLE.CONSULTANT).required()
     });
@@ -33,6 +34,7 @@ const validateVerifyOtp = async (req, property = "body") => {
         key: joi.string().required(),
         code: joi.string().required(),
         countryCode: joi.string().optional(),
+        countryName: joi.string().optional(),
         role: joi.string().valid(constant.USER_ROLE.USER, constant.USER_ROLE.CONSULTANT).required()
     });
     return await validateSchema(req[property], schema);
@@ -55,6 +57,7 @@ const socialLogin = async (req, property = "body") => {
         firstName: joi.string().optional(),
         lastName: joi.string().optional(),
         countryCode: joi.string().optional(),
+        countryName: joi.string().optional(),
         socialId: joi.string().required(),
         socialType: joi.string().optional().valid("FACEBOOK", "GOOGLE", "APPLE"),
         deviceType: joi.string().optional().valid("ANDROID", "IOS", "WEB"),
@@ -87,7 +90,9 @@ const validateProfileUpdate = async (req, property = "body") => { // coming soon
         zipCode: joi.string().allow('', null).optional(),
         dob: joi.string().optional(),
         coverImage: joi.string().optional(),
-        password: joi.string().allow('', null).optional()
+        password: joi.string().allow('', null).optional(),
+        gender : joi.string().optional(),
+        countryName : joi.string().optional()
     });
     return await validateSchema(req[property], schema);
 };

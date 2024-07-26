@@ -12,7 +12,7 @@ const categoryModel = new Schema({
     },
     type: {
         type: Number,
-        enum : [1, 2],
+        enum : [1, 2], // 1 for user side and 2 for provider side
         default: 1
     },
     isDeleted: { type: Boolean, default: false, index: true },

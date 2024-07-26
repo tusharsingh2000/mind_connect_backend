@@ -221,12 +221,16 @@ async function updateprofile(req) {
     if (data.password) {
         data.password = await utility.hashPasswordUsingBcrypt(data.password);
     }
+    let user;
+    if (req.body.email) {
+        user = await Model.user.findOne({ email: req.body.email, isDeleted: false, role: req.user.role, _id: { $ne: ObjectId(req.user._id) } }).lean();
+        if (user) throw process.lang.DUPLICATE_EMAIL;
+    }
 
-    let user = await Model.user.findOne({ email: req.body.email, isDeleted: false, role: req.user.role, _id: { $ne: ObjectId(req.user._id) } }).lean();
-    if (user) throw process.lang.DUPLICATE_EMAIL;
-
-    user = await Model.user.findOne({ phone: req.body.phone, isDeleted: false, role: req.user.role, _id: { $ne: ObjectId(req.user._id) } }).lean();
-    if (user) throw process.lang.DUPLICATE_PHONE;
+    if (req.body.phone) {
+        user = await Model.user.findOne({ phone: req.body.phone, isDeleted: false, role: req.user.role, _id: { $ne: ObjectId(req.user._id) } }).lean();
+        if (user) throw process.lang.DUPLICATE_PHONE;
+    }
 
     // user = await Model.user.findOne({ userName: req.body.userName, isDeleted: false, _id: { $ne: ObjectId(req.user._id) } }).lean();
     // if (user) throw process.lang.DUPLICATE_USERNAME;
@@ -408,6 +412,9 @@ async function deleteEducation(req) {
 
 async function addExperience(req) {
     req.body.userId = req.user._id;
+    if (req.body.categoryId) {
+        await Model.user.findByIdAndUpdate({ _id: req.user._id, isDeleted: false }, { $set: { categoryId: req.body.categoryId } }, { new: true });
+    }
     return await Model.experience.create(req.body);
 }
 
@@ -450,6 +457,9 @@ async function updateExperience(req) {
     let experience = await Model.experience.findOne({ _id: req.params.id, isDeleted: false }).select('-createdAt -updatedAt');
     if (!experience) throw process.lang.INVALID_ID;
 
+    if (req.body.categoryId) {
+        await Model.user.findByIdAndUpdate({ _id: req.user._id, isDeleted: false }, { $set: { categoryId: req.body.categoryId } }, { new: true });
+    }
     experience = await Model.experience.findByIdAndUpdate({ _id: experience._id }, req.body, { new: true });
     return experience;
 }

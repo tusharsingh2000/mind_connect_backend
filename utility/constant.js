@@ -25,6 +25,11 @@ module.exports = {
     POST :6,
     CHAT : 7,
     PROFILE_VERIFY : 8
+  },
+  DOCUMENT_TYPE: {
+    AADHAR_CARD: 'AADHAR_CARD',
+    PAN_CARD: 'PAN_CARD',
+    OTHER: 'OTHER'
   }
 
 };

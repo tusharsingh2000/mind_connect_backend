@@ -22,6 +22,10 @@ const userAuth = async (req, res, next) => {
             if (!decodeData) throw process.lang.INVALID_TOKEN;
             const userData = await Model.user.findOne({ _id: decodeData._id }).lean().exec();
             if (userData) {
+
+                if (userData.isVerified == false) {
+                    return response.sendFailResponse(req, res, responseCode.UN_AUTHORIZED, process.lang.ACCOUNT_UN_VERIFIED);
+                }
                 req.user = userData;
                 req.user.forResetPassword = decodeData.forResetPassword;
                 req.user.userType = "USER";
