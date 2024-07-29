@@ -1,0 +1,2266 @@
+{
+	"info": {
+		"_postman_id": "e2138844-6445-4ccd-9a8e-4fcb3a0c2dcf",
+		"name": "mind_connect",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19360181"
+	},
+	"item": [
+		{
+			"name": "App",
+			"item": [
+				{
+					"name": "OnBoarding",
+					"item": [
+						{
+							"name": "login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"ab@yopmail.com\",\r\n    \"countryCode\" : \"\",\r\n    \"password\": \"12345\",\r\n    \"role\" : \"user\",\r\n    \"deviceType\": \"IOS\",\r\n    \"deviceToken\" : \"djnfjenjn\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/user/login",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Signup",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"key\" : \"9999999999\",\n    \"countryCode\" : \"+91\",\n    \"role\" : \"consultant\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://3.13.85.37:3020/api/v1/user/register",
+									"protocol": "http",
+									"host": [
+										"3",
+										"13",
+										"85",
+										"37"
+									],
+									"port": "3020",
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Send OTP",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"key\" : \"ab@yopmail.com\",\n    \"countryCode\" : \"+91\",\n    \"role\" : \"consultant\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/user/sendotp",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"sendotp"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Profile",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Njg3OTA1NzFiZTIyOGNjMjQ4M2RmYzMiLCJyb2xlIjoidXNlciIsImp0aSI6IjhkYjc3ZGE4ZTJjODJiNGNkMDViYzIwNzhlZmU2NThlMzMzNjlhOTMiLCJpYXQiOjE3MjAxNjAzNjEsImV4cCI6MTcyMTAyNDM2MX0.FDOkcXrwSjWO7Fqo4YQFV1Asd_o6HRb6B88Pgi5QQfg",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"phone\": \"111\",\r\n    \"countryCode\": \"+91\",\r\n    \"firstName\": \"Rohn\",\r\n    \"lastName\": \"Ekka\",\r\n    \"userName\": \"userName\",\r\n    \"email\": \"ab@yopmail.com\",\r\n    \"image\": \"/image-1639641766392.png\",\r\n    \"dob\": \"20-12-2020\",\r\n    \"deviceType\": \"ANDROID\",\r\n    \"deviceToken\": \"dsdss222wds\",\r\n    \"latitude\": 327878,\r\n    \"longitude\": 765655,\r\n    \"isProfileComplete\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/user/profile",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"profile"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Set Password",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjBlMTQxNDRkYWM4ZTY1N2M1YmMxNGQiLCJyb2xlIjoidXNlciIsImp0aSI6IjM0ODdjOTZiNGFlZTAyZTZjNTU3NGQ4ZDA4ZDgxYjAyYjVkNjQ2MGQiLCJpYXQiOjE2NDUwODk4MjksImV4cCI6MTY0NTM0OTAyOX0.iFNbLZiwx6txBqp9Ns4g7kRio2vMky0TPDLIU5Ma6xw",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"password\" : \"12345\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/api/v1/user/setPassword",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"setPassword"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "change Password",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjBiODEzYmU0MDhkOTc3MDUyNjUyNjEiLCJyb2xlIjoidXNlciIsImp0aSI6IjI1ZGI0OTA4NzdmYzVjMWMyYzZlOTg4MDgyYWU5M2Q5YjJiZDM3NzIiLCJpYXQiOjE2NDQ5MjExNjAsImV4cCI6MTY0NTE4MDM2MH0._vFmb0tzRe6RmUlTLPQt48VRsI98OPpE9rs8wmJOU7A",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"oldPassword\" : \"12345\",\n    \"password\" : \"12345\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/user/changepassword",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"changepassword"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "verify OTP",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"key\": \"ab@yopmail.com\",\n    \"code\": \"123456\",\n    \"role\": \"consultant\",\n    \"countryCode\": \"+91\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/user/verifyotp",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"verifyotp"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "forgot Password",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"key\": \"ab@yopmail.com\",\n    \"role\": \"consultant\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/user/forgotpassword",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"forgotpassword"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Social Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"abcc@yopmail.com\",\n    \"phone\": \"9876543210\",\n    \"countryCode\": \"+91\",\n    \"firstName\": \"Rohn\",\n    \"lastName\": \"Ekka\",\n    \"userName\": \"Himanshu\",\n    \"image\": \"/image-1639641766392.png\",\n    \"socialId\": \"108603858274514210262\",\n    \"socialType\": \"GOOGLE\",\n    \"deviceType\": \"ANDROID\",\n    \"deviceToken\": \"ya29.a0ARrdaM8nUJljohUtU3Fud2HZUzPHY5A1kE99r9kfekMOsfc1-RsxfK7gnOnLjZZb91MgCdMtE2tft1GfX7jhbrFY_V2-6tfkJdVTOwLU18hZDplz5714zgeKwayMVonHQHFv-XayHxXpblSuTX1X8QaZYomB\",\n    \"role\": \"user\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/user/socialLogin",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"socialLogin"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "logout",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjBlMTE2YzNhNWE3YmZmYzkwZTZjOWIiLCJyb2xlIjoidXNlciIsImp0aSI6IjNiYTVkMWQ3ZGI0ZDcwY2VmNzIxYWEyYjM1ZTg4MjhkYWRhZDRkZGYiLCJpYXQiOjE2NDY4MTY3NzksImV4cCI6MTY0NzA3NTk3OX0.r45U-uxb1A2XuH-Lq47GgD7vzGeS76RX6vB_QjDt-5M",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/api/v1/user/logout",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"logout"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Education",
+					"item": [
+						{
+							"name": "Add",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Njg3OTMwYWZlOTM5MGQyYjc5NzBmMDMiLCJyb2xlIjoiY29uc3VsdGFudCIsImp0aSI6IjVjNjIyYjJlNmIxYWY5MjMwZWE0ZDc5ODhkYmVhOTg1ZmIwZGJmYmUiLCJpYXQiOjE3MjAxNjEyNTAsImV4cCI6MTcyMTAyNTI1MH0.0_D1DERM2ZlTFg5tvuxxI7CC9e_ANxu-5fKNBSPtkPM",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\" : \"BCA\",\n    \"instituteName\" : \"PTU\",\n    \"link\" : \"abc\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/user/education",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"education"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Njg3OTMwYWZlOTM5MGQyYjc5NzBmMDMiLCJyb2xlIjoiY29uc3VsdGFudCIsImp0aSI6IjVjNjIyYjJlNmIxYWY5MjMwZWE0ZDc5ODhkYmVhOTg1ZmIwZGJmYmUiLCJpYXQiOjE3MjAxNjEyNTAsImV4cCI6MTcyMTAyNTI1MH0.0_D1DERM2ZlTFg5tvuxxI7CC9e_ANxu-5fKNBSPtkPM",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/api/v1/user/education",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"education"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Njg3OTMwYWZlOTM5MGQyYjc5NzBmMDMiLCJyb2xlIjoiY29uc3VsdGFudCIsImp0aSI6IjVjNjIyYjJlNmIxYWY5MjMwZWE0ZDc5ODhkYmVhOTg1ZmIwZGJmYmUiLCJpYXQiOjE3MjAxNjEyNTAsImV4cCI6MTcyMTAyNTI1MH0.0_D1DERM2ZlTFg5tvuxxI7CC9e_ANxu-5fKNBSPtkPM",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/api/v1/user/education/66879514572bfad6e666af60",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"education",
+										"66879514572bfad6e666af60"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Njg3OTMwYWZlOTM5MGQyYjc5NzBmMDMiLCJyb2xlIjoiY29uc3VsdGFudCIsImp0aSI6IjVjNjIyYjJlNmIxYWY5MjMwZWE0ZDc5ODhkYmVhOTg1ZmIwZGJmYmUiLCJpYXQiOjE3MjAxNjEyNTAsImV4cCI6MTcyMTAyNTI1MH0.0_D1DERM2ZlTFg5tvuxxI7CC9e_ANxu-5fKNBSPtkPM",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\" : \"BCAA\",\n    \"instituteName\" : \"PTU\",\n    \"link\" : \"abc\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/user/education/66879514572bfad6e666af60",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"education",
+										"66879514572bfad6e666af60"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Njg3OTMwYWZlOTM5MGQyYjc5NzBmMDMiLCJyb2xlIjoiY29uc3VsdGFudCIsImp0aSI6IjVjNjIyYjJlNmIxYWY5MjMwZWE0ZDc5ODhkYmVhOTg1ZmIwZGJmYmUiLCJpYXQiOjE3MjAxNjEyNTAsImV4cCI6MTcyMTAyNTI1MH0.0_D1DERM2ZlTFg5tvuxxI7CC9e_ANxu-5fKNBSPtkPM",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/api/v1/user/education/66879514572bfad6e666af60",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"education",
+										"66879514572bfad6e666af60"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Experience",
+					"item": [
+						{
+							"name": "Add",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Njg3OTMwYWZlOTM5MGQyYjc5NzBmMDMiLCJyb2xlIjoiY29uc3VsdGFudCIsImp0aSI6IjVjNjIyYjJlNmIxYWY5MjMwZWE0ZDc5ODhkYmVhOTg1ZmIwZGJmYmUiLCJpYXQiOjE3MjAxNjEyNTAsImV4cCI6MTcyMTAyNTI1MH0.0_D1DERM2ZlTFg5tvuxxI7CC9e_ANxu-5fKNBSPtkPM",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"BCA\",\n    \"instituteName\": \"PTU\",\n    \"link\": \"abc\",\n    \"categoryId\": [\n        \"66879be3595883e840394959\",\n        \"66879bfa595883e84039495c\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/user/experience",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"experience"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Njg3OTMwYWZlOTM5MGQyYjc5NzBmMDMiLCJyb2xlIjoiY29uc3VsdGFudCIsImp0aSI6IjVjNjIyYjJlNmIxYWY5MjMwZWE0ZDc5ODhkYmVhOTg1ZmIwZGJmYmUiLCJpYXQiOjE3MjAxNjEyNTAsImV4cCI6MTcyMTAyNTI1MH0.0_D1DERM2ZlTFg5tvuxxI7CC9e_ANxu-5fKNBSPtkPM",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/api/v1/user/experience",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"experience"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Njg3OTMwYWZlOTM5MGQyYjc5NzBmMDMiLCJyb2xlIjoiY29uc3VsdGFudCIsImp0aSI6IjVjNjIyYjJlNmIxYWY5MjMwZWE0ZDc5ODhkYmVhOTg1ZmIwZGJmYmUiLCJpYXQiOjE3MjAxNjEyNTAsImV4cCI6MTcyMTAyNTI1MH0.0_D1DERM2ZlTFg5tvuxxI7CC9e_ANxu-5fKNBSPtkPM",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/api/v1/user/experience/66879ca1595883e840394961",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"experience",
+										"66879ca1595883e840394961"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Njg3OTMwYWZlOTM5MGQyYjc5NzBmMDMiLCJyb2xlIjoiY29uc3VsdGFudCIsImp0aSI6IjVjNjIyYjJlNmIxYWY5MjMwZWE0ZDc5ODhkYmVhOTg1ZmIwZGJmYmUiLCJpYXQiOjE3MjAxNjEyNTAsImV4cCI6MTcyMTAyNTI1MH0.0_D1DERM2ZlTFg5tvuxxI7CC9e_ANxu-5fKNBSPtkPM",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"BCA\",\n    \"instituteName\": \"PTU\",\n    \"link\": \"abc\",\n    \"categoryId\": [\n        \"66879be3595883e840394959\",\n        \"66879bfa595883e84039495c\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/user/experience/66879ca1595883e840394961",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"experience",
+										"66879ca1595883e840394961"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Njg3OTMwYWZlOTM5MGQyYjc5NzBmMDMiLCJyb2xlIjoiY29uc3VsdGFudCIsImp0aSI6IjVjNjIyYjJlNmIxYWY5MjMwZWE0ZDc5ODhkYmVhOTg1ZmIwZGJmYmUiLCJpYXQiOjE3MjAxNjEyNTAsImV4cCI6MTcyMTAyNTI1MH0.0_D1DERM2ZlTFg5tvuxxI7CC9e_ANxu-5fKNBSPtkPM",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/api/v1/user/experience/66879514572bfad6e666af60",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"experience",
+										"66879514572bfad6e666af60"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Address",
+					"item": [
+						{
+							"name": "Add",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Njg3OTMwYWZlOTM5MGQyYjc5NzBmMDMiLCJyb2xlIjoiY29uc3VsdGFudCIsImp0aSI6IjVjNjIyYjJlNmIxYWY5MjMwZWE0ZDc5ODhkYmVhOTg1ZmIwZGJmYmUiLCJpYXQiOjE3MjAxNjEyNTAsImV4cCI6MTcyMTAyNTI1MH0.0_D1DERM2ZlTFg5tvuxxI7CC9e_ANxu-5fKNBSPtkPM",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"state\": \"MOhali\",\n    \"city\": \"PTU\",\n    \"address\": \"abc\",\n    \"latitude\": 30.5252,\n    \"longitude\": 70.5252\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/user/address",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"address"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Njg3OTMwYWZlOTM5MGQyYjc5NzBmMDMiLCJyb2xlIjoiY29uc3VsdGFudCIsImp0aSI6IjVjNjIyYjJlNmIxYWY5MjMwZWE0ZDc5ODhkYmVhOTg1ZmIwZGJmYmUiLCJpYXQiOjE3MjAxNjEyNTAsImV4cCI6MTcyMTAyNTI1MH0.0_D1DERM2ZlTFg5tvuxxI7CC9e_ANxu-5fKNBSPtkPM",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/api/v1/user/address",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"address"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Njg3OTMwYWZlOTM5MGQyYjc5NzBmMDMiLCJyb2xlIjoiY29uc3VsdGFudCIsImp0aSI6IjVjNjIyYjJlNmIxYWY5MjMwZWE0ZDc5ODhkYmVhOTg1ZmIwZGJmYmUiLCJpYXQiOjE3MjAxNjEyNTAsImV4cCI6MTcyMTAyNTI1MH0.0_D1DERM2ZlTFg5tvuxxI7CC9e_ANxu-5fKNBSPtkPM",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/api/v1/user/address/6687a2a485f59af7ad26ac0e",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"address",
+										"6687a2a485f59af7ad26ac0e"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Njg3OTMwYWZlOTM5MGQyYjc5NzBmMDMiLCJyb2xlIjoiY29uc3VsdGFudCIsImp0aSI6IjVjNjIyYjJlNmIxYWY5MjMwZWE0ZDc5ODhkYmVhOTg1ZmIwZGJmYmUiLCJpYXQiOjE3MjAxNjEyNTAsImV4cCI6MTcyMTAyNTI1MH0.0_D1DERM2ZlTFg5tvuxxI7CC9e_ANxu-5fKNBSPtkPM",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"state\": \"BCA\",\n    \"city\": \"PTU\",\n    \"address\": \"abc\",\n    \"latitude\": 30.5252,\n    \"longitude\": 70.5252\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/user/address/6687a2a485f59af7ad26ac0e",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"address",
+										"6687a2a485f59af7ad26ac0e"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Njg3OTMwYWZlOTM5MGQyYjc5NzBmMDMiLCJyb2xlIjoiY29uc3VsdGFudCIsImp0aSI6IjVjNjIyYjJlNmIxYWY5MjMwZWE0ZDc5ODhkYmVhOTg1ZmIwZGJmYmUiLCJpYXQiOjE3MjAxNjEyNTAsImV4cCI6MTcyMTAyNTI1MH0.0_D1DERM2ZlTFg5tvuxxI7CC9e_ANxu-5fKNBSPtkPM",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/api/v1/user/address/66879514572bfad6e666af60",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"address",
+										"66879514572bfad6e666af60"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Slots Timing",
+					"item": [
+						{
+							"name": "Add / update",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Njg3OTMwYWZlOTM5MGQyYjc5NzBmMDMiLCJyb2xlIjoiY29uc3VsdGFudCIsImp0aSI6IjhjZmJiNGNhNTc2MzIxNWFhYjZkOWEwOTUyYzI1NWQ1Mzk1YWZhNzkiLCJpYXQiOjE3MjIyNDcyMTUsImV4cCI6MTcyMzExMTIxNX0.IJ85VkPVnhRJhdMkGqiLsU4fSqmuOkYvKoD4HfXvRK4",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"day\": \"Monday\",\n    \"openTime\": \"09:00\",\n    \"closeTime\": \"21:00\",\n    \"breakTime\": \"10\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/user/slots",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"slots"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Njg3OTMwYWZlOTM5MGQyYjc5NzBmMDMiLCJyb2xlIjoiY29uc3VsdGFudCIsImp0aSI6IjhjZmJiNGNhNTc2MzIxNWFhYjZkOWEwOTUyYzI1NWQ1Mzk1YWZhNzkiLCJpYXQiOjE3MjIyNDcyMTUsImV4cCI6MTcyMzExMTIxNX0.IJ85VkPVnhRJhdMkGqiLsU4fSqmuOkYvKoD4HfXvRK4",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/api/v1/user/slots",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"slots"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Njg3OTMwYWZlOTM5MGQyYjc5NzBmMDMiLCJyb2xlIjoiY29uc3VsdGFudCIsImp0aSI6IjhjZmJiNGNhNTc2MzIxNWFhYjZkOWEwOTUyYzI1NWQ1Mzk1YWZhNzkiLCJpYXQiOjE3MjIyNDcyMTUsImV4cCI6MTcyMzExMTIxNX0.IJ85VkPVnhRJhdMkGqiLsU4fSqmuOkYvKoD4HfXvRK4",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/api/v1/user/slots/66a7685c25e494ad39221ea0",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"slots",
+										"66a7685c25e494ad39221ea0"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Njg3OTMwYWZlOTM5MGQyYjc5NzBmMDMiLCJyb2xlIjoiY29uc3VsdGFudCIsImp0aSI6IjVjNjIyYjJlNmIxYWY5MjMwZWE0ZDc5ODhkYmVhOTg1ZmIwZGJmYmUiLCJpYXQiOjE3MjAxNjEyNTAsImV4cCI6MTcyMTAyNTI1MH0.0_D1DERM2ZlTFg5tvuxxI7CC9e_ANxu-5fKNBSPtkPM",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/api/v1/user/slots/66879514572bfad6e666af60",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"slots",
+										"66879514572bfad6e666af60"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Upload",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzJkMzQwOGU2NDVjNTZkNzUxZTdkZjAiLCJyb2xlIjoidXNlciIsImp0aSI6ImJjZmFiNTExZWU5YTM5OGRiMjc5MTUxNGM4NzFkM2M5OGViZDVkMWEiLCJlbWFpbCI6ImFiQHlvcG1haWwuY29tIiwiaWF0IjoxNjYzOTA3MTQ5LCJleHAiOjE2NjQ3NzExNDl9.a0eSj2-RN_gIEVxX6GR6lVFj_GNzR0_MHTMf1pimYSQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/home/robin/Pictures/image.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{local}}/api/v1/user/upload",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CMS",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzJkNDBiMmMxZWM1MDhkNThlOGRjZDkiLCJyb2xlIjoidXNlciIsImp0aSI6ImJiMTYxMzZlZTEwNzU1MGUzOWJhMzk2YjczZGRhYzQ5OTRhZjRlYTAiLCJlbWFpbCI6ImFiQHlvcG1haWwuY29tIiwiaWF0IjoxNjYzOTEwMDg1LCJleHAiOjE2NjQ3NzQwODV9.4AEofoy-bYO7v5BM_-e3mVW1BjARypcMqozYi58e9kk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/api/v1/user/cms",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"cms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Dashboard",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Njg3OTMwYWZlOTM5MGQyYjc5NzBmMDMiLCJyb2xlIjoiY29uc3VsdGFudCIsImp0aSI6IjhjZmJiNGNhNTc2MzIxNWFhYjZkOWEwOTUyYzI1NWQ1Mzk1YWZhNzkiLCJpYXQiOjE3MjIyNDcyMTUsImV4cCI6MTcyMzExMTIxNX0.IJ85VkPVnhRJhdMkGqiLsU4fSqmuOkYvKoD4HfXvRK4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/api/v1/user/dashboard",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"dashboard"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Banner",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Njg3OTMwYWZlOTM5MGQyYjc5NzBmMDMiLCJyb2xlIjoiY29uc3VsdGFudCIsImp0aSI6IjhjZmJiNGNhNTc2MzIxNWFhYjZkOWEwOTUyYzI1NWQ1Mzk1YWZhNzkiLCJpYXQiOjE3MjIyNDcyMTUsImV4cCI6MTcyMzExMTIxNX0.IJ85VkPVnhRJhdMkGqiLsU4fSqmuOkYvKoD4HfXvRK4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/api/v1/user/banner",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"banner"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjlmZTdjZWUzZTk4NjA1YTcwMTk5YTkiLCJyb2xlIjoiY29uc3VsdGFudCIsImp0aSI6Ijg5ZTRlYWY5OGMwYjNlZWJlYTUwYzM2MzZmNTZkNmY3NzNlZDUzNDQiLCJpYXQiOjE3MjE4Mjk2NTksImV4cCI6MTcyMjY5MzY1OX0.RKJJt-0uUtKtSsaNDXXxoM0Kt9s-sarLkMXE5Ar2Sws",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://3.13.85.37:3020/api/v1/user/category",
+							"protocol": "http",
+							"host": [
+								"3",
+								"13",
+								"85",
+								"37"
+							],
+							"port": "3020",
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"category"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Onboarding",
+					"item": [
+						{
+							"name": "login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"key\" : \"Test@yopmail.com\",\n    \"password\" : \"12345\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/admin/login",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "forgot password",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"yogi@yopmail.com\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/admin/forgotPassword",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"forgotPassword"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Verify OTP",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"key\" : \"yogi@yopmail.com\",\n    \"code\": \"1234\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/admin/verifyOtp",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"verifyOtp"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "set Password",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjIwNjBjZGYyMDZjZWI1MTc2NjMxNDIiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE2NDYyOTAwNzIsImV4cCI6MTY0NjU0OTI3Mn0.Unzc_Jx8kJT30B8iA1q2rRDlSrqL1V_TTo3HqcMLVKs",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"password\" : \"12345\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/admin/setPassword",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"setPassword"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Profile",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjIwNjBjZGYyMDZjZWI1MTc2NjMxNDIiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE2NDY4OTE2MTksImV4cCI6MTY0NzE1MDgxOX0.OB9KqPNyKZyW8Iva-J9snKBi63OhpYXL8SbCTm-w96A",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\":\"yogi@yopmail.com\",\n    \"name\":\"testdfdfdf\",\n    \"countryCode\":\"+91\",\n    \"phone\":\"435808340583409\",\n    \"address\":\"+83489579834\",\n    \"image\":\"/dbsdjfh\"\n\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/admin/updateProfile",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"updateProfile"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get Profile",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjIwNjBjZGYyMDZjZWI1MTc2NjMxNDIiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE2NDY5MTAwMjAsImV4cCI6MTY0NzE2OTIyMH0.q84-ItQ3ggAvNKmXCygQgt37B4BER9SZr7MFy3L3tNU",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/api/v1/admin/profile",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"profile"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "change Password",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"oldPassword\" : \"12345\",\n    \"password\" : \"123456\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/admin/changePassword",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"changePassword"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "signUp",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n \"email\" : \"Test@yopmail.com\",\n \"password\" : \"12345\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/admin/signup",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"signup"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "get user",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjIwNjBjZGYyMDZjZWI1MTc2NjMxNDIiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE2NDY5NzkxNDgsImV4cCI6MTY0NzIzODM0OH0.KFQlGAveHmINckQQjXrQISNQyt7lgt0AuYf6vhmlxGQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/api/v1/admin/users?page=1&limit=10",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"users"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User by Id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjIwNjBjZGYyMDZjZWI1MTc2NjMxNDIiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE2NDY5NzkxNDgsImV4cCI6MTY0NzIzODM0OH0.KFQlGAveHmINckQQjXrQISNQyt7lgt0AuYf6vhmlxGQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/api/v1/admin/users/620e116c3a5a7bffc90e6c9b",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"users",
+										"620e116c3a5a7bffc90e6c9b"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Block User",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjIwNjBjZGYyMDZjZWI1MTc2NjMxNDIiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE2NDY5NzkxNDgsImV4cCI6MTY0NzIzODM0OH0.KFQlGAveHmINckQQjXrQISNQyt7lgt0AuYf6vhmlxGQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"isBlocked\": true\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/admin/userBlock/620e116c3a5a7bffc90e6c9b",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"userBlock",
+										"620e116c3a5a7bffc90e6c9b"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update User",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjIwNjBjZGYyMDZjZWI1MTc2NjMxNDIiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE2NDY5NzkxNDgsImV4cCI6MTY0NzIzODM0OH0.KFQlGAveHmINckQQjXrQISNQyt7lgt0AuYf6vhmlxGQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\":\"preeple1@yopmail.com\",\n    \"name\":\"testdfdfdf\",\n    \"countryCode\":\"+91\",\n    \"phone\":\"435808340583409\",\n    \"address\":\"+83489579834\",\n    \"image\":\"/dbsdjfh\"\n\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/admin/user/620e116c3a5a7bffc90e6c9b",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"user",
+										"620e116c3a5a7bffc90e6c9b"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete user",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjIwNjBjZGYyMDZjZWI1MTc2NjMxNDIiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE2NDY5NzkxNDgsImV4cCI6MTY0NzIzODM0OH0.KFQlGAveHmINckQQjXrQISNQyt7lgt0AuYf6vhmlxGQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/api/v1/admin/user/620e116c3a5a7bffc90e6c9b",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"user",
+										"620e116c3a5a7bffc90e6c9b"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "user Info",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjIwNjBjZGYyMDZjZWI1MTc2NjMxNDIiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE2NDY5NzkxNDgsImV4cCI6MTY0NzIzODM0OH0.KFQlGAveHmINckQQjXrQISNQyt7lgt0AuYf6vhmlxGQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/api/v1/admin/userInfo/620e116c3a5a7bffc90e6c9b?page=1&limit=10&type=VERIFICATION",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"userInfo",
+										"620e116c3a5a7bffc90e6c9b"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "10"
+										},
+										{
+											"key": "type",
+											"value": "POST",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "FRIEND",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "VERIFICATION"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User Req Accept/ Decline",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjIwNjBjZGYyMDZjZWI1MTc2NjMxNDIiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE2NDY5NzkxNDgsImV4cCI6MTY0NzIzODM0OH0.KFQlGAveHmINckQQjXrQISNQyt7lgt0AuYf6vhmlxGQ",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\" : \"621c9f0ea920d67bceb272b5\",\n    \"action\" : \"DECLINE\"\n        // \"action\" : \"FRIENDS\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/admin/userReq",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"userReq"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Notification",
+					"item": [
+						{
+							"name": "post Notification",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjIwNjBjZGYyMDZjZWI1MTc2NjMxNDIiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE2NDc5MjI0MzksImV4cCI6MTY0ODE4MTYzOX0.fpAFz9_JYyA0CVgLy4xo96Lhcf2nxY44fJrlyfq-3-A",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"notificationType\": \"Broadcast\",\n    \"type\": \"All\",\n    \"tittle\": \"aba\",\n    \"message\": \"999999999999999999999\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/admin/notification",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"notification"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Notification",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjIwNjBjZGYyMDZjZWI1MTc2NjMxNDIiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE2NDc5MjI0MzksImV4cCI6MTY0ODE4MTYzOX0.fpAFz9_JYyA0CVgLy4xo96Lhcf2nxY44fJrlyfq-3-A",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/api/v1/admin/notification?page=1&limit=10&type=Broadcast",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"notification"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "10"
+										},
+										{
+											"key": "search",
+											"value": "abcc",
+											"disabled": true
+										},
+										{
+											"key": "type",
+											"value": "Broadcast"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Category",
+					"item": [
+						{
+							"name": "Add",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Njg3OWI0Mzc1NmY0Y2U2ZTJhMWE0MTgiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MjAxNjMxNTksImV4cCI6MTcyMTAyNzE1OX0.oFqn9NxI_Yzo7eeDcZee9pcCGwe64vEobu_VeaQJtME",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\" : \"Lady Doctor\",\n    \"image\" : \"PTU\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/admin/category",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"category"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Njg3OWI0Mzc1NmY0Y2U2ZTJhMWE0MTgiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MjAxNjMxNTksImV4cCI6MTcyMTAyNzE1OX0.oFqn9NxI_Yzo7eeDcZee9pcCGwe64vEobu_VeaQJtME",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/api/v1/admin/category",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"category"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Njg3OWI0Mzc1NmY0Y2U2ZTJhMWE0MTgiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MjAxNjMxNTksImV4cCI6MTcyMTAyNzE1OX0.oFqn9NxI_Yzo7eeDcZee9pcCGwe64vEobu_VeaQJtME",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/api/v1/admin/category/66879b67756f4ce6e2a1a41e",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"category",
+										"66879b67756f4ce6e2a1a41e"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Njg3OWI0Mzc1NmY0Y2U2ZTJhMWE0MTgiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MjAxNjMxNTksImV4cCI6MTcyMTAyNzE1OX0.oFqn9NxI_Yzo7eeDcZee9pcCGwe64vEobu_VeaQJtME",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\" : \"Doctorrrr\",\n    \"image\" : \"PTU\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/admin/category/66879b67756f4ce6e2a1a41e",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"category",
+										"66879b67756f4ce6e2a1a41e"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Njg3OWI0Mzc1NmY0Y2U2ZTJhMWE0MTgiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MjAxNjMxNTksImV4cCI6MTcyMTAyNzE1OX0.oFqn9NxI_Yzo7eeDcZee9pcCGwe64vEobu_VeaQJtME",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/api/v1/admin/category/66879b67756f4ce6e2a1a41e",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"category",
+										"66879b67756f4ce6e2a1a41e"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Banner",
+					"item": [
+						{
+							"name": "Add",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Njg3OWI0Mzc1NmY0Y2U2ZTJhMWE0MTgiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MjE5ODU1NzYsImV4cCI6MTcyMjg0OTU3Nn0.dca5Bcm4ASMG44rHjyGezHuk79bddWcH-5aF8HDBO8M",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"link\" : \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaTzDt0G4bXTbdcR4fcDGdPIDXj3k34gQFpg&s\",\n    \"remarks\" : \"PTU\",\n    \"type\" : 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/admin/banner",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"banner"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Njg3OWI0Mzc1NmY0Y2U2ZTJhMWE0MTgiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MjE5ODU1NzYsImV4cCI6MTcyMjg0OTU3Nn0.dca5Bcm4ASMG44rHjyGezHuk79bddWcH-5aF8HDBO8M",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/api/v1/admin/banner",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"banner"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Njg3OWI0Mzc1NmY0Y2U2ZTJhMWE0MTgiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MjE5ODU1NzYsImV4cCI6MTcyMjg0OTU3Nn0.dca5Bcm4ASMG44rHjyGezHuk79bddWcH-5aF8HDBO8M",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/api/v1/admin/banner/66a36c94b0e916e195171bb3",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"banner",
+										"66a36c94b0e916e195171bb3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Njg3OWI0Mzc1NmY0Y2U2ZTJhMWE0MTgiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MjE5ODU1NzYsImV4cCI6MTcyMjg0OTU3Nn0.dca5Bcm4ASMG44rHjyGezHuk79bddWcH-5aF8HDBO8M",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"link\" : \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaTzDt0G4bXTbdcR4fcDGdPIDXj3k34gQFpg&s\",\n    \"remarks\" : \"PTUUUUU\",\n    \"type\" : 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{local}}/api/v1/admin/banner/66a36c94b0e916e195171bb3",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"banner",
+										"66a36c94b0e916e195171bb3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Njg3OWI0Mzc1NmY0Y2U2ZTJhMWE0MTgiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE3MjE5ODU1NzYsImV4cCI6MTcyMjg0OTU3Nn0.dca5Bcm4ASMG44rHjyGezHuk79bddWcH-5aF8HDBO8M",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{local}}/api/v1/admin/banner/66879b67756f4ce6e2a1a41e",
+									"host": [
+										"{{local}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"admin",
+										"banner",
+										"66879b67756f4ce6e2a1a41e"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Upload",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/home/robin/Desktop/images.jpeg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{local}}/api/v1/admin/upload",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Dashboard",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjIwNjBjZGYyMDZjZWI1MTc2NjMxNDIiLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE2NDg1NDcyOTMsImV4cCI6MTY0ODgwNjQ5M30.FH85u9bAWl4JopR3j2NT7BFcTmal7OrHiNKUi3vlwpw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/api/v1/admin/dashboard?personType=monthly&newPersonType=monthly",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"dashboard"
+							],
+							"query": [
+								{
+									"key": "personType",
+									"value": "monthly"
+								},
+								{
+									"key": "newPersonType",
+									"value": "monthly"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "local",
+			"value": "localhost:3020",
+			"type": "string"
+		},
+		{
+			"key": "dev",
+			"value": "http://3.13.85.37:3020",
+			"type": "string"
+		}
+	]
+}
