@@ -1120,9 +1120,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{local}}/api/v1/user/banner",
+							"raw": "{{dev}}/api/v1/user/banner",
 							"host": [
-								"{{local}}"
+								"{{dev}}"
 							],
 							"path": [
 								"api",
