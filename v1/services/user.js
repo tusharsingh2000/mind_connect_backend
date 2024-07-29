@@ -803,7 +803,7 @@ async function getCategory(req) {
   pipeline.push({ $match: { isDeleted: false } });
 
   if (req.query.type) {
-    pipeline.push({ $match: { type: req.query.type } });
+    pipeline.push({ $match: { type: Number(req.query.type) } });
   }
 
   let category = await Model.category.aggregate(pipeline);
