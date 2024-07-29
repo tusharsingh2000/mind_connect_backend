@@ -859,7 +859,7 @@ async function getBanner(req) {
     let pipeline = [];
     pipeline.push({ $match: { isDeleted: false } });
     if (req.query.type) {
-      pipeline.push({ $match: { type: req.query.type } });
+      pipeline.push({ $match: { type: Number(req.query.type) } });
     }
     pipeline = await common.pagination(pipeline, skip, limit);
     [banner] = await Model.banner.aggregate(pipeline);
