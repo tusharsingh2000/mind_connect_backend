@@ -574,7 +574,7 @@ async function getCategory() {
 async function addSlots(req) {
     req.body.userId = req.user._id;
     req.body.isDeleted = false;
-    return await Model.Slots.findOneAndUpdate({ day: req.body.day, userId: req.user._id }, req.body, { new: true, upsert: true });
+    return await Model.Slots.findOneAndUpdate({ day: req.body.day, userId: req.user._id }, req.body, { new: true, upsert: true }).select('-createdAt -updatedAt');
 }
 
 async function getSlots(req) {

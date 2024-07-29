@@ -25,7 +25,7 @@ const validateSignUp = async (req, property = "body") => {
     role: joi
       .string()
       .valid(constant.USER_ROLE.USER, constant.USER_ROLE.CONSULTANT)
-      .required(),
+      .required()
   });
 
   return await validateSchema(req[property], schema);
@@ -41,7 +41,7 @@ const validateVerifyOtp = async (req, property = "body") => {
     role: joi
       .string()
       .valid(constant.USER_ROLE.USER, constant.USER_ROLE.CONSULTANT)
-      .required(),
+      .required()
   });
   return await validateSchema(req[property], schema);
 };
@@ -49,7 +49,7 @@ const validateVerifyOtp = async (req, property = "body") => {
 const setPassword = async (req, property = "body") => {
   let schema = {};
   schema = joi.object().keys({
-    password: joi.string().required(),
+    password: joi.string().required()
   });
   return await validateSchema(req[property], schema);
 };
@@ -83,10 +83,10 @@ const socialLogin = async (req, property = "body") => {
               .string()
               .when("deviceType", {
                 is: "WEB",
-                then: joi.string().allow("", null).optional(),
+                then: joi.string().allow("", null).optional()
               })
           )
-      ),
+      )
   });
   return await validateSchema(req[property], schema);
 };
@@ -115,7 +115,7 @@ const validateProfileUpdate = async (req, property = "body") => {
     password: joi.string().allow("", null).optional(),
     gender: joi.string().optional(),
     profileCompleteAt: joi.number().optional(),
-    countryName: joi.string().optional(),
+    countryName: joi.string().optional()
   });
   return await validateSchema(req[property], schema);
 };
@@ -146,10 +146,10 @@ const validateLogIn = async (req, property = "body") => {
               .string()
               .when("deviceType", {
                 is: "WEB",
-                then: joi.string().allow("", null).optional(),
+                then: joi.string().allow("", null).optional()
               })
           )
-      ),
+      )
   });
   return await validateSchema(req[property], schema);
 };
@@ -158,12 +158,12 @@ const validateChangePassword = async (req, property = "body", forReset) => {
   let schema = {};
   if (forReset) {
     schema = joi.object().keys({
-      password: joi.string().required(),
+      password: joi.string().required()
     });
   } else {
     schema = joi.object().keys({
       oldPassword: joi.string().required(),
-      password: joi.string().required(),
+      password: joi.string().required()
     });
   }
   return await validateSchema(req[property], schema);
@@ -174,8 +174,20 @@ const validateDashBoard = async (req, property = "query") => {
   let schema = joi.object().keys({
     page: joi.number().optional(),
     limit: joi.number().optional(),
-    timeZone: joi.string().required(),
+    timeZone: joi.string().required()
   });
+  return await validateSchema(req[property], schema);
+};
+
+const validateSlots = async (req, property = "body") => {
+  let schema = {};
+  schema = joi.object().keys({
+    day: joi.string().valid('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday').required(),
+    openTime: joi.string().optional(),
+    closeTime: joi.string().optional(),
+    breakTime: joi.string().optional()
+  });
+
   return await validateSchema(req[property], schema);
 };
 
@@ -188,4 +200,5 @@ module.exports = {
   validateLogIn,
   validateChangePassword,
   validateDashBoard,
+  validateSlots
 };

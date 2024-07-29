@@ -289,6 +289,7 @@ async function deleteDocument(req, res, next) {
 //***************************** Slots *****************************//
 async function addSlots(req, res, next) {
   try {
+    await validations.user.validateSlots(req);
     let data = await services.user.addSlots(req);
     return response.sendSuccessResponse(req, res, data, responseCode.CREATED, process.lang.ADD_SUCCESSFULLY);
   } catch (error) {

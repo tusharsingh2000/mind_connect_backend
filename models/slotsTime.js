@@ -8,7 +8,7 @@ let slotSchema = new Schema({
     day: {
         type: String,
         enum: [constant.DAYS],
-        default: constant.DAYS.Sunday
+        required : true
     },
     openTime: {
         type: String,
