@@ -307,6 +307,21 @@ async function updateprofile(req) {
     new: true,
   });
 }
+async function getprofile(req) {
+  let user;
+  if (req.user._id) {
+    user = await Model.user
+      .findOne({
+        isDeleted: false,
+        _id: ObjectId(req.user._id),
+      })
+      .lean();
+  }
+  if (user) {
+    return user;
+  }
+  return null;
+}
 
 async function login(data) {
   let planPassword = data.password;
@@ -924,6 +939,7 @@ module.exports = {
   socialLogin,
   _doLogin,
   updateprofile,
+  getprofile,
   login,
   forgotpassword,
   changePassword,
