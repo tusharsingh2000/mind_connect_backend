@@ -858,6 +858,7 @@ async function getBanner(req) {
   } else {
     let pipeline = [];
     pipeline.push({ $match: { isDeleted: false } });
+    console.log(req.query.type);
     if (req.query.type) {
       pipeline.push({ $match: { type: Number(req.query.type) } });
     }
