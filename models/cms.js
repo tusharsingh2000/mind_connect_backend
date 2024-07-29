@@ -6,6 +6,7 @@ const cmsModel = new Schema(
     support: { type: String, default: "" },
     privacyPolicy: { type: String, default: "" },
     tnc: { type: String, default: "" },
+    about: { type: String, default: "" },
     legal: { type: String, default: "" },
     email: { type: String, default: "" },
     phone: { type: String, default: "" },
