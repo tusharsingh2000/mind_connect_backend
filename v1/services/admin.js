@@ -660,7 +660,56 @@ async function deleteCategory(req) {
 }
 
 
+//***************************** banner ***********************************//
+
+async function addBanner(req) {
+    return await Model.banner.create(req.body);
+}
+
+async function getBanner(req) {
+    let page = req.query.page;
+    let size = req.query.size;
+    let skip = parseInt(page - 1) || 0;
+    let limit = parseInt(size) || 10;
+    skip = skip * limit;
+    let qry = { isDeleted: false };
+
+    let banner;
+    if (req.params.id) {
+        banner = await Model.banner.findOne({ _id: ObjectId(req.params.id), ...qry });
+    } else {
+        let pipeline = [];
+        pipeline.push({ $match: { isDeleted: false } });
+        if (req.query.type) {
+            pipeline.push({ $match: { type: req.query.type } });
+        }
+        pipeline = await common.pagination(pipeline, skip, limit);
+        [banner] = await Model.banner.aggregate(pipeline);
+    }
+    return banner;
+}
+
+async function updateBanner(req) {
+    let banner = await Model.banner.findOne({ _id: req.params.id, isDeleted: false });
+    if (!banner) throw process.lang.INVALID_ID;
+
+    return await Model.banner.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: true });
+}
+
+async function deleteBanner(req) {
+    let banner = await Model.banner.findOne({ _id: req.params.id, isDeleted: false });
+    if (!banner) throw process.lang.INVALID_ID;
+
+    await Model.banner.findByIdAndUpdate({ _id: banner._id, isDeleted: false }, { isDeleted: true }, { new: true });
+    return {};
+}
+
 module.exports = {
+    addBanner,
+    getBanner,
+    updateBanner,
+    deleteBanner,
+
     addCategory,
     getCategory,
     updateCategory,

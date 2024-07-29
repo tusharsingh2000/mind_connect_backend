@@ -11,6 +11,7 @@ module.exports = {
     experience : require('./experience'),
     address : require('./address'),
     category : require('./category'),
-    document : require('./documents')
+    document : require('./documents'),
+    banner : require("./banner")
 
 };

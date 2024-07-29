@@ -51,4 +51,12 @@ router.put("/category/:id", Service.authService.adminAuth, adminController.updat
 router.delete("/category/:id", Service.authService.adminAuth, adminController.deleteCategory);
 
 
+// banner
+router.post("/banner", Service.authService.adminAuth, adminController.addBanner);
+router.get("/banner", Service.authService.adminAuth, adminController.getBanner);
+router.get("/banner/:id", Service.authService.adminAuth, adminController.getBanner);
+router.put("/banner/:id", Service.authService.adminAuth, adminController.updateBanner);
+router.delete("/banner/:id", Service.authService.adminAuth, adminController.deleteBanner);
+
+
 module.exports = router;

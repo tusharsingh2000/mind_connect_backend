@@ -248,7 +248,47 @@ async function deleteCategory(req, res, next) {
 }
 
 
+//***************************** banner *****************************//
+async function addBanner(req, res, next) {
+  try {
+    let data = await services.admin.addBanner(req);
+    return response.sendSuccessResponse(req, res, data, responseCode.CREATED, process.lang.ADD_SUCCESSFULLY);
+  } catch (error) {
+    next(error);
+  }
+}
+async function getBanner(req, res, next) {
+  try {
+    let data = await services.admin.getBanner(req);
+    return response.sendSuccessResponse(req, res, data, responseCode.OK, process.lang.FETCH_SUCCESSFULLY);
+  } catch (error) {
+    next(error);
+  }
+}
+async function updateBanner(req, res, next) {
+  try {
+    let data = await services.admin.updateBanner(req);
+    return response.sendSuccessResponse(req, res, data, responseCode.OK, process.lang.UPDATED_SUCCESSFULLY);
+  } catch (error) {
+    next(error);
+  }
+}
+async function deleteBanner(req, res, next) {
+  try {
+    let data = await services.admin.deleteBanner(req);
+    return response.sendSuccessResponse(req, res, data, responseCode.OK, process.lang.DELETED_SUCCESSFULLY);
+  } catch (error) {
+    next(error);
+  }
+}
+
+
 module.exports = {
+  addBanner,
+  getBanner,
+  updateBanner,
+  deleteBanner,
+
   addCategory,
   getCategory,
   updateCategory,
