@@ -859,7 +859,6 @@ async function getBanner(req) {
     let pipeline = [];
     pipeline.push({ $match: { isDeleted: false } });
     if (req.query.type) {
-      console.log(req.query.type);
       pipeline.push({ $match: { type: Number(req.query.type) } });
     }
     pipeline = await common.pagination(pipeline, skip, limit);
