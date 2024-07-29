@@ -798,7 +798,7 @@ async function getCategory(req) {
     });
   } else {
     let pipeline = [];
-    pipeline.push({ $match: { isDeleted: false } });
+    pipeline.push({ $match: qry });
     pipeline = await common.pagination(pipeline, skip, limit);
     [category] = await Model.category.aggregate(pipeline);
   }
