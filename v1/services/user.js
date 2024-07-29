@@ -798,7 +798,7 @@ async function deleteDocument(req) {
   );
   return {};
 }
-async function getCategory() {
+async function getCategory(req) {
   let pipeline = [];
   pipeline.push({ $match: { isDeleted: false } });
 
