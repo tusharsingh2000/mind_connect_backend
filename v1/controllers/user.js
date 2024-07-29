@@ -285,6 +285,41 @@ async function deleteDocument(req, res, next) {
     next(error);
   }
 }
+
+//***************************** Slots *****************************//
+async function addSlots(req, res, next) {
+  try {
+    let data = await services.user.addSlots(req);
+    return response.sendSuccessResponse(req, res, data, responseCode.CREATED, process.lang.ADD_SUCCESSFULLY);
+  } catch (error) {
+    next(error);
+  }
+}
+async function getSlots(req, res, next) {
+  try {
+    let data = await services.user.getSlots(req);
+    return response.sendSuccessResponse(req, res, data, responseCode.OK, process.lang.FETCH_SUCCESSFULLY);
+  } catch (error) {
+    next(error);
+  }
+}
+async function updateSlots(req, res, next) {
+  try {
+    let data = await services.user.updateSlots(req);
+    return response.sendSuccessResponse(req, res, data, responseCode.OK, process.lang.UPDATED_SUCCESSFULLY);
+  } catch (error) {
+    next(error);
+  }
+}
+async function deleteSlots(req, res, next) {
+  try {
+    let data = await services.user.deleteSlots(req);
+    return response.sendSuccessResponse(req, res, data, responseCode.OK, process.lang.DELETED_SUCCESSFULLY);
+  } catch (error) {
+    next(error);
+  }
+}
+
 async function getCategory(req, res, next) {
   try {
     let data = await services.user.getCategory(req);
@@ -294,6 +329,11 @@ async function getCategory(req, res, next) {
   }
 }
 module.exports = {
+  addSlots,
+  getSlots,
+  updateSlots,
+  deleteSlots,
+
   getCategory,
 
   addDocument,

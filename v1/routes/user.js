@@ -49,6 +49,13 @@ router.get("/document/:id", Service.authService.userAuth, Controllers.getDocumen
 router.put("/document/:id", Service.authService.userAuth, Controllers.updateDocument);
 router.delete("/document/:id", Service.authService.userAuth, Controllers.deleteDocument);
 
+// slots
+router.post("/slots", Service.authService.userAuth, Controllers.addSlots);
+router.get("/slots", Service.authService.userAuth, Controllers.getSlots);
+router.get("/slots/:id", Service.authService.userAuth, Controllers.getSlots);
+router.put("/slots/:id", Service.authService.userAuth, Controllers.updateSlots);
+router.delete("/slots/:id", Service.authService.userAuth, Controllers.deleteSlots);
+
 // Dsahboard
 router.get("/dashboard", Service.authService.userAuth, Controllers.dashboard);
 

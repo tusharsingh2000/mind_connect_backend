@@ -376,14 +376,14 @@ async function getEducation(req) {
     let skip = parseInt(page - 1) || 0;
     let limit = parseInt(size) || 10;
     skip = skip * limit;
-    let qry = { isDeleted: false };
+    let qry = { isDeleted: false, userId: ObjectId(req.user._id) };
 
     let education;
     if (req.params.id) {
         education = await Model.education.findOne({ _id: ObjectId(req.params.id), ...qry }).select('-createdAt -updatedAt');//.populate("userId");
     } else {
         let pipeline = [];
-        pipeline.push({ $match: { isDeleted: false } });
+        pipeline.push({ $match: { isDeleted: false, userId: ObjectId(req.user._id) } });
         pipeline = await common.pagination(pipeline, skip, limit);
         [education] = await Model.education.aggregate(pipeline);
     }
@@ -391,7 +391,7 @@ async function getEducation(req) {
 }
 
 async function updateEducation(req) {
-    let education = await Model.education.findOne({ _id: req.params.id, isDeleted: false });
+    let education = await Model.education.findOne({ _id: req.params.id, isDeleted: false, userId: ObjectId(req.user._id) });
     if (!education) throw process.lang.INVALID_ID;
 
     education = await Model.education.findByIdAndUpdate({ _id: education._id }, req.body, { new: true });
@@ -399,7 +399,7 @@ async function updateEducation(req) {
 }
 
 async function deleteEducation(req) {
-    let education = await Model.education.findOne({ _id: req.params.id, isDeleted: false }).select('-createdAt -updatedAt');
+    let education = await Model.education.findOne({ _id: req.params.id, isDeleted: false, userId: ObjectId(req.user._id) }).select('-createdAt -updatedAt');
     if (!education) throw process.lang.INVALID_ID;
 
     await Model.education.findByIdAndUpdate({ _id: education._id, isDeleted: false }, { isDeleted: true }, { new: true });
@@ -424,7 +424,7 @@ async function getExperience(req) {
     let skip = parseInt(page - 1) || 0;
     let limit = parseInt(size) || 10;
     skip = skip * limit;
-    let qry = { isDeleted: false };
+    let qry = { isDeleted: false, userId: ObjectId(req.user._id) };
 
     let experience;
     if (req.params.id) {
@@ -432,7 +432,7 @@ async function getExperience(req) {
             select('-createdAt -updatedAt');
     } else {
         let pipeline = [];
-        pipeline.push({ $match: { isDeleted: false } },
+        pipeline.push({ $match: { isDeleted: false, userId: ObjectId(req.user._id) } },
             { $lookup: { from: "categories", localField: "categoryId", foreignField: "_id", as: "categoryId" } },
             {
                 $project: {
@@ -454,7 +454,7 @@ async function getExperience(req) {
 }
 
 async function updateExperience(req) {
-    let experience = await Model.experience.findOne({ _id: req.params.id, isDeleted: false }).select('-createdAt -updatedAt');
+    let experience = await Model.experience.findOne({ _id: req.params.id, isDeleted: false, userId: ObjectId(req.user._id) }).select('-createdAt -updatedAt');
     if (!experience) throw process.lang.INVALID_ID;
 
     if (req.body.categoryId) {
@@ -465,7 +465,7 @@ async function updateExperience(req) {
 }
 
 async function deleteExperience(req) {
-    let experience = await Model.experience.findOne({ _id: req.params.id, isDeleted: false }).select('-createdAt -updatedAt');
+    let experience = await Model.experience.findOne({ _id: req.params.id, isDeleted: false, userId: ObjectId(req.user._id) }).select('-createdAt -updatedAt');
     if (!experience) throw process.lang.INVALID_ID;
 
     await Model.experience.findByIdAndUpdate({ _id: experience._id, isDeleted: false }, { isDeleted: true }, { new: true });
@@ -487,14 +487,14 @@ async function getAddress(req) {
     let skip = parseInt(page - 1) || 0;
     let limit = parseInt(size) || 10;
     skip = skip * limit;
-    let qry = { isDeleted: false };
+    let qry = { isDeleted: false, userId: ObjectId(req.user._id) };
 
     let address;
     if (req.params.id) {
         address = await Model.address.findOne({ _id: ObjectId(req.params.id), ...qry }).select('-createdAt -updatedAt');
     } else {
         let pipeline = [];
-        pipeline.push({ $match: { isDeleted: false } });
+        pipeline.push({ $match: { isDeleted: false, userId: ObjectId(req.user._id) } });
         pipeline = await common.pagination(pipeline, skip, limit);
         [address] = await Model.address.aggregate(pipeline);
     }
@@ -502,7 +502,7 @@ async function getAddress(req) {
 }
 
 async function updateAddress(req) {
-    let address = await Model.address.findOne({ _id: req.params.id, isDeleted: false }).select('-createdAt -updatedAt');
+    let address = await Model.address.findOne({ _id: req.params.id, isDeleted: false, userId: ObjectId(req.user._id) }).select('-createdAt -updatedAt');
     if (!address) throw process.lang.INVALID_ID;
 
     address = await Model.address.findByIdAndUpdate({ _id: address._id }, req.body, { new: true });
@@ -510,7 +510,7 @@ async function updateAddress(req) {
 }
 
 async function deleteAddress(req) {
-    let address = await Model.address.findOne({ _id: req.params.id, isDeleted: false }).select('-createdAt -updatedAt');
+    let address = await Model.address.findOne({ _id: req.params.id, isDeleted: false, userId: ObjectId(req.user._id) }).select('-createdAt -updatedAt');
     if (!address) throw process.lang.INVALID_ID;
 
     await Model.address.findByIdAndUpdate({ _id: address._id, isDeleted: false }, { isDeleted: true });
@@ -531,14 +531,14 @@ async function getDocument(req) {
     let skip = parseInt(page - 1) || 0;
     let limit = parseInt(size) || 10;
     skip = skip * limit;
-    let qry = { isDeleted: false };
+    let qry = { isDeleted: false, userId: ObjectId(req.user._id) };
 
     let document;
     if (req.params.id) {
         document = await Model.document.findOne({ _id: ObjectId(req.params.id), ...qry }).select('-createdAt -updatedAt');
     } else {
         let pipeline = [];
-        pipeline.push({ $match: { isDeleted: false } });
+        pipeline.push({ $match: { isDeleted: false, userId: ObjectId(req.user._id) } });
         pipeline = await common.pagination(pipeline, skip, limit);
         [document] = await Model.document.aggregate(pipeline);
     }
@@ -546,7 +546,7 @@ async function getDocument(req) {
 }
 
 async function updateDocument(req) {
-    let document = await Model.document.findOne({ _id: req.params.id, isDeleted: false }).select('-createdAt -updatedAt');
+    let document = await Model.document.findOne({ _id: req.params.id, isDeleted: false, userId: ObjectId(req.user._id) }).select('-createdAt -updatedAt');
     if (!document) throw process.lang.INVALID_ID;
 
     document = await Model.document.findByIdAndUpdate({ _id: document._id }, req.body, { new: true });
@@ -554,7 +554,7 @@ async function updateDocument(req) {
 }
 
 async function deleteDocument(req) {
-    let document = await Model.document.findOne({ _id: req.params.id, isDeleted: false }).select('-createdAt -updatedAt');
+    let document = await Model.document.findOne({ _id: req.params.id, isDeleted: false, userId: ObjectId(req.user._id) }).select('-createdAt -updatedAt');
     if (!document) throw process.lang.INVALID_ID;
 
     await Model.document.findByIdAndUpdate({ _id: document._id, isDeleted: false }, { isDeleted: true });
@@ -567,7 +567,58 @@ async function getCategory() {
     let [category] = await Model.category.aggregate(pipeline);
     return category;
 }
+
+
+//***************************** Slots ***********************************//
+
+async function addSlots(req) {
+    req.body.userId = req.user._id;
+    req.body.isDeleted = false;
+    return await Model.Slots.findOneAndUpdate({ day: req.body.day, userId: req.user._id }, req.body, { new: true, upsert: true });
+}
+
+async function getSlots(req) {
+    let page = req.query.page;
+    let size = req.query.size;
+    let skip = parseInt(page - 1) || 0;
+    let limit = parseInt(size) || 10;
+    skip = skip * limit;
+    let qry = { isDeleted: false, userId: ObjectId(req.user._id) };
+
+    let slots;
+    if (req.params.id) {
+        slots = await Model.Slots.findOne({ _id: ObjectId(req.params.id), ...qry }).select('-createdAt -updatedAt');
+    } else {
+        let pipeline = [];
+        pipeline.push({ $match: { isDeleted: false, userId: ObjectId(req.user._id) } });
+        pipeline = await common.pagination(pipeline, skip, limit);
+        [slots] = await Model.Slots.aggregate(pipeline);
+    }
+    return slots;
+}
+
+async function updateSlots(req) {
+    let slots = await Model.Slots.findOne({ _id: req.params.id, isDeleted: false, userId: ObjectId(req.user._id) }).select('-createdAt -updatedAt');
+    if (!slots) throw process.lang.INVALID_ID;
+
+    slots = await Model.Slots.findByIdAndUpdate({ _id: slots._id }, req.body, { new: true });
+    return slots;
+}
+
+async function deleteSlots(req) {
+    let slots = await Model.Slots.findOne({ _id: req.params.id, isDeleted: false, userId: ObjectId(req.user._id) }).select('-createdAt -updatedAt');
+    if (!slots) throw process.lang.INVALID_ID;
+
+    await Model.Slots.findByIdAndUpdate({ _id: slots._id, isDeleted: false }, { isDeleted: true });
+    return {};
+}
+
 module.exports = {
+    addSlots,
+    getSlots,
+    updateSlots,
+    deleteSlots,
+
     getCategory,
     addDocument,
     getDocument,

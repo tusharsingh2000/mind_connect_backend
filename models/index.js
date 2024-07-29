@@ -12,6 +12,7 @@ module.exports = {
     address : require('./address'),
     category : require('./category'),
     document : require('./documents'),
-    banner : require("./banner")
+    banner : require("./banner"),
+    Slots : require('./slotsTime')
 
 };
