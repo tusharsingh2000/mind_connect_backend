@@ -119,7 +119,7 @@ async function fileUpload(req, res, next) {
 
 async function dashboard(req, res, next) {
   try {
-    await validations.user.validateDashBoard(req);
+    // await validations.user.validateDashBoard(req);
     let data = await services.user.dashboard(req);
     return response.sendSuccessResponse(req, res, data, responseCode.OK, process.lang.FETCH_SUCCESSFULLY);
   } catch (error) {
@@ -329,7 +329,18 @@ async function getCategory(req, res, next) {
     next(error);
   }
 }
+
+async function getBanner(req, res, next) {
+  try {
+    let data = await services.user.getBanner(req);
+    return response.sendSuccessResponse(req, res, data, responseCode.OK, process.lang.FETCH_SUCCESSFULLY);
+  } catch (error) {
+    next(error);
+  }
+}
 module.exports = {
+  getBanner,
+  
   addSlots,
   getSlots,
   updateSlots,

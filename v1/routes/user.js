@@ -62,6 +62,9 @@ router.get("/dashboard", Service.authService.userAuth, Controllers.dashboard);
 // category
 router.get("/category", Service.authService.userAuth, Controllers.getCategory);
 
+// banner
+router.get("/banner", Service.authService.userAuth, Controllers.getBanner);
+
 // Notifcation 
 router.get("/notification", Service.authService.userAuth, Controllers.userNotification);
 router.put("/clearNotification", Service.authService.userAuth, Controllers.notificationClear);

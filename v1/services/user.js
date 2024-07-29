@@ -332,7 +332,52 @@ async function changePassword(data, user) {
 
 
 //************************* DashBoard *********************************//
-async function dashboard() {
+async function dashboard(req) {
+
+    let page = req.query.page;
+    let size = req.query.limit;
+    let skip = parseInt(page - 1) || 0;
+    let limit = parseInt(size) || 50;
+    skip = skip * limit;
+
+    let pipeline = [];
+    pipeline.push({ $match: { role: 'consultant', isDeleted: false } },
+        {
+            $lookup: {
+                from: "categories",
+                localField: "categoryId",
+                foreignField: "_id",
+                as: "categoryId"
+            }
+        },
+        { $unwind: { path: "$categoryId", preserveNullAndEmptyArrays: true } },
+        // {
+        //   $lookup: {
+        //     from: "ratings",
+        //     localField: "classes._id",
+        //     foreignField: "classId",
+        //     as: "rating",
+        //   },
+        // },
+        // { $addFields: { ratingCount: { $size: "$rating" } } },
+        // { $addFields: { avgRating: { $avg: "$rating.rating" } } }
+        {
+            $project: {
+                name: 1,
+                image: 1,
+                role: 1,
+                fullName: 1,
+                lastName: 1,
+                phone: 1,
+                categoryId: 1,
+                countryCode: 1,
+                email: 1
+            }
+        }
+    );
+    pipeline = await common.pagination(pipeline, skip, limit);
+    let [sps] = await Model.user.aggregate(pipeline);
+    return sps;
 
 }
 
@@ -613,7 +658,21 @@ async function deleteSlots(req) {
     return {};
 }
 
+async function getBanner(req) {
+
+    let pipeline = [];
+    if (req.query.type) {
+        pipeline.push({ $match: { isDeleted: false, type: req.query.type } });
+    } else {
+        pipeline.push({ $match: { isDeleted: false } });
+    }
+    let [category] = await Model.banner.aggregate(pipeline);
+    return category;
+}
+
 module.exports = {
+    getBanner,
+
     addSlots,
     getSlots,
     updateSlots,

@@ -45,7 +45,7 @@ const UserModel = new Schema({
     longitude: { type: String, default: 0 },
     types : [{ type: Schema.Types.ObjectId, ref: 'category' }], // user side used
     isVerified: { type: Boolean, default: false },  // sp account verified from admin
-    categoryId: [{ type: Schema.Types.ObjectId, ref: 'category' }]
+    categoryId: [{ type: Schema.Types.ObjectId, ref: 'category' }] // sp category
 
 
 
