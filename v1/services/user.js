@@ -801,6 +801,11 @@ async function deleteDocument(req) {
 async function getCategory() {
   let pipeline = [];
   pipeline.push({ $match: { isDeleted: false } });
+
+  if (req.query.type) {
+    pipeline.push({ $match: { type: req.query.type } });
+  }
+
   let category = await Model.category.aggregate(pipeline);
   return category;
 }
