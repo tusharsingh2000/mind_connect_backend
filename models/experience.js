@@ -1,48 +1,50 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const experienceModel = new Schema({
+const experienceModel = new Schema(
+  {
     type: {
-        type: String,
-        default: ""
+      type: String,
+      default: "",
     },
-    years: {
-        type: Number,
-        default: 0
+    from: {
+      type: String,
+      default: "",
     },
-    months: {
-        type: Number,
-        default: 0
+    to: {
+      type: String,
+      default: "",
     },
     link: {
-        type: String,
-        trim: true,
-        default: ''
+      type: String,
+      trim: true,
+      default: "",
     },
-    userId: { type: Schema.Types.ObjectId, ref: 'user' },
-    categoryId: [{ type: Schema.Types.ObjectId, ref: 'category' }],
+    userId: { type: Schema.Types.ObjectId, ref: "user" },
+    categoryId: [{ type: Schema.Types.ObjectId, ref: "category" }],
     isDeleted: { type: Boolean, default: false, index: true },
-    isBlocked: { type: Boolean, default: false, index: true }
-
-}, {
+    isBlocked: { type: Boolean, default: false, index: true },
+  },
+  {
     timestamps: true,
     toObject: { virtuals: true },
-    toJSON: { virtuals: true }
+    toJSON: { virtuals: true },
+  }
+);
+experienceModel.set("toJSON", {
+  transform: (doc, ret) => {
+    delete ret.createdAt;
+    delete ret.updatedAt;
+    return ret;
+  },
 });
-experienceModel.set('toJSON', {
-    transform: (doc, ret) => {
-      delete ret.createdAt;
-      delete ret.updatedAt;
-      return ret;
-    }
-  });
-  
-  experienceModel.set('toObject', {
-    transform: (doc, ret) => {
-      delete ret.createdAt;
-      delete ret.updatedAt;
-      return ret;
-    }
-  });
-const experience = mongoose.model('Experience', experienceModel);
+
+experienceModel.set("toObject", {
+  transform: (doc, ret) => {
+    delete ret.createdAt;
+    delete ret.updatedAt;
+    return ret;
+  },
+});
+const experience = mongoose.model("Experience", experienceModel);
 module.exports = experience;
