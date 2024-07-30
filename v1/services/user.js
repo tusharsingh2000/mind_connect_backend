@@ -994,6 +994,7 @@ module.exports = {
     socialLogin,
     _doLogin,
     updateprofile,
+    getprofile,
     login,
     forgotpassword,
     changePassword,
