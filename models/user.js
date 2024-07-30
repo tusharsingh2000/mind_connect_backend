@@ -25,6 +25,7 @@ const UserModel = new Schema({
     gender: { type: String, enum: ["MALE", "FEMALE", "OTHERS"] },
     jti: { type: String, default: "", trim: true },
     zipCode: { type: String, default: null },
+    dob: { type: String, default: null },
     profileCompleteAt: { type: Number, default: 0 },
     location: {
         type: {
