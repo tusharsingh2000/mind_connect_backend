@@ -26,7 +26,7 @@ const userAuth = async (req, res, next) => {
         .exec();
       if (userData) {
         if (
-          userData.role == "user" &&
+          userData.role == "consultant" &&
           userData.isProfileComplete == true &&
           userData.isVerified == false
         ) {
