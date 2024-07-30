@@ -78,8 +78,8 @@ async function createUser(data) {
 async function setPassword(req) {
   await Model.user.findByIdAndUpdate(req.user._id, {
     $set: {
-      password: await utility.hashPasswordUsingBcrypt(req.body.password),
-    },
+      password: await utility.hashPasswordUsingBcrypt(req.body.password)
+    }
   });
   return {};
 }
@@ -99,7 +99,7 @@ async function verifyOTP(data) {
     user = await Model.user.findOne({
       email: data.email,
       isDeleted: false,
-      role: data.role,
+      role: data.role
     });
     let otp = await Otp.verifyEmailCode(data.email, data.code);
     if (!otp) throw process.lang.INVALID_OTP;
@@ -110,7 +110,7 @@ async function verifyOTP(data) {
       countryCode: data.countryCode,
       phone: data.phone,
       isDeleted: false,
-      role: data.role,
+      role: data.role
     });
     let otp = await Otp.verifyPhoneOtp(data.countryCode, data.phone, data.code);
     if (!otp) throw process.lang.INVALID_OTP;
@@ -128,7 +128,7 @@ async function verifyOTP(data) {
   user.token = await utility.jwtSign({
     _id: user._id,
     role: user.role,
-    jti: jti,
+    jti: jti
   });
   user.type = "Bearer";
   user.expire = await utility.getJwtExpireTime();
@@ -152,13 +152,13 @@ async function sendOtp(data) {
 async function checkDuplicateUser(data) {
   let qry = {
     isDeleted: false,
-    role: data.role,
+    role: data.role
   };
 
   let or = [];
   if (data.email) {
     or.push({
-      email: data.email.toLowerCase(),
+      email: data.email.toLowerCase()
     });
   }
   if (data.phone) {
@@ -958,7 +958,6 @@ async function getBanner(req) {
 }
 
 module.exports = {
-<<<<<<< HEAD
     getBanner,
     serviceProviderDetail,
 
@@ -1002,49 +1001,4 @@ module.exports = {
     dashboard,
     userNotification,
     sendOtp
-=======
-  getBanner,
-
-  addSlots,
-  getSlots,
-  updateSlots,
-  deleteSlots,
-
-  getCategory,
-  addDocument,
-  getDocument,
-  updateDocument,
-  deleteDocument,
-
-  addAddress,
-  getAddress,
-  updateAddress,
-  deleteAddress,
-
-  addExperience,
-  getExperience,
-  updateExperience,
-  deleteExperience,
-
-  addEducation,
-  getEducation,
-  updateEducation,
-  deleteEducation,
-
-  userClearNotification,
-  logout,
-  createUser,
-  setPassword,
-  verifyOTP,
-  socialLogin,
-  _doLogin,
-  updateprofile,
-  getprofile,
-  login,
-  forgotpassword,
-  changePassword,
-  dashboard,
-  userNotification,
-  sendOtp,
->>>>>>> d39c40dcce1322f7e2a13195963399af23c952cc
 };

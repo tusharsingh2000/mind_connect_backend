@@ -620,5 +620,5 @@ module.exports = {
   changePassword,
   dashboard,
   userNotification,
-  sendOtp,
+  sendOtp
 };

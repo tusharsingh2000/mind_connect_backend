@@ -9,123 +9,99 @@ const upload = require("../services/fileUpload");
 router.post("/register", Controllers.signup);
 router.post("/verifyotp", Controllers.verifyOtp);
 router.post("/sendotp", Controllers.sendOtp);
-router.post(
-  "/profile",
-  Service.authService.userAuth,
-  Controllers.updateprofile
+router.post("/profile", Service.authService.userAuth, Controllers.updateprofile
 );
 router.get("/profile", Service.authService.userAuth, Controllers.getprofile);
-router.post(
-  "/changepassword",
-  Service.authService.userAuth,
-  Controllers.changePassword
+router.post("/changepassword", Service.authService.userAuth, Controllers.changePassword
 );
 router.post("/login", Controllers.loginApp);
 router.post("/forgotpassword", Controllers.forgotpassword);
 router.post("/logout", Service.authService.userAuth, Controllers.logout);
 
-router.post(
-  "/setPassword",
-  Service.authService.userAuth,
-  Controllers.setPassword
+router.post("/setPassword", Service.authService.userAuth, Controllers.setPassword
 );
 router.post("/socialLogin", Controllers.socialLogin);
-router.post(
-  "/upload",
-  upload.fileUpload.single("image"),
-  Controllers.fileUpload
+router.post("/upload", upload.fileUpload.single("image"), Controllers.fileUpload
 );
 
 // Education
-router.post(
-  "/education",
-  Service.authService.userAuth,
-  Controllers.addEducation
-);
-router.get(
-  "/education",
-  Service.authService.userAuth,
-  Controllers.getEducation
-);
-router.get(
-  "/education/:id",
-  Service.authService.userAuth,
-  Controllers.getEducation
-);
+router.post("/education", Service.authService.userAuth, Controllers.addEducation);
+router.get("/education", Service.authService.userAuth, Controllers.getEducation);
+router.get("/education/:id", Service.authService.userAuth, Controllers.getEducation);
 router.put(
-  "/education/:id",
-  Service.authService.userAuth,
-  Controllers.updateEducation
+    "/education/:id",
+    Service.authService.userAuth,
+    Controllers.updateEducation
 );
 router.delete(
-  "/education/:id",
-  Service.authService.userAuth,
-  Controllers.deleteEducation
+    "/education/:id",
+    Service.authService.userAuth,
+    Controllers.deleteEducation
 );
 
 // experience
 router.post(
-  "/experience",
-  Service.authService.userAuth,
-  Controllers.addExperience
+    "/experience",
+    Service.authService.userAuth,
+    Controllers.addExperience
 );
 router.get(
-  "/experience",
-  Service.authService.userAuth,
-  Controllers.getExperience
+    "/experience",
+    Service.authService.userAuth,
+    Controllers.getExperience
 );
 router.get(
-  "/experience/:id",
-  Service.authService.userAuth,
-  Controllers.getExperience
+    "/experience/:id",
+    Service.authService.userAuth,
+    Controllers.getExperience
 );
 router.put(
-  "/experience/:id",
-  Service.authService.userAuth,
-  Controllers.updateExperience
+    "/experience/:id",
+    Service.authService.userAuth,
+    Controllers.updateExperience
 );
 router.delete(
-  "/experience/:id",
-  Service.authService.userAuth,
-  Controllers.deleteExperience
+    "/experience/:id",
+    Service.authService.userAuth,
+    Controllers.deleteExperience
 );
 
 // address
 router.post("/address", Service.authService.userAuth, Controllers.addAddress);
 router.get("/address", Service.authService.userAuth, Controllers.getAddress);
 router.get(
-  "/address/:id",
-  Service.authService.userAuth,
-  Controllers.getAddress
+    "/address/:id",
+    Service.authService.userAuth,
+    Controllers.getAddress
 );
 router.put(
-  "/address/:id",
-  Service.authService.userAuth,
-  Controllers.updateAddress
+    "/address/:id",
+    Service.authService.userAuth,
+    Controllers.updateAddress
 );
 router.delete(
-  "/address/:id",
-  Service.authService.userAuth,
-  Controllers.deleteAddress
+    "/address/:id",
+    Service.authService.userAuth,
+    Controllers.deleteAddress
 );
 
 // Document
 router.post("/document", Service.authService.userAuth, Controllers.addDocument);
 router.get("/document", Service.authService.userAuth, Controllers.getDocument);
 router.get(
-  "/document/:id",
-  Service.authService.userAuth,
-  Controllers.getDocument
+    "/document/:id",
+    Service.authService.userAuth,
+    Controllers.getDocument
 );
 router.put(
-  "/document/:id",
-  Service.authService.userAuth,
-  Controllers.updateDocument
+    "/document/:id",
+    Service.authService.userAuth,
+    Controllers.updateDocument
 );
 router.delete(
-  "/document/:id",
-  Service.authService.userAuth,
-  Controllers.deleteDocument
+    "/document/:id",
+    Service.authService.userAuth,
+    Controllers.deleteDocument
 );
 
 // slots
@@ -134,9 +110,9 @@ router.get("/slots", Service.authService.userAuth, Controllers.getSlots);
 router.get("/slots/:id", Service.authService.userAuth, Controllers.getSlots);
 router.put("/slots/:id", Service.authService.userAuth, Controllers.updateSlots);
 router.delete(
-  "/slots/:id",
-  Service.authService.userAuth,
-  Controllers.deleteSlots
+    "/slots/:id",
+    Service.authService.userAuth,
+    Controllers.deleteSlots
 );
 
 // Dsahboard
@@ -152,14 +128,14 @@ router.get("/banner", Service.authService.userAuth, Controllers.getBanner);
 
 // Notifcation
 router.get(
-  "/notification",
-  Service.authService.userAuth,
-  Controllers.userNotification
+    "/notification",
+    Service.authService.userAuth,
+    Controllers.userNotification
 );
 router.put(
-  "/clearNotification",
-  Service.authService.userAuth,
-  Controllers.notificationClear
+    "/clearNotification",
+    Service.authService.userAuth,
+    Controllers.notificationClear
 );
 
 router.get("/cms", adminController.getCms);
