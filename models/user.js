@@ -21,7 +21,7 @@ const UserModel = new Schema({
     isVerifiedByAdmin: { type: Boolean, default: false },
     password: { type: String, default: "", select: false },
     image: { type: String, default: "" },
-    coverImage: { type: String, default: "" },
+    coverImage: { type: String, default: "" }, 
     gender: { type: String, enum: ["MALE", "FEMALE", "OTHERS"] },
     jti: { type: String, default: "", trim: true },
     zipCode: { type: String, default: null },
