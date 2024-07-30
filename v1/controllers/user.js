@@ -338,8 +338,18 @@ async function getBanner(req, res, next) {
     next(error);
   }
 }
+
+async function serviceProviderDetail(req, res, next) {
+  try {
+    let data = await services.user.serviceProviderDetail(req);
+    return response.sendSuccessResponse(req, res, data, responseCode.OK, process.lang.FETCH_SUCCESSFULLY);
+  } catch (error) {
+    next(error);
+  }
+}
 module.exports = {
   getBanner,
+  serviceProviderDetail,
   
   addSlots,
   getSlots,

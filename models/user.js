@@ -39,6 +39,7 @@ const UserModel = new Schema({
     deviceToken: { type: String, default: "" },
 
     isNotificationEnable: { type: Boolean, default: false },
+    isOnline: { type: Boolean, default: false, index: true },
     isDeleted: { type: Boolean, default: false, index: true },
     isBlocked: { type: Boolean, default: false, index: true },
     latitude: { type: String, default: 0 },

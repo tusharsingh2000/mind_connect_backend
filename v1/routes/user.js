@@ -59,6 +59,8 @@ router.delete("/slots/:id", Service.authService.userAuth, Controllers.deleteSlot
 // Dsahboard
 router.get("/dashboard", Service.authService.userAuth, Controllers.dashboard);
 
+router.get("/sp/:id", Service.authService.userAuth, Controllers.serviceProviderDetail);
+
 // category
 router.get("/category", Service.authService.userAuth, Controllers.getCategory);
 

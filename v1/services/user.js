@@ -341,6 +341,9 @@ async function dashboard(req) {
     skip = skip * limit;
 
     let pipeline = [];
+    if (req.query.categoryId) {
+        pipeline.push({ $match: { categoryId: { $in: [req.query.categoryId] } } });
+    }
     pipeline.push({ $match: { role: 'consultant', isDeleted: false } },
         {
             $lookup: {
@@ -350,7 +353,7 @@ async function dashboard(req) {
                 as: "categoryId"
             }
         },
-        { $unwind: { path: "$categoryId", preserveNullAndEmptyArrays: true } },
+        // { $unwind: { path: "$categoryId", preserveNullAndEmptyArrays: true } },
         // {
         //   $lookup: {
         //     from: "ratings",
@@ -381,7 +384,56 @@ async function dashboard(req) {
 
 }
 
+async function serviceProviderDetail(req) {
+    let page = req.query.page;
+    let size = req.query.limit;
+    let skip = parseInt(page - 1) || 0;
+    let limit = parseInt(size) || 50;
+    skip = skip * limit;
 
+    let pipeline = [];
+    if (req.query.categoryId) {
+        pipeline.push({ $match: { categoryId: { $in: [req.query.categoryId] } } });
+    }
+    pipeline.push({ $match: { role: 'consultant', isDeleted: false, userId: ObjectId(req.user._id) } },
+        {
+            $lookup: {
+                from: "categories",
+                localField: "categoryId",
+                foreignField: "_id",
+                as: "categoryId"
+            }
+        },
+        // { $unwind: { path: "$categoryId", preserveNullAndEmptyArrays: true } },
+        // {
+        //   $lookup: {
+        //     from: "ratings",
+        //     localField: "classes._id",
+        //     foreignField: "classId",
+        //     as: "rating",
+        //   },
+        // },
+        // { $addFields: { ratingCount: { $size: "$rating" } } },
+        // { $addFields: { avgRating: { $avg: "$rating.rating" } } }
+        {
+            $project: {
+                name: 1,
+                image: 1,
+                role: 1,
+                fullName: 1,
+                lastName: 1,
+                phone: 1,
+                categoryId: 1,
+                countryCode: 1,
+                email: 1
+            }
+        }
+    );
+    pipeline = await common.pagination(pipeline, skip, limit);
+    let [sps] = await Model.user.aggregate(pipeline);
+    return sps;
+
+}
 //****************************** Notification ***************************************//
 
 async function userNotification(req) {
@@ -672,6 +724,7 @@ async function getBanner(req) {
 
 module.exports = {
     getBanner,
+    serviceProviderDetail,
 
     addSlots,
     getSlots,
