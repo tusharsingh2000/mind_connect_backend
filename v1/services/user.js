@@ -163,12 +163,12 @@ async function checkDuplicateUser(data) {
     }
     if (data.phone) {
         or.push({
-            phone: data.phone,
+            phone: data.phone
         });
     }
     if (data.userName) {
         or.push({
-            userName: data.userName,
+            userName: data.userName
         });
     }
     qry.$or = or;
@@ -177,7 +177,7 @@ async function checkDuplicateUser(data) {
         user = await Model.user.findOne(qry, {
             email: 1,
             phone: 1,
-            userName: 1,
+            userName: 1
         });
 
         if (user) {
@@ -194,14 +194,14 @@ async function checkDuplicateUser(data) {
 async function socialLogin(data) {
     let qry = {
         isDeleted: false,
-        role: data.role,
+        role: data.role
     };
 
     let user = await Model.user.findOne({
         socialId: data.socialId,
         socialType: data.socialType,
         isDeleted: false,
-        role: data.role,
+        role: data.role
     });
 
     if (!user) {
@@ -230,8 +230,8 @@ async function socialLogin(data) {
             await Model.user.findByIdAndUpdate(user._id, {
                 $set: {
                     socialId: data.socialId,
-                    socialType: data.socialType,
-                },
+                    socialType: data.socialType
+                }
             });
         }
     }
@@ -244,7 +244,7 @@ async function socialLogin(data) {
 async function _doLogin(user, data) {
     let setObj = {
         deviceType: data.deviceType,
-        deviceToken: data.deviceToken,
+        deviceToken: data.deviceToken
     };
     if (user) {
         user = JSON.parse(JSON.stringify(user));
@@ -263,7 +263,7 @@ async function _doLogin(user, data) {
         _id: user._id,
         role: user.role,
         jti: jti,
-        email: user.email,
+        email: user.email
     });
     user.type = "Bearer";
     user.expire = await utility.getJwtExpireTime();
@@ -282,7 +282,7 @@ async function updateprofile(req) {
                 email: req.body.email,
                 isDeleted: false,
                 role: req.user.role,
-                _id: { $ne: ObjectId(req.user._id) },
+                _id: { $ne: ObjectId(req.user._id) }
             })
             .lean();
         if (user) throw process.lang.DUPLICATE_EMAIL;
@@ -294,7 +294,7 @@ async function updateprofile(req) {
                 phone: req.body.phone,
                 isDeleted: false,
                 role: req.user.role,
-                _id: { $ne: ObjectId(req.user._id) },
+                _id: { $ne: ObjectId(req.user._id) }
             })
             .lean();
         if (user) throw process.lang.DUPLICATE_PHONE;
@@ -304,7 +304,7 @@ async function updateprofile(req) {
     // if (user) throw process.lang.DUPLICATE_USERNAME;
 
     return await Model.user.findOneAndUpdate({ _id: req.user._id }, data, {
-        new: true,
+        new: true
     });
 }
 async function getprofile(req) {
@@ -313,7 +313,7 @@ async function getprofile(req) {
         user = await Model.user
             .findOne({
                 isDeleted: false,
-                _id: ObjectId(req.user._id),
+                _id: ObjectId(req.user._id)
             })
             .lean();
     }
@@ -328,7 +328,7 @@ async function login(data) {
     delete data.password;
     let qry = {
         isDeleted: false,
-        role: data.role,
+        role: data.role
     };
 
     if (utility.isEmail(data.email)) {
@@ -343,7 +343,7 @@ async function login(data) {
     let user = await Model.user.findOne(qry, {
         password: 1,
         role: 1,
-        isBlocked: 1,
+        isBlocked: 1
     });
     if (!user) {
         throw process.lang.INVALID_CREDENTAILS;
@@ -366,7 +366,7 @@ async function forgotpassword(data) {
         let email = data.key || data.email;
         let user = await Model.user.findOne({
             email: email.toLowerCase(),
-            isDeleted: false,
+            isDeleted: false
         });
         if (!user) {
             throw process.lang.INVALID_EMAIL;
@@ -376,7 +376,7 @@ async function forgotpassword(data) {
             throw process.lang.REQUIRED_FILED_IS_MISSING;
         }
         return {
-            verificationType: 1,
+            verificationType: 1
         };
     } else if ((data.key && utility.isPhone(data.key)) || data.phone) {
         let phone = data.key || data.phone;
@@ -389,7 +389,7 @@ async function forgotpassword(data) {
             throw process.lang.REQUIRED_FILED_IS_MISSING;
         }
         return {
-            verificationType: 1,
+            verificationType: 1
         };
     } else {
         throw process.lang.REQUIRED_FILED_IS_MISSING;
@@ -400,7 +400,7 @@ async function changePassword(data, user) {
         let findadmin = await Model.user.findOne(
             { _id: user._id },
             {
-                password: 1,
+                password: 1
             }
         );
         if (!findadmin) {
@@ -417,8 +417,8 @@ async function changePassword(data, user) {
     }
     await Model.user.findByIdAndUpdate(user._id, {
         $set: {
-            password: await utility.hashPasswordUsingBcrypt(data.password),
-        },
+            password: await utility.hashPasswordUsingBcrypt(data.password)
+        }
     });
     return {};
 }
@@ -542,7 +542,7 @@ async function userNotification(req) {
         .find({
             isDeleted: false,
             isRead: false,
-            userId: ObjectId(req.user._id),
+            userId: ObjectId(req.user._id)
         })
         .populate("userId reactId")
         .sort({ createdAt: -1 })
@@ -551,7 +551,7 @@ async function userNotification(req) {
     let count = await Model.notification.countDocuments({
         isDeleted: false,
         isRead: false,
-        userId: ObjectId(req.user._id),
+        userId: ObjectId(req.user._id)
     });
 
     await Model.notification.updateMany(
@@ -591,7 +591,7 @@ async function getEducation(req) {
     } else {
         let pipeline = [];
         pipeline.push({
-            $match: { isDeleted: false, userId: ObjectId(req.user._id) },
+            $match: { isDeleted: false, userId: ObjectId(req.user._id) }
         });
         pipeline = await common.pagination(pipeline, skip, limit);
         [education] = await Model.education.aggregate(pipeline);
@@ -603,7 +603,7 @@ async function updateEducation(req) {
     let education = await Model.education.findOne({
         _id: req.params.id,
         isDeleted: false,
-        userId: ObjectId(req.user._id),
+        userId: ObjectId(req.user._id)
     });
     if (!education) throw process.lang.INVALID_ID;
 
@@ -620,7 +620,7 @@ async function deleteEducation(req) {
         .findOne({
             _id: req.params.id,
             isDeleted: false,
-            userId: ObjectId(req.user._id),
+            userId: ObjectId(req.user._id)
         })
         .select("-createdAt -updatedAt");
     if (!education) throw process.lang.INVALID_ID;
@@ -670,8 +670,8 @@ async function getExperience(req) {
                     from: "categories",
                     localField: "categoryId",
                     foreignField: "_id",
-                    as: "categoryId",
-                },
+                    as: "categoryId"
+                }
             },
             {
                 $project: {
@@ -682,8 +682,8 @@ async function getExperience(req) {
                     createdAt: 0,
                     updatedAt: 0,
                     "categoryId.createdAt": 0,
-                    "categoryId.updatedAt": 0,
-                },
+                    "categoryId.updatedAt": 0
+                }
             }
         );
         pipeline = await common.pagination(pipeline, skip, limit);
@@ -698,7 +698,7 @@ async function updateExperience(req) {
         .findOne({
             _id: req.params.id,
             isDeleted: false,
-            userId: ObjectId(req.user._id),
+            userId: ObjectId(req.user._id)
         })
         .select("-createdAt -updatedAt");
     if (!experience) throw process.lang.INVALID_ID;
@@ -723,7 +723,7 @@ async function deleteExperience(req) {
         .findOne({
             _id: req.params.id,
             isDeleted: false,
-            userId: ObjectId(req.user._id),
+            userId: ObjectId(req.user._id)
         })
         .select("-createdAt -updatedAt");
     if (!experience) throw process.lang.INVALID_ID;
@@ -759,7 +759,7 @@ async function getAddress(req) {
     } else {
         let pipeline = [];
         pipeline.push({
-            $match: { isDeleted: false, userId: ObjectId(req.user._id) },
+            $match: { isDeleted: false, userId: ObjectId(req.user._id) }
         });
         pipeline = await common.pagination(pipeline, skip, limit);
         [address] = await Model.address.aggregate(pipeline);
@@ -772,7 +772,7 @@ async function updateAddress(req) {
         .findOne({
             _id: req.params.id,
             isDeleted: false,
-            userId: ObjectId(req.user._id),
+            userId: ObjectId(req.user._id)
         })
         .select("-createdAt -updatedAt");
     if (!address) throw process.lang.INVALID_ID;
@@ -790,7 +790,7 @@ async function deleteAddress(req) {
         .findOne({
             _id: req.params.id,
             isDeleted: false,
-            userId: ObjectId(req.user._id),
+            userId: ObjectId(req.user._id)
         })
         .select("-createdAt -updatedAt");
     if (!address) throw process.lang.INVALID_ID;
@@ -825,7 +825,7 @@ async function getDocument(req) {
     } else {
         let pipeline = [];
         pipeline.push({
-            $match: { isDeleted: false, userId: ObjectId(req.user._id) },
+            $match: { isDeleted: false, userId: ObjectId(req.user._id) }
         });
         pipeline = await common.pagination(pipeline, skip, limit);
         [document] = await Model.document.aggregate(pipeline);
@@ -838,7 +838,7 @@ async function updateDocument(req) {
         .findOne({
             _id: req.params.id,
             isDeleted: false,
-            userId: ObjectId(req.user._id),
+            userId: ObjectId(req.user._id)
         })
         .select("-createdAt -updatedAt");
     if (!document) throw process.lang.INVALID_ID;
@@ -856,7 +856,7 @@ async function deleteDocument(req) {
         .findOne({
             _id: req.params.id,
             isDeleted: false,
-            userId: ObjectId(req.user._id),
+            userId: ObjectId(req.user._id)
         })
         .select("-createdAt -updatedAt");
     if (!document) throw process.lang.INVALID_ID;
@@ -903,12 +903,12 @@ async function getSlots(req) {
     if (req.params.id) {
         slots = await Model.Slots.findOne({
             _id: ObjectId(req.params.id),
-            ...qry,
+            ...qry
         }).select("-createdAt -updatedAt");
     } else {
         let pipeline = [];
         pipeline.push({
-            $match: { isDeleted: false, userId: ObjectId(req.user._id) },
+            $match: { isDeleted: false, userId: ObjectId(req.user._id) }
         });
         pipeline = await common.pagination(pipeline, skip, limit);
         [slots] = await Model.Slots.aggregate(pipeline);
@@ -920,12 +920,12 @@ async function updateSlots(req) {
     let slots = await Model.Slots.findOne({
         _id: req.params.id,
         isDeleted: false,
-        userId: ObjectId(req.user._id),
+        userId: ObjectId(req.user._id)
     }).select("-createdAt -updatedAt");
     if (!slots) throw process.lang.INVALID_ID;
 
     slots = await Model.Slots.findByIdAndUpdate({ _id: slots._id }, req.body, {
-        new: true,
+        new: true
     });
     return slots;
 }
@@ -934,7 +934,7 @@ async function deleteSlots(req) {
     let slots = await Model.Slots.findOne({
         _id: req.params.id,
         isDeleted: false,
-        userId: ObjectId(req.user._id),
+        userId: ObjectId(req.user._id)
     }).select("-createdAt -updatedAt");
     if (!slots) throw process.lang.INVALID_ID;
 
