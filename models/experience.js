@@ -22,6 +22,7 @@ const experienceModel = new Schema(
     },
     userId: { type: Schema.Types.ObjectId, ref: "user" },
     categoryId: [{ type: Schema.Types.ObjectId, ref: "category" }],
+    isCurrent: { type: Boolean, default: false, index: true },
     isDeleted: { type: Boolean, default: false, index: true },
     isBlocked: { type: Boolean, default: false, index: true },
   },
