@@ -32,9 +32,9 @@ const UserModel = new Schema(
       type: {
         type: String,
         enum: ["Point"],
-        default: "Point",
+        default: "Point"
       },
-      coordinates: { type: [Number], default: [0, 0] },
+      coordinates: { type: [Number], default: [0, 0] }
     },
 
     deviceType: { type: String, default: "" },

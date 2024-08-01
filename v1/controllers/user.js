@@ -138,6 +138,21 @@ async function getprofile(req, res, next) {
     next(error);
   }
 }
+async function getProfileDetail(req, res, next) {
+  try {
+    let data = await services.user.getProfileDetail(req);
+    return response.sendSuccessResponse(
+      req,
+      res,
+      data,
+      responseCode.OK,
+      process.lang.FETCH_SUCCESSFULLY
+    );
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+}
 async function loginApp(req, res, next) {
   try {
     await validations.user.validateLogIn(req);
@@ -579,6 +594,7 @@ async function serviceProviderDetail(req, res, next) {
   }
 }
 module.exports = {
+  getProfileDetail,
   getBanner,
   serviceProviderDetail,
   addSlots,

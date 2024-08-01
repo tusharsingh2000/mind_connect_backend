@@ -94,7 +94,9 @@ const AdminModel = new Schema({
         coordinates: { type: [Number], default: [0, 0] }
     },
     latitude: { type: Number, default: 0 },
-    longitude: { type: Number, default: 0 }
+    longitude: { type: Number, default: 0 },
+    breakTime: { type: Number, default: 0 }
+
 }, {
     timestamps: true,
     toObject: { virtuals: true },

@@ -323,6 +323,73 @@ async function getprofile(req) {
     return null;
 }
 
+async function getProfileDetail(req) {
+    let user = await Model.user.aggregate([
+        { $match: { role: 'consultant', isDeleted: false, _id: req.user._id } },
+        {
+            $lookup: {
+                from: 'experiences',
+                let: { id: "$_id" },
+                pipeline: [{
+                    $match: {
+                        $expr: {
+                            $eq: ["$$id", "$userId"]
+                        },
+                        isDeleted: false
+                    }
+                }],
+                as: 'experiences'
+            }
+        },
+        {
+            $lookup: {
+                from: 'educations',
+                let: { id: "$_id" },
+                pipeline: [{
+                    $match: {
+                        $expr: {
+                            $eq: ["$$id", "$userId"]
+                        },
+                        isDeleted: false
+                    }
+                }],
+                as: 'educations'
+            }
+        },
+        {
+            $lookup: {
+                from: 'categories',
+                let: { id: "$_id" },
+                pipeline: [{
+                    $match: {
+                        $expr: {
+                            $eq: ["$$id", "$userId"]
+                        },
+                        isDeleted: false
+                    }
+                }],
+                as: 'categories'
+            }
+        },
+        {
+            $lookup: {
+                from: 'documents',
+                let: { id: "$_id" },
+                pipeline: [{
+                    $match: {
+                        $expr: {
+                            $eq: ["$$id", "$userId"]
+                        },
+                        isDeleted: false
+                    }
+                }],
+                as: 'documents'
+            }
+        }
+    ]);
+    return user;
+}
+
 async function login(data) {
     let planPassword = data.password;
     delete data.password;
@@ -957,6 +1024,7 @@ async function getBanner(req) {
 }
 
 module.exports = {
+    getProfileDetail,
     getBanner,
     serviceProviderDetail,
 

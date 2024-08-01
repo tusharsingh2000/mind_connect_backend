@@ -15,6 +15,7 @@ router.post("/changepassword", Service.authService.userAuth, Controllers.changeP
 router.post("/login", Controllers.loginApp);
 router.post("/forgotpassword", Controllers.forgotpassword);
 router.post("/logout", Service.authService.userAuth, Controllers.logout);
+router.get("/profileDetail", Service.authService.userAuth, Controllers.getProfileDetail);
 
 router.post("/setPassword", Service.authService.userAuth, Controllers.setPassword);
 router.post("/socialLogin", Controllers.socialLogin);
