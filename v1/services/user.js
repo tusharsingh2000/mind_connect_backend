@@ -683,7 +683,7 @@ async function updateEducation(req) {
         { new: true }
     );
     if (req.body.profileCompleteAt) {
-        await Model.user.findOneAndUpdate({ _id: req.user._id }, { $set: { profileCompleteAt: req.body.profileCompleteAt } });
+        await Model.user.findOneAndUpdate({ _id: ObjectId(req.user._id) }, { $set: { profileCompleteAt: req.body.profileCompleteAt } });
     }
     return education;
 }
