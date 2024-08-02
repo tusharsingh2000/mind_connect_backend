@@ -644,7 +644,9 @@ async function serviceProviderDetail(req) {
                 phone: 1,
                 categoryId: 1,
                 countryCode: 1,
-                email: 1
+                email: 1,
+                educations :1,
+                experiences :1
             }
         }
     );
