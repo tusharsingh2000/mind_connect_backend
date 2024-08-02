@@ -503,7 +503,7 @@ async function dashboard(req) {
     if (req.query.categoryId) {
         pipeline.push({ $match: { categoryId: { $in: [req.query.categoryId] } } });
     }
-    pipeline.push({ $match: { role: 'consultant', isDeleted: false } },
+    pipeline.push({ $match: { role: 'consultant', isDeleted: false, isProfileComplete: true } },
         {
             $lookup: {
                 from: "categories",
