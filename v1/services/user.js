@@ -682,6 +682,9 @@ async function updateEducation(req) {
         req.body,
         { new: true }
     );
+    if (req.body.profileCompleteAt) {
+        await Model.user.findOneAndUpdate({ _id: req.user._id }, { $set: { profileCompleteAt: req.body.profileCompleteAt } });
+    }
     return education;
 }
 
@@ -783,6 +786,9 @@ async function updateExperience(req) {
             { new: true }
         );
     }
+    if (req.body.profileCompleteAt) {
+        await Model.user.findOneAndUpdate({ _id: req.user._id }, { $set: { profileCompleteAt: req.body.profileCompleteAt } });
+    }
     experience = await Model.experience.findByIdAndUpdate(
         { _id: experience._id },
         req.body,
@@ -853,6 +859,9 @@ async function updateAddress(req) {
         .select("-createdAt -updatedAt");
     if (!address) throw process.lang.INVALID_ID;
 
+    if (req.body.profileCompleteAt) {
+        await Model.user.findOneAndUpdate({ _id: req.user._id }, { $set: { profileCompleteAt: req.body.profileCompleteAt } });
+    }
     address = await Model.address.findByIdAndUpdate(
         { _id: address._id },
         req.body,
@@ -925,6 +934,9 @@ async function updateDocument(req) {
         .select("-createdAt -updatedAt");
     if (!document) throw process.lang.INVALID_ID;
 
+    if (req.body.profileCompleteAt) {
+        await Model.user.findOneAndUpdate({ _id: req.user._id }, { $set: { profileCompleteAt: req.body.profileCompleteAt } });
+    }
     document = await Model.document.findByIdAndUpdate(
         { _id: document._id },
         req.body,
