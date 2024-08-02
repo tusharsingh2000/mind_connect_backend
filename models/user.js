@@ -64,7 +64,7 @@ UserModel.pre(/save|create|update/i, function (next) {
     const latitude = this.get("latitude");
     const geoPoint = {
       type: "Point",
-      coordinates: [parseFloat(longitude), parseFloat(latitude)],
+      coordinates: [parseFloat(longitude), parseFloat(latitude)]
     };
     this.set({ geoPoint });
   }
