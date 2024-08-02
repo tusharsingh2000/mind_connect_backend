@@ -5,31 +5,31 @@ const experienceModel = new Schema(
   {
     type: {
       type: String,
-      default: "",
+      default: ""
     },
     from: {
       type: String,
-      default: "",
+      default: ""
     },
     to: {
       type: String,
-      default: "",
+      default: ""
     },
     link: {
       type: String,
       trim: true,
-      default: "",
+      default: ""
     },
     userId: { type: Schema.Types.ObjectId, ref: "user" },
     categoryId: [{ type: Schema.Types.ObjectId, ref: "category" }],
     isCurrent: { type: Boolean, default: false, index: true },
     isDeleted: { type: Boolean, default: false, index: true },
-    isBlocked: { type: Boolean, default: false, index: true },
+    isBlocked: { type: Boolean, default: false, index: true }
   },
   {
     timestamps: true,
     toObject: { virtuals: true },
-    toJSON: { virtuals: true },
+    toJSON: { virtuals: true }
   }
 );
 experienceModel.set("toJSON", {
@@ -37,7 +37,7 @@ experienceModel.set("toJSON", {
     delete ret.createdAt;
     delete ret.updatedAt;
     return ret;
-  },
+  }
 });
 
 experienceModel.set("toObject", {
@@ -45,7 +45,7 @@ experienceModel.set("toObject", {
     delete ret.createdAt;
     delete ret.updatedAt;
     return ret;
-  },
+  }
 });
 const experience = mongoose.model("Experience", experienceModel);
 module.exports = experience;

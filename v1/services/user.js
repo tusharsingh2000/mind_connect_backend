@@ -639,6 +639,9 @@ async function userClearNotification(req) {
 
 async function addEducation(req) {
     req.body.userId = req.user._id;
+    if (req.body.profileCompleteAt) {
+        await Model.user.findOneAndUpdate({ _id: req.user._id }, { $set: { profileCompleteAt: req.body.profileCompleteAt } });
+    }
     return await Model.education.create(req.body);
 }
 
@@ -710,6 +713,9 @@ async function addExperience(req) {
             { $set: { categoryId: req.body.categoryId } },
             { new: true }
         );
+    }
+    if (req.body.profileCompleteAt) {
+        await Model.user.findOneAndUpdate({ _id: req.user._id }, { $set: { profileCompleteAt: req.body.profileCompleteAt } });
     }
     return await Model.experience.create(req.body);
 }
@@ -807,6 +813,9 @@ async function deleteExperience(req) {
 
 async function addAddress(req) {
     req.body.userId = req.user._id;
+    if (req.body.profileCompleteAt) {
+        await Model.user.findOneAndUpdate({ _id: req.user._id }, { $set: { profileCompleteAt: req.body.profileCompleteAt } });
+    }
     return await Model.address.create(req.body);
 }
 
@@ -873,6 +882,9 @@ async function deleteAddress(req) {
 
 async function addDocument(req) {
     req.body.userId = req.user._id;
+    if (req.body.profileCompleteAt) {
+        await Model.user.findOneAndUpdate({ _id: req.user._id }, { $set: { profileCompleteAt: req.body.profileCompleteAt } });
+    }
     return await Model.document.create(req.body);
 }
 
