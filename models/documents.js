@@ -9,7 +9,7 @@ const documentsModel = new Schema({
     number: { type: String, default: "" },
     expiry_date: { type: String, default: "" },
     type: {
-        type: Number,
+        type: String,
         enum: [constant.DOCUMENT_TYPE],
         default: constant.DOCUMENT_TYPE.OTHER
     },
