@@ -885,6 +885,9 @@ async function addDocument(req) {
     if (req.body.profileCompleteAt) {
         await Model.user.findOneAndUpdate({ _id: req.user._id }, { $set: { profileCompleteAt: req.body.profileCompleteAt } });
     }
+    if (req.body.isProfileComplete) {
+        await Model.user.findOneAndUpdate({ _id: req.user._id }, { $set: { isProfileComplete: req.body.isProfileComplete } });
+    }
     return await Model.document.create(req.body);
 }
 
