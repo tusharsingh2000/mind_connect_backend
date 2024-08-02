@@ -512,6 +512,36 @@ async function dashboard(req) {
                 as: "categoryId"
             }
         },
+        {
+            $lookup: {
+                from: 'experiences',
+                let: { id: "$_id" },
+                pipeline: [{
+                    $match: {
+                        $expr: {
+                            $eq: ["$$id", "$userId"]
+                        },
+                        isDeleted: false
+                    }
+                }],
+                as: 'experiences'
+            }
+        },
+        {
+            $lookup: {
+                from: 'educations',
+                let: { id: "$_id" },
+                pipeline: [{
+                    $match: {
+                        $expr: {
+                            $eq: ["$$id", "$userId"]
+                        },
+                        isDeleted: false
+                    }
+                }],
+                as: 'educations'
+            }
+        },
         // { $unwind: { path: "$categoryId", preserveNullAndEmptyArrays: true } },
         // {
         //   $lookup: {
@@ -561,6 +591,36 @@ async function serviceProviderDetail(req) {
                 localField: "categoryId",
                 foreignField: "_id",
                 as: "categoryId"
+            }
+        },
+        {
+            $lookup: {
+                from: 'experiences',
+                let: { id: "$_id" },
+                pipeline: [{
+                    $match: {
+                        $expr: {
+                            $eq: ["$$id", "$userId"]
+                        },
+                        isDeleted: false
+                    }
+                }],
+                as: 'experiences'
+            }
+        },
+        {
+            $lookup: {
+                from: 'educations',
+                let: { id: "$_id" },
+                pipeline: [{
+                    $match: {
+                        $expr: {
+                            $eq: ["$$id", "$userId"]
+                        },
+                        isDeleted: false
+                    }
+                }],
+                as: 'educations'
             }
         },
         // { $unwind: { path: "$categoryId", preserveNullAndEmptyArrays: true } },
