@@ -25,18 +25,18 @@ const userAuth = async (req, res, next) => {
         .lean()
         .exec();
       if (userData) {
-        if (
-          userData.role == "consultant" &&
-          userData.isProfileComplete == true &&
-          userData.isVerified == false
-        ) {
-          return response.sendFailResponse(
-            req,
-            res,
-            responseCode.UN_AUTHORIZED,
-            process.lang.ACCOUNT_UN_VERIFIED
-          );
-        }
+        // if (
+        //   userData.role == "consultant" &&
+        //   userData.isProfileComplete == true &&
+        //   userData.isVerified == false
+        // ) {
+        //   return response.sendFailResponse(
+        //     req,
+        //     res,
+        //     responseCode.UN_AUTHORIZED,
+        //     process.lang.ACCOUNT_UN_VERIFIED
+        //   );
+        // }
         req.user = userData;
         req.user.forResetPassword = decodeData.forResetPassword;
         req.user.userType = "USER";
