@@ -640,7 +640,7 @@ async function userClearNotification(req) {
 async function addEducation(req) {
     req.body.userId = req.user._id;
     if (req.body.profileCompleteAt) {
-        await Model.user.findOneAndUpdate({ _id: req.user._id }, { $set: { profileCompleteAt: req.body.profileCompleteAt } });
+        await Model.user.findOneAndUpdate({ _id: ObjectId(req.user._id) }, { $set: { profileCompleteAt: req.body.profileCompleteAt } });
     }
     return await Model.education.create(req.body);
 }
@@ -718,7 +718,7 @@ async function addExperience(req) {
         );
     }
     if (req.body.profileCompleteAt) {
-        await Model.user.findOneAndUpdate({ _id: req.user._id }, { $set: { profileCompleteAt: req.body.profileCompleteAt } });
+        await Model.user.findOneAndUpdate({ _id: ObjectId(req.user._id) }, { $set: { profileCompleteAt: req.body.profileCompleteAt } });
     }
     return await Model.experience.create(req.body);
 }
@@ -787,7 +787,7 @@ async function updateExperience(req) {
         );
     }
     if (req.body.profileCompleteAt) {
-        await Model.user.findOneAndUpdate({ _id: req.user._id }, { $set: { profileCompleteAt: req.body.profileCompleteAt } });
+        await Model.user.findOneAndUpdate({ _id: ObjectId(req.user._id) }, { $set: { profileCompleteAt: req.body.profileCompleteAt } });
     }
     experience = await Model.experience.findByIdAndUpdate(
         { _id: experience._id },
@@ -860,7 +860,7 @@ async function updateAddress(req) {
     if (!address) throw process.lang.INVALID_ID;
 
     if (req.body.profileCompleteAt) {
-        await Model.user.findOneAndUpdate({ _id: req.user._id }, { $set: { profileCompleteAt: req.body.profileCompleteAt } });
+        await Model.user.findOneAndUpdate({ _id: ObjectId(req.user._id) }, { $set: { profileCompleteAt: req.body.profileCompleteAt } });
     }
     address = await Model.address.findByIdAndUpdate(
         { _id: address._id },
@@ -892,10 +892,10 @@ async function deleteAddress(req) {
 async function addDocument(req) {
     req.body.userId = req.user._id;
     if (req.body.profileCompleteAt) {
-        await Model.user.findOneAndUpdate({ _id: req.user._id }, { $set: { profileCompleteAt: req.body.profileCompleteAt } });
+        await Model.user.findOneAndUpdate({ _id: ObjectId(req.user._id) }, { $set: { profileCompleteAt: req.body.profileCompleteAt } });
     }
     if (req.body.isProfileComplete) {
-        await Model.user.findOneAndUpdate({ _id: req.user._id }, { $set: { isProfileComplete: req.body.isProfileComplete } });
+        await Model.user.findOneAndUpdate({ _id: ObjectId(req.user._id) }, { $set: { isProfileComplete: req.body.isProfileComplete } });
     }
     return await Model.document.create(req.body);
 }
@@ -935,7 +935,10 @@ async function updateDocument(req) {
     if (!document) throw process.lang.INVALID_ID;
 
     if (req.body.profileCompleteAt) {
-        await Model.user.findOneAndUpdate({ _id: req.user._id }, { $set: { profileCompleteAt: req.body.profileCompleteAt } });
+        await Model.user.findOneAndUpdate({ _id: ObjectId(req.user._id) }, { $set: { profileCompleteAt: req.body.profileCompleteAt } });
+    }
+    if (req.body.isProfileComplete) {
+        await Model.user.findOneAndUpdate({ _id: ObjectId(req.user._id) }, { $set: { isProfileComplete: req.body.isProfileComplete } });
     }
     document = await Model.document.findByIdAndUpdate(
         { _id: document._id },
