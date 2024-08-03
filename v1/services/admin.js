@@ -60,7 +60,7 @@ async function createAdmin(data) {
 const login = async (data) => {
   let setObj = {
     deviceType: data.deviceType,
-    deviceToken: data.deviceToken,
+    deviceToken: data.deviceToken
   };
   let planPassword = data.password;
   delete data.deviceType;
@@ -149,7 +149,7 @@ async function changePassword(data, admin) {
     let findadmin = await Model.admin.findOne(
       { _id: admin._id },
       {
-        password: 1,
+        password: 1
       }
     );
     if (!findadmin) {
@@ -166,8 +166,8 @@ async function changePassword(data, admin) {
   }
   await Model.admin.findByIdAndUpdate(admin._id, {
     $set: {
-      password: await utility.hashPasswordUsingBcrypt(data.password),
-    },
+      password: await utility.hashPasswordUsingBcrypt(data.password)
+    }
   });
   return true;
 }
@@ -175,20 +175,20 @@ async function updateProfile(req) {
   let data = req.body;
   let qry = {
     _id: {
-      $ne: req.admin._id,
+      $ne: req.admin._id
     },
-    isDeleted: false,
+    isDeleted: false
   };
 
   let or = [];
   if (data.email) {
     or.push({
-      email: data.email.toLowerCase(),
+      email: data.email.toLowerCase()
     });
   }
   if (data.phone) {
     or.push({
-      phone: data.phone,
+      phone: data.phone
     });
   }
 
@@ -196,7 +196,7 @@ async function updateProfile(req) {
   if (or.length > 0) {
     let duplicateUser = await Model.admin.findOne(qry, {
       email: 1,
-      phone: 1,
+      phone: 1
     });
 
     if (duplicateUser) {
@@ -211,7 +211,7 @@ async function updateProfile(req) {
   data.isProfileComplete = true;
   let updatedUser = await Model.admin
     .findOneAndUpdate({ _id: mongoose.Types.ObjectId(req.admin._id) }, data, {
-      new: true,
+      new: true
     })
     .lean();
   return updatedUser;
@@ -225,7 +225,7 @@ async function getProfile(data) {
 async function addSubAdmin(data) {
   let subadmin = await Model.admin.findOne({
     email: data.body.email,
-    isDeleted: false,
+    isDeleted: false
   });
   if (subadmin) throw process.lang.DUPLICATE_EMAIL;
 
@@ -253,7 +253,7 @@ async function getSubAdmin(data) {
     qry.$or = [
       { name: { $regex: data.query.search, $options: "i" } },
       { email: { $regex: data.query.search, $options: "i" } },
-      { phone: { $regex: data.query.search, $options: "i" } },
+      { phone: { $regex: data.query.search, $options: "i" } }
     ];
   }
   let subAdmin;
@@ -273,13 +273,13 @@ async function getSubAdmin(data) {
 async function updateSubAdmin(data) {
   let admin = await Model.admin.findOne({
     _id: data.params.id,
-    isDeleted: false,
+    isDeleted: false
   });
   if (!admin) throw process.lang.SUBADMIN_NOT_FOUND;
 
   let subAdmin = await Model.subAdmin.findOne({
     _id: admin.subAdminId,
-    isDeleted: false,
+    isDeleted: false
   });
   if (!subAdmin) throw process.lang.SUBADMIN_NOT_FOUND;
 
@@ -287,10 +287,10 @@ async function updateSubAdmin(data) {
     data.password = await utility.hashPasswordUsingBcrypt(data.body.password);
   }
   await Model.subAdmin.findByIdAndUpdate({ _id: admin.subAdminId }, data.body, {
-    new: true,
+    new: true
   });
   await Model.admin.findByIdAndUpdate({ _id: data.params.id }, data.body, {
-    new: true,
+    new: true
   });
   subAdmin = await Model.admin
     .findOne({ _id: ObjectId(data.params.id), isDeleted: false })
@@ -300,13 +300,13 @@ async function updateSubAdmin(data) {
 async function deleteSubAdmin(data) {
   let admin = await Model.admin.findOne({
     _id: data.params.id,
-    isDeleted: false,
+    isDeleted: false
   });
   if (!admin) throw process.lang.SUBADMIN_NOT_FOUND;
 
   let subAdmin = await Model.subAdmin.findOne({
     _id: admin.subAdminId,
-    isDeleted: false,
+    isDeleted: false
   });
   if (!subAdmin) throw process.lang.SUBADMIN_NOT_FOUND;
   await Model.admin.findByIdAndUpdate(
@@ -371,9 +371,9 @@ async function getDashboard(data) {
         {
           $match: {
             createdAt: { $gte: StartofWeek, $lte: EndofWeek },
-            isDeleted: false,
-          },
-        },
+            isDeleted: false
+          }
+        }
       ]);
     users.map((val) => {
       let hour = moment(val.createdAt).format("dd");
@@ -409,7 +409,7 @@ async function getDashboard(data) {
       wed: we,
       thr: th,
       fri: fr,
-      sat: sa,
+      sat: sa
     };
   } else if (data.query.personType == "weekly") {
     var w1 = 0,
@@ -420,9 +420,9 @@ async function getDashboard(data) {
       {
         $match: {
           createdAt: { $gte: startOFMonth, $lte: endOFMonth },
-          isDeleted: false,
-        },
-      },
+          isDeleted: false
+        }
+      }
     ]);
     users.map((val) => {
       // console.log(val);
@@ -463,9 +463,9 @@ async function getDashboard(data) {
       {
         $match: {
           createdAt: { $gte: startOFYear, $lte: endOFYear },
-          isDeleted: false,
-        },
-      },
+          isDeleted: false
+        }
+      }
     ]);
     users.map((val) => {
       let year = Math.ceil(Number(moment(val.createdAt).format("M")));
@@ -521,13 +521,13 @@ async function getDashboard(data) {
       sep: sep,
       oct: oct,
       nov: nov,
-      dec: dec,
+      dec: dec
     };
   } else if (data.query.personType == "yearly") {
     users = await Model.user.aggregate([
       { $match: { isDeleted: false } },
       { $addFields: { year: { $year: "$createdAt" } } },
-      { $group: { _id: "$year", total: { $sum: 1 } } },
+      { $group: { _id: "$year", total: { $sum: 1 } } }
     ]);
     var map = new Map();
     users.map((row) => {
@@ -550,9 +550,9 @@ async function getDashboard(data) {
         {
           $match: {
             createdAt: { $gte: StartofWeek, $lte: EndofWeek },
-            isDeleted: false,
-          },
-        },
+            isDeleted: false
+          }
+        }
       ]);
     users.map((val) => {
       let hour = moment(val.createdAt).format("dd");
@@ -588,7 +588,7 @@ async function getDashboard(data) {
       wed: we,
       thr: th,
       fri: fr,
-      sat: sa,
+      sat: sa
     };
   } else if (data.query.newPersonType == "weekly") {
     var w1 = 0,
@@ -599,9 +599,9 @@ async function getDashboard(data) {
       {
         $match: {
           createdAt: { $gte: startOFMonth, $lte: endOFMonth },
-          isDeleted: false,
-        },
-      },
+          isDeleted: false
+        }
+      }
     ]);
     users.map((val) => {
       // console.log(val);
@@ -642,9 +642,9 @@ async function getDashboard(data) {
       {
         $match: {
           createdAt: { $gte: startOFYear, $lte: endOFYear },
-          isDeleted: false,
-        },
-      },
+          isDeleted: false
+        }
+      }
     ]);
     users.map((val) => {
       let year = Math.ceil(Number(moment(val.createdAt).format("M")));
@@ -700,13 +700,13 @@ async function getDashboard(data) {
       sep: sep,
       oct: oct,
       nov: nov,
-      dec: dec,
+      dec: dec
     };
   } else if (data.query.newPersonType == "yearly") {
     users = await Model.user.aggregate([
       { $match: { isDeleted: false } },
       { $addFields: { year: { $year: "$createdAt" } } },
-      { $group: { _id: "$year", total: { $sum: 1 } } },
+      { $group: { _id: "$year", total: { $sum: 1 } } }
     ]);
     var map = new Map();
     users.map((row) => {
@@ -736,7 +736,7 @@ async function getFaq(data) {
   if (data.query.search) {
     qry.$or = [
       { question: { $regex: data.query.search, $options: "i" } },
-      { answer: { $regex: data.query.search, $options: "i" } },
+      { answer: { $regex: data.query.search, $options: "i" } }
     ];
   }
   let faq;
@@ -793,7 +793,7 @@ async function getCategory(req) {
   if (type) {
     qry = {
       ...qry,
-      type: Number(type),
+      type: Number(type)
     };
   }
 
@@ -801,7 +801,7 @@ async function getCategory(req) {
   if (req.params.id) {
     category = await Model.category.findOne({
       _id: ObjectId(req.params.id),
-      ...qry,
+      ...qry
     });
   } else {
     let pipeline = [];
@@ -815,7 +815,7 @@ async function getCategory(req) {
 async function updateCategory(req) {
   let category = await Model.category.findOne({
     _id: req.params.id,
-    isDeleted: false,
+    isDeleted: false
   });
   if (!category) throw process.lang.INVALID_ID;
 
@@ -829,7 +829,7 @@ async function updateCategory(req) {
 async function deleteCategory(req) {
   let category = await Model.category.findOne({
     _id: req.params.id,
-    isDeleted: false,
+    isDeleted: false
   });
   if (!category) throw process.lang.INVALID_ID;
 
@@ -860,7 +860,7 @@ async function getBanner(req) {
   if (req.params.id) {
     banner = await Model.banner.findOne({
       _id: ObjectId(req.params.id),
-      ...qry,
+      ...qry
     });
   } else {
     let pipeline = [];
@@ -877,7 +877,7 @@ async function getBanner(req) {
 async function updateBanner(req) {
   let banner = await Model.banner.findOne({
     _id: req.params.id,
-    isDeleted: false,
+    isDeleted: false
   });
   if (!banner) throw process.lang.INVALID_ID;
 
@@ -891,7 +891,7 @@ async function updateBanner(req) {
 async function deleteBanner(req) {
   let banner = await Model.banner.findOne({
     _id: req.params.id,
-    isDeleted: false,
+    isDeleted: false
   });
   if (!banner) throw process.lang.INVALID_ID;
 
