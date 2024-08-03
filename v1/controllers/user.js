@@ -616,7 +616,17 @@ async function getWishList(req, res, next) {
     next(error);
   }
 }
+async function createRating(req, res, next) {
+  try {
+      await validations.user.validateCreateRating(req);
+      let data = await services.user.createRating(req);
+      return response.sendSuccessResponse(req, res, data, responseCode.OK, process.lang.RATED_SUCCESSFULLY);
+  } catch (error) {
+      next(error);
+  }
+}
 module.exports = {
+  createRating,
   wishList,
   getWishList,
 

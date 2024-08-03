@@ -6,7 +6,7 @@ const utility = require("../../utility/Utility");
 const mongoose = require("mongoose");
 // const emailServices = require("./emailService");
 const common = require("./common");
-const moment = require("moment");
+// const moment = require("moment");
 // const moment = require('moment-timezone');
 // const constant = require("../../utility/constant");
 // const notification = require('../../utility/pushNotifications');
@@ -377,7 +377,7 @@ async function getProfileDetail(req) {
                 foreignField: "userId",
                 as: "addresses"
             }
-        },   
+        },
         { $unwind: { path: "$addresses", preserveNullAndEmptyArrays: true } },
 
         // {
@@ -1170,7 +1170,27 @@ async function getWishList(req) {
     let data = await Model.wishlist.aggregate(pipeline);
     return data;
 }
+async function createRating(req) {
+    console.log("createRating  >>>>>>>>>>>>", req.body, ">>>>>>>>>>>>>>>>");
+    // let Booking = await Model.booking.findOne({
+    //   _id: ObjectId(req.body.bookingId),
+    //   isDeleted: false,
+    //   userId: ObjectId(req.user._id),
+    // });
+    // if (!Booking) throw process.lang.INVALID_BOOKING;
+
+    let sp = await Model.user.findOne({ _id: ObjectId(req.body.spId), isDeleted: false });
+    if (!sp) throw "Invalid service provider Id";
+
+    // req.body.instructorId = Booking.userId;
+    // req.body.instructorId = Booking.instructorId;
+    req.body.userId = req.user._id;
+    req.body.spId = sp._id;
+    await Model.rating.create(req.body);
+    return {};
+}
 module.exports = {
+    createRating,
     wishList,
     getWishList,
     getProfileDetail,

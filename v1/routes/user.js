@@ -77,5 +77,7 @@ router.get("/cms", adminController.getCms);
 router.post("/wishlist", Service.authService.userAuth, Controllers.wishList);
 router.get("/wishlist", Service.authService.userAuth, Controllers.getWishList);
 
+/* Rating */
+router.post("/rating", Service.authService.userAuth, Controllers.createRating);
 
 module.exports = router;

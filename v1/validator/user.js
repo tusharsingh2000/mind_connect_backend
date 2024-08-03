@@ -92,10 +92,18 @@ const socialLogin = async (req, property = "body") => {
 };
 const wishList = async (req, property = 'body') => {
   let schema = joi.object().keys({
-      spId: joi.string().required(),
-      appointmentId: joi.string().allow("", null).optional(),
-      desc: joi.string().optional(),
-      type: joi.string().valid('ADD', 'REMOVE').required()
+    spId: joi.string().required(),
+    desc: joi.string().optional(),
+    type: joi.string().valid('ADD', 'REMOVE').required()
+  });
+  return await validateSchema(req[property], schema);
+};
+const validateCreateRating = async (req, property = 'body') => {
+  let schema = joi.object().keys({
+    appointmentId: joi.string().allow("", null).optional(),
+    spId: joi.string().required(),  // need to remove get it from appointment
+    remarks: joi.string().allow('', null).optional(),
+    rating: joi.number().optional()
   });
   return await validateSchema(req[property], schema);
 };
@@ -209,5 +217,6 @@ module.exports = {
   validateChangePassword,
   validateDashBoard,
   validateSlots,
-  wishList
+  wishList,
+  validateCreateRating
 };
