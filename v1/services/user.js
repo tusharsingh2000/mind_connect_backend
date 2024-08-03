@@ -358,19 +358,27 @@ async function getProfileDetail(req) {
         },
         {
             $lookup: {
-                from: 'categories',
-                let: { id: "$_id" },
-                pipeline: [{
-                    $match: {
-                        $expr: {
-                            $eq: ["$$id", "$userId"]
-                        },
-                        isDeleted: false
-                    }
-                }],
-                as: 'categories'
+                from: "categories",
+                localField: "categoryId",
+                foreignField: "_id",
+                as: "categories"
             }
         },
+        // {
+        //     $lookup: {
+        //         from: 'categories',
+        //         let: { id: "$_id" },
+        //         pipeline: [{
+        //             $match: {
+        //                 $expr: {
+        //                     $eq: ["$$id", "$userId"]
+        //                 },
+        //                 isDeleted: false
+        //             }
+        //         }],
+        //         as: 'categories'
+        //     }
+        // },
         {
             $lookup: {
                 from: 'documents',
