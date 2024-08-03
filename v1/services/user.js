@@ -337,7 +337,19 @@ async function getProfileDetail(req) {
                         },
                         isDeleted: false
                     }
-                }],
+                },{
+                    $lookup: {
+                        from: "categories",
+                        localField: "categoryId",
+                        foreignField: "_id",
+                        as: "categories"
+                    }
+                },
+                {
+                    $project: {
+                        createdAt: 0,
+                        updatedAt: 0
+                    }}],
                 as: 'experiences'
             }
         },
