@@ -337,7 +337,7 @@ async function getProfileDetail(req) {
                         },
                         isDeleted: false
                     }
-                },{
+                }, {
                     $lookup: {
                         from: "categories",
                         localField: "categoryId",
@@ -349,7 +349,8 @@ async function getProfileDetail(req) {
                     $project: {
                         createdAt: 0,
                         updatedAt: 0
-                    }}],
+                    }
+                }],
                 as: 'experiences'
             }
         },
@@ -1007,14 +1008,11 @@ async function getDocument(req) {
 
     let document;
     if (req.params.id) {
-        document = await Model.document
-            .findOne({ _id: ObjectId(req.params.id), ...qry })
+        document = await Model.document.findOne({ _id: ObjectId(req.params.id), ...qry })
             .select("-createdAt -updatedAt");
     } else {
         let pipeline = [];
-        pipeline.push({
-            $match: { isDeleted: false, userId: ObjectId(req.user._id) }
-        });
+        pipeline.push({ $match: { isDeleted: false, userId: ObjectId(req.user._id) } });
         pipeline = await common.pagination(pipeline, skip, limit);
         [document] = await Model.document.aggregate(pipeline);
     }
@@ -1022,12 +1020,7 @@ async function getDocument(req) {
 }
 
 async function updateDocument(req) {
-    let document = await Model.document
-        .findOne({
-            _id: req.params.id,
-            isDeleted: false,
-            userId: ObjectId(req.user._id)
-        })
+    let document = await Model.document.findOne({ _id: req.params.id, isDeleted: false, userId: ObjectId(req.user._id) })
         .select("-createdAt -updatedAt");
     if (!document) throw process.lang.INVALID_ID;
 
@@ -1037,28 +1030,16 @@ async function updateDocument(req) {
     if (req.body.isProfileComplete) {
         await Model.user.findOneAndUpdate({ _id: ObjectId(req.user._id) }, { $set: { isProfileComplete: req.body.isProfileComplete } });
     }
-    document = await Model.document.findByIdAndUpdate(
-        { _id: document._id },
-        req.body,
-        { new: true }
-    );
+    document = await Model.document.findByIdAndUpdate({ _id: document._id }, req.body, { new: true });
     return document;
 }
 
 async function deleteDocument(req) {
-    let document = await Model.document
-        .findOne({
-            _id: req.params.id,
-            isDeleted: false,
-            userId: ObjectId(req.user._id)
-        })
+    let document = await Model.document.findOne({ _id: req.params.id, isDeleted: false, userId: ObjectId(req.user._id) })
         .select("-createdAt -updatedAt");
     if (!document) throw process.lang.INVALID_ID;
 
-    await Model.document.findByIdAndUpdate(
-        { _id: document._id, isDeleted: false },
-        { isDeleted: true }
-    );
+    await Model.document.findByIdAndUpdate({ _id: document._id, isDeleted: false }, { isDeleted: true });
     return {};
 }
 async function getCategory(req) {
@@ -1078,9 +1059,7 @@ async function getCategory(req) {
 async function addSlots(req) {
     req.body.userId = req.user._id;
     req.body.isDeleted = false;
-    return await Model.Slots.findOneAndUpdate(
-        { day: req.body.day, userId: req.user._id },
-        req.body,
+    return await Model.Slots.findOneAndUpdate({ day: req.body.day, userId: req.user._id }, req.body,
         { new: true, upsert: true }
     ).select("-createdAt -updatedAt");
 }
