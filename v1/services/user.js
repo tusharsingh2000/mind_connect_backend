@@ -342,7 +342,7 @@ async function getProfileDetail(req) {
                         from: "categories",
                         localField: "categoryId",
                         foreignField: "_id",
-                        as: "categories"
+                        as: "categoryId"
                     }
                 },
                 {
@@ -368,14 +368,14 @@ async function getProfileDetail(req) {
                 as: 'educations'
             }
         },
-        {
-            $lookup: {
-                from: "categories",
-                localField: "categoryId",
-                foreignField: "_id",
-                as: "categories"
-            }
-        },
+        // {
+        //     $lookup: {
+        //         from: "categories",
+        //         localField: "categoryId",
+        //         foreignField: "_id",
+        //         as: "categories"
+        //     }
+        // },
         // {
         //     $lookup: {
         //         from: 'categories',
