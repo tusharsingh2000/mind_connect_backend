@@ -62,4 +62,10 @@ router.put("/banner/:id", Service.authService.adminAuth, adminController.updateB
 router.delete("/banner/:id", Service.authService.adminAuth, adminController.deleteBanner);
 
 
+// ----------------------    users
+router.get("/users", Service.authService.adminAuth, adminController.getUsers);
+router.get("/users/:id", Service.authService.adminAuth, adminController.getUsers);
+router.put("/user/:id", Service.authService.adminAuth, adminController.updateUser);
+router.delete("/users/:id", Service.authService.adminAuth, adminController.deleteUser);
+
 module.exports = router;

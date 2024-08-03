@@ -328,7 +328,7 @@ async function addCms(data) {
   return await Model.cms.create(data.body);
 }
 async function updateCms(data) {
- let cms = await Model.cms.findOneAndUpdate({  isDeleted: false }, data.body, {
+  let cms = await Model.cms.findOneAndUpdate({ isDeleted: false }, data.body, {
     new: true
   });
   return cms;
@@ -338,14 +338,14 @@ async function getCms() {
 }
 
 async function updateSetting(data) {
-  let   setting = await Model.setting.findOneAndUpdate({ isDeleted : false }, data.body, {
-      new: true
-    });
-    return setting;
-  }
-  async function getSetting() {
-    return await Model.setting.findOne({ isDeleted: false });
-  }
+  let setting = await Model.setting.findOneAndUpdate({ isDeleted: false }, data.body, {
+    new: true
+  });
+  return setting;
+}
+async function getSetting() {
+  return await Model.setting.findOne({ isDeleted: false });
+}
 //************************************** DashBoard ************************************//
 
 async function getDashboard(data) {
@@ -358,7 +358,6 @@ async function getDashboard(data) {
 
   let detail = {};
   detail.userCount = await Model.user.countDocuments({ isDeleted: false });
-  detail.postCount = await Model.post.countDocuments({ isDeleted: false });
   if (data.query.personType == "daily") {
     var su = 0,
       mo = 0,
@@ -595,13 +594,12 @@ async function getDashboard(data) {
       w2 = 0,
       w3 = 0,
       w4 = 0;
-    users = await Model.user.aggregate([
-      {
-        $match: {
-          createdAt: { $gte: startOFMonth, $lte: endOFMonth },
-          isDeleted: false
-        }
+    users = await Model.user.aggregate([{
+      $match: {
+        createdAt: { $gte: startOFMonth, $lte: endOFMonth },
+        isDeleted: false
       }
+    }
     ]);
     users.map((val) => {
       // console.log(val);
@@ -638,13 +636,12 @@ async function getDashboard(data) {
       oct = 0,
       nov = 0,
       dec = 0;
-    users = await Model.user.aggregate([
-      {
-        $match: {
-          createdAt: { $gte: startOFYear, $lte: endOFYear },
-          isDeleted: false
-        }
+    users = await Model.user.aggregate([{
+      $match: {
+        createdAt: { $gte: startOFYear, $lte: endOFYear },
+        isDeleted: false
       }
+    }
     ]);
     users.map((val) => {
       let year = Math.ceil(Number(moment(val.createdAt).format("M")));
@@ -903,7 +900,128 @@ async function deleteBanner(req) {
   return {};
 }
 
+
+
+async function getUsers(req) {
+  let page = req.query.page;
+  let qry = { isDeleted: false, isProfileComplete: true };
+  let size = req.query.size;
+  let skip = parseInt(page - 1) || 0;
+  let limit = parseInt(size) || 10;
+  skip = skip * limit;
+  let pipeline = [];
+
+  if (req.query.search) {
+    qry.$or = [
+      { fullName: { $regex: req.query.search, $options: "i" } },
+      { firstName: { $regex: req.query.search, $options: "i" } },
+      { lastName: { $regex: req.query.search, $options: "i" } },
+      { email: { $regex: req.query.search, $options: "i" } },
+      { phone: { $regex: req.query.search, $options: "i" } }
+    ];
+  }
+  if (req.params.id) {
+    pipeline.push({ $match: { isDeleted: false, userId: ObjectId(req.params.id) } },
+      {
+        $lookup: {
+          from: "categories",
+          localField: "categoryId",
+          foreignField: "_id",
+          as: "categoryId"
+        }
+      },
+      {
+        $lookup: {
+          from: 'experiences',
+          let: { id: "$_id" },
+          pipeline: [{
+            $match: {
+              $expr: {
+                $eq: ["$$id", "$userId"]
+              },
+              isDeleted: false
+            }
+          }],
+          as: 'experiences'
+        }
+      },
+      {
+        $lookup: {
+          from: 'educations',
+          let: { id: "$_id" },
+          pipeline: [{
+            $match: {
+              $expr: {
+                $eq: ["$$id", "$userId"]
+              },
+              isDeleted: false
+            }
+          }],
+          as: 'educations'
+        }
+      },
+      // { $unwind: { path: "$categoryId", preserveNullAndEmptyArrays: true } },
+      // {
+      //   $lookup: {
+      //     from: "ratings",
+      //     localField: "classes._id",
+      //     foreignField: "classId",
+      //     as: "rating",
+      //   },
+      // },
+      // { $addFields: { ratingCount: { $size: "$rating" } } },
+      // { $addFields: { avgRating: { $avg: "$rating.rating" } } }
+      // {
+      //   $project: {
+      //     name: 1,
+      //     image: 1,
+      //     role: 1,
+      //     fullName: 1,
+      //     lastName: 1,
+      //     phone: 1,
+      //     categoryId: 1,
+      //     countryCode: 1,
+      //     email: 1,
+      //     educations: 1,
+      //     experiences: 1
+      //   }
+      // }
+    );
+    let [sps] = await Model.user.aggregate(pipeline);
+    return sps;
+  } else {
+    pipeline.push({ $match: { ...qry } });
+
+    if (req.query.isVerified) {
+      pipeline.push({ $match: { isVerified: req.query.isVerified } });
+    }
+    pipeline.push({ $sort: { _id: -1 } });
+
+    console.log('', JSON.stringify(pipeline));
+    pipeline = await common.pagination(pipeline, skip, limit);
+    let [detail] = await Model.user.aggregate(pipeline);
+    return detail;
+  }
+}
+
+async function updateUser(data) {
+  let user = await Model.user.findOne({ _id: data.params.id, isDeleted: false });
+  if (!user) throw process.lang.INVALID_USER;
+
+  return await Model.user.findOneAndUpdate({ _id: data.params.id, isDeleted: false }, data.body, { new: true });
+}
+async function deleteUser(data) {
+  let user = await Model.user.findOne({ _id: data.params.id, isDeleted: false });
+  if (!user) throw process.lang.INVALID_USER;
+
+  await Model.user.findOneAndUpdate({ _id: data.params.id, isDeleted: false }, { isDeleted: true }, { new: true });
+  return {};
+}
 module.exports = {
+  deleteUser,
+  updateUser,
+  getUsers,
+
   addBanner,
   getBanner,
   updateBanner,
