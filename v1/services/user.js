@@ -1109,6 +1109,7 @@ async function getSlots(req) {
         });
         pipeline = await common.pagination(pipeline, skip, limit);
         [slots] = await Model.Slots.aggregate(pipeline);
+        console.log(slots);
     }
     return slots;
 }
