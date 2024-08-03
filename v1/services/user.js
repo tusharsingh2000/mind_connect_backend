@@ -576,33 +576,54 @@ async function dashboard(req) {
                 as: 'educations'
             }
         },
-        // {
-        //   $lookup: {
-        //     from: "ratings",
-        //     localField: "classes._id",
-        //     foreignField: "classId",
-        //     as: "rating",
-        //   },
-        // },
-        // { $addFields: { ratingCount: { $size: "$rating" } } },
-        // { $addFields: { avgRating: { $avg: "$rating.rating" } } }
         {
-            $project: {
-                name: 1,
-                image: 1,
-                role: 1,
-                fullName: 1,
-                lastName: 1,
-                phone: 1,
-                categoryId: 1,
-                countryCode: 1,
-                email: 1,
-                educations: 1,
-                experiences: 1,
-                coverImage: 1
+            $lookup: {
+                from: "ratings",
+                localField: "_id",
+                foreignField: "spId",
+                as: "rating"
+            }
+        },
+        { $addFields: { ratingCount: { $size: "$rating" } } },
+        { $addFields: { avgRating: { $avg: "$rating.rating" } } },
+        {
+            $lookup: {
+                from: "wishlists",
+                localField: "_id",
+                foreignField: "spId",
+                as: "wishlists"
+            }
+        }, {
+        $addFields: {
+            isWishlist: {
+                $cond: {
+                    if: {
+                        $and: [{ $in: [ObjectId(req.user._id), "$wishlists.userId"] }]
+                    },
+                    then: true,
+                    else: false
+                }
             }
         }
-    );
+    }, {
+        $project: {
+            name: 1,
+            image: 1,
+            role: 1,
+            fullName: 1,
+            lastName: 1,
+            phone: 1,
+            categoryId: 1,
+            countryCode: 1,
+            email: 1,
+            educations: 1,
+            experiences: 1,
+            coverImage: 1,
+            ratingCount: 1,
+            avgRating: 1,
+            isWishlist: 1
+        }
+    });
     pipeline = await common.pagination(pipeline, skip, limit);
     let [sps] = await Model.user.aggregate(pipeline);
 
