@@ -3,7 +3,7 @@ const Schema = MONGOOSE.Schema;
 
 const settingModel = new Schema(
   {
-    price: { type: String, default: "" },   // price per mint
+    price: { type: Number, default: 0 },   // price per mint
    
     isDeleted: { type: Boolean, default: false }
   },
