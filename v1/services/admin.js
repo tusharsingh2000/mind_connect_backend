@@ -995,6 +995,9 @@ async function getUsers(req) {
     if (req.query.isVerified) {
       pipeline.push({ $match: { isVerified: req.query.isVerified } });
     }
+    if (req.query.role) {
+      pipeline.push({ $match: { role: req.query.role } });
+    }
     pipeline.push({ $sort: { _id: -1 } });
 
     console.log('', JSON.stringify(pipeline));
