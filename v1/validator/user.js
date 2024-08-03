@@ -194,7 +194,7 @@ const validateDashBoard = async (req, property = "query") => {
 const validateSlots = async (req, property = "body") => {
   let schema = {};
   schema = joi.object().keys({
-    day: joi.string().optional(),
+    day: joi.array().optional(),
     openTime: joi.string().optional(),
     closeTime: joi.string().optional(),
     breakTime: joi.string().optional(),
