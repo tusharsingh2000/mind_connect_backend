@@ -1184,7 +1184,9 @@ async function getWishList(req) {
                 "serviceProvider.jti": 0,
                 "serviceProvider.address": 0,
                 "serviceProvider.isSocialLogin": 0,
-                "serviceProvider.location": 0
+                "serviceProvider.location": 0,
+                "serviceProvider.isEmailVerify": 0,
+                "serviceProvider.isPhoneVerify": 0
 
             }
         }
