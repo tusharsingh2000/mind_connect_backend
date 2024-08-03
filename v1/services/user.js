@@ -523,6 +523,11 @@ async function dashboard(req) {
                         },
                         isDeleted: false
                     }
+                }, {
+                    $project: {
+                        createdAt: 0,
+                        updatedAt: 0
+                    }
                 }],
                 as: 'experiences'
             }
@@ -537,6 +542,11 @@ async function dashboard(req) {
                             $eq: ["$$id", "$userId"]
                         },
                         isDeleted: false
+                    }
+                }, {
+                    $project: {
+                        createdAt: 0,
+                        updatedAt: 0
                     }
                 }],
                 as: 'educations'
@@ -564,8 +574,9 @@ async function dashboard(req) {
                 categoryId: 1,
                 countryCode: 1,
                 email: 1,
-                educations : 1,
-                experiences:1
+                educations: 1,
+                experiences: 1,
+                coverImage: 1
             }
         }
     );
@@ -647,8 +658,8 @@ async function serviceProviderDetail(req) {
                 categoryId: 1,
                 countryCode: 1,
                 email: 1,
-                educations :1,
-                experiences :1
+                educations: 1,
+                experiences: 1
             }
         }
     );
