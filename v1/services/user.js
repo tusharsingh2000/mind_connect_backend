@@ -1169,20 +1169,22 @@ async function getWishList(req) {
             $project: {
                 createdAt: 0,
                 updatedAt: 0,
+                "serviceProvider.createdAt": 0,
+                "serviceProvider.updatedAt": 0,
                 __v: 0,
-                types: 0,
-                longitude: 0,
-                latitude: 0,
-                isBlocked: 0,
-                isDeleted: 0,
-                categoryId: 0,
-                deviceToken: 0,
-                deviceType: 0,
-                dob: 0,
-                jti: 0,
-                address: 0,
-                isSocialLogin: 0,
-                location: 0
+                "serviceProvider.types": 0,
+                "serviceProvider.longitude": 0,
+                "serviceProvider.latitude": 0,
+                "serviceProvider.isBlocked": 0,
+                "serviceProvider.isDeleted": 0,
+                "serviceProvider.categoryId": 0,
+                "serviceProvider.deviceToken": 0,
+                "serviceProvider.deviceType": 0,
+                "serviceProvider.dob": 0,
+                "serviceProvider.jti": 0,
+                "serviceProvider.address": 0,
+                "serviceProvider.isSocialLogin": 0,
+                "serviceProvider.location": 0
 
             }
         }
