@@ -14,6 +14,9 @@ module.exports = {
     document : require('./documents'),
     banner : require("./banner"),
     Slots : require('./slotsTime'),
-    setting : require("./setting")
+    setting : require("./setting"),
+    rating : require('./rating'),
+    wishlist : require('./wishlist')
+
 
 };

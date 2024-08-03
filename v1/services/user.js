@@ -1,3 +1,4 @@
+/* eslint-disable no-throw-literal */
 const Model = require("../../models");
 const responseCode = require("../../utility/responseCode");
 const Otp = require("../services/otp");
@@ -5,7 +6,7 @@ const utility = require("../../utility/Utility");
 const mongoose = require("mongoose");
 // const emailServices = require("./emailService");
 const common = require("./common");
-// const moment = require("moment");
+const moment = require("moment");
 // const moment = require('moment-timezone');
 // const constant = require("../../utility/constant");
 // const notification = require('../../utility/pushNotifications');
@@ -369,14 +370,16 @@ async function getProfileDetail(req) {
                 as: 'educations'
             }
         },
-        // {
-        //     $lookup: {
-        //         from: "categories",
-        //         localField: "categoryId",
-        //         foreignField: "_id",
-        //         as: "categories"
-        //     }
-        // },
+        {
+            $lookup: {
+                from: "addresses",
+                localField: "_id",
+                foreignField: "userId",
+                as: "addresses"
+            }
+        },   
+        { $unwind: { path: "$addresses", preserveNullAndEmptyArrays: true } },
+
         // {
         //     $lookup: {
         //         from: 'categories',
@@ -1129,7 +1132,47 @@ async function getBanner(req) {
     return category;
 }
 
+
+async function wishList(req) {
+    console.log("wishList   >>>>>>>>>>>>>>>", req.body, ">>>>>>>>>>>>>>>>>>>>");
+
+    req.body.userId = req.user._id;
+    req.body.isDeleted = false;
+    if (req.body.type === "REMOVE") {
+        return await Model.wishlist.findOneAndDelete({
+            userId: ObjectId(req.user._id), spId: ObjectId(req.body.spId)
+        });
+    } else {
+        let isWishlist = await Model.wishlist.findOne({
+            spId: ObjectId(req.body.spId), userId: req.user._id
+        });
+        if (isWishlist) {
+            throw "Already in wishlist";
+        }
+        return await Model.wishlist.create(req.body);
+    }
+}
+
+async function getWishList(req) {
+    let pipeline = [];
+    pipeline.push({ $match: { isDeleted: false, userId: ObjectId(req.user._id) } });
+    pipeline.push({
+        $lookup: {
+            from: "users",
+            foreignField: "_id",
+            localField: "spId",
+            as: "serviceProvider"
+        }
+    },
+        { $unwind: "$serviceProvider" }
+    );
+    console.log("==========================pipeline", JSON.stringify(pipeline));
+    let data = await Model.wishlist.aggregate(pipeline);
+    return data;
+}
 module.exports = {
+    wishList,
+    getWishList,
     getProfileDetail,
     getBanner,
     serviceProviderDetail,

@@ -593,7 +593,33 @@ async function serviceProviderDetail(req, res, next) {
     next(error);
   }
 }
+
+async function wishList(req, res, next) {
+  try {
+    await validations.user.wishList(req);
+    let data = await services.user.wishList(req);
+    if (req.body.type == "ADD") {
+      return response.sendSuccessResponse(req, res, data, responseCode.OK, process.lang.CLASS_LIKED_SUCCESSFULLY);
+    } else {
+      return response.sendSuccessResponse(req, res, data, responseCode.OK, process.lang.CLASS_REMOVED_SUCCESSFULLY);
+
+    }
+  } catch (error) {
+    next(error);
+  }
+}
+async function getWishList(req, res, next) {
+  try {
+    let data = await services.user.getWishList(req);
+    return response.sendSuccessResponse(req, res, data, responseCode.OK, process.lang.FETCH_SUCCESSFULLY);
+  } catch (error) {
+    next(error);
+  }
+}
 module.exports = {
+  wishList,
+  getWishList,
+
   getProfileDetail,
   getBanner,
   serviceProviderDetail,
