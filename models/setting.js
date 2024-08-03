@@ -1,7 +1,7 @@
 const MONGOOSE = require("mongoose");
 const Schema = MONGOOSE.Schema;
 
-const cmsModel = new Schema(
+const settingModel = new Schema(
   {
     price: { type: String, default: "" },   // price per mint
    
@@ -10,5 +10,5 @@ const cmsModel = new Schema(
   { timestamps: true }
 );
 
-const cms = MONGOOSE.model("cms", cmsModel);
-module.exports = cms;
+const setting = MONGOOSE.model("setting", settingModel);
+module.exports = setting;
