@@ -13,17 +13,17 @@ const responseCode = require("../../utility/responseCode");
 
 async function createAdmin(data) {
   let qry = {
-    isDeleted: false,
+    isDeleted: false
   };
   let or = [];
   if (data.email) {
     or.push({
-      email: data.email.toLowerCase(),
+      email: data.email.toLowerCase()
     });
   }
   if (data.phone) {
     or.push({
-      phone: data.phone,
+      phone: data.phone
     });
   }
 
@@ -31,7 +31,7 @@ async function createAdmin(data) {
   if (or.length > 0) {
     let admin = await Model.admin.findOne(qry, {
       email: 1,
-      phone: 1,
+      phone: 1
     });
 
     if (admin) {
@@ -54,13 +54,13 @@ async function createAdmin(data) {
   return {
     email: admin.email,
     phone: admin.phone,
-    _id: admin._id,
+    _id: admin._id
   };
 }
 const login = async (data) => {
   let setObj = {
     deviceType: data.deviceType,
-    deviceToken: data.deviceToken,
+    deviceToken: data.deviceToken
   };
   let planPassword = data.password;
   delete data.deviceType;
@@ -115,7 +115,7 @@ async function resetPassword(data) {
       throw process.lang.REQUIRED_FILED_IS_MISSING;
     }
     return {
-      verificationType: 1,
+      verificationType: 1
     };
   } else {
     throw process.lang.REQUIRED_FILED_IS_MISSING;
@@ -149,7 +149,7 @@ async function changePassword(data, admin) {
     let findadmin = await Model.admin.findOne(
       { _id: admin._id },
       {
-        password: 1,
+        password: 1
       }
     );
     if (!findadmin) {
@@ -166,8 +166,8 @@ async function changePassword(data, admin) {
   }
   await Model.admin.findByIdAndUpdate(admin._id, {
     $set: {
-      password: await utility.hashPasswordUsingBcrypt(data.password),
-    },
+      password: await utility.hashPasswordUsingBcrypt(data.password)
+    }
   });
   return true;
 }
@@ -175,20 +175,20 @@ async function updateProfile(req) {
   let data = req.body;
   let qry = {
     _id: {
-      $ne: req.admin._id,
+      $ne: req.admin._id
     },
-    isDeleted: false,
+    isDeleted: false
   };
 
   let or = [];
   if (data.email) {
     or.push({
-      email: data.email.toLowerCase(),
+      email: data.email.toLowerCase()
     });
   }
   if (data.phone) {
     or.push({
-      phone: data.phone,
+      phone: data.phone
     });
   }
 
@@ -196,7 +196,7 @@ async function updateProfile(req) {
   if (or.length > 0) {
     let duplicateUser = await Model.admin.findOne(qry, {
       email: 1,
-      phone: 1,
+      phone: 1
     });
 
     if (duplicateUser) {
@@ -211,7 +211,7 @@ async function updateProfile(req) {
   data.isProfileComplete = true;
   let updatedUser = await Model.admin
     .findOneAndUpdate({ _id: mongoose.Types.ObjectId(req.admin._id) }, data, {
-      new: true,
+      new: true
     })
     .lean();
   return updatedUser;
@@ -225,7 +225,7 @@ async function getProfile(data) {
 async function addSubAdmin(data) {
   let subadmin = await Model.admin.findOne({
     email: data.body.email,
-    isDeleted: false,
+    isDeleted: false
   });
   if (subadmin) throw process.lang.DUPLICATE_EMAIL;
 
@@ -253,7 +253,7 @@ async function getSubAdmin(data) {
     qry.$or = [
       { name: { $regex: data.query.search, $options: "i" } },
       { email: { $regex: data.query.search, $options: "i" } },
-      { phone: { $regex: data.query.search, $options: "i" } },
+      { phone: { $regex: data.query.search, $options: "i" } }
     ];
   }
   let subAdmin;
@@ -273,13 +273,13 @@ async function getSubAdmin(data) {
 async function updateSubAdmin(data) {
   let admin = await Model.admin.findOne({
     _id: data.params.id,
-    isDeleted: false,
+    isDeleted: false
   });
   if (!admin) throw process.lang.SUBADMIN_NOT_FOUND;
 
   let subAdmin = await Model.subAdmin.findOne({
     _id: admin.subAdminId,
-    isDeleted: false,
+    isDeleted: false
   });
   if (!subAdmin) throw process.lang.SUBADMIN_NOT_FOUND;
 
@@ -287,10 +287,10 @@ async function updateSubAdmin(data) {
     data.password = await utility.hashPasswordUsingBcrypt(data.body.password);
   }
   await Model.subAdmin.findByIdAndUpdate({ _id: admin.subAdminId }, data.body, {
-    new: true,
+    new: true
   });
   await Model.admin.findByIdAndUpdate({ _id: data.params.id }, data.body, {
-    new: true,
+    new: true
   });
   subAdmin = await Model.admin
     .findOne({ _id: ObjectId(data.params.id), isDeleted: false })
@@ -300,13 +300,13 @@ async function updateSubAdmin(data) {
 async function deleteSubAdmin(data) {
   let admin = await Model.admin.findOne({
     _id: data.params.id,
-    isDeleted: false,
+    isDeleted: false
   });
   if (!admin) throw process.lang.SUBADMIN_NOT_FOUND;
 
   let subAdmin = await Model.subAdmin.findOne({
     _id: admin.subAdminId,
-    isDeleted: false,
+    isDeleted: false
   });
   if (!subAdmin) throw process.lang.SUBADMIN_NOT_FOUND;
   await Model.admin.findByIdAndUpdate(
@@ -328,17 +328,24 @@ async function addCms(data) {
   return await Model.cms.create(data.body);
 }
 async function updateCms(data) {
-  let cms = await Model.cms.findOne({ _id: data.params.id, isDeleted: false });
-  if (!cms) throw process.lang.CMS_NOT_FOUND;
-  cms = await Model.cms.findOneAndUpdate({ _id: data.params.id }, data.body, {
-    new: true,
+  let cms = await Model.cms.findOneAndUpdate({ isDeleted: false }, data.body, {
+    new: true
   });
   return cms;
 }
 async function getCms() {
-  return await Model.cms.find({ isDeleted: false });
+  return await Model.cms.findOne({ isDeleted: false });
 }
 
+async function updateSetting(data) {
+  let setting = await Model.setting.findOneAndUpdate({ isDeleted: false }, data.body, {
+    new: true
+  });
+  return setting;
+}
+async function getSetting() {
+  return await Model.setting.findOne({ isDeleted: false });
+}
 //************************************** DashBoard ************************************//
 
 async function getDashboard(data) {
@@ -351,7 +358,6 @@ async function getDashboard(data) {
 
   let detail = {};
   detail.userCount = await Model.user.countDocuments({ isDeleted: false });
-  detail.postCount = await Model.post.countDocuments({ isDeleted: false });
   if (data.query.personType == "daily") {
     var su = 0,
       mo = 0,
@@ -364,9 +370,9 @@ async function getDashboard(data) {
         {
           $match: {
             createdAt: { $gte: StartofWeek, $lte: EndofWeek },
-            isDeleted: false,
-          },
-        },
+            isDeleted: false
+          }
+        }
       ]);
     users.map((val) => {
       let hour = moment(val.createdAt).format("dd");
@@ -402,7 +408,7 @@ async function getDashboard(data) {
       wed: we,
       thr: th,
       fri: fr,
-      sat: sa,
+      sat: sa
     };
   } else if (data.query.personType == "weekly") {
     var w1 = 0,
@@ -413,9 +419,9 @@ async function getDashboard(data) {
       {
         $match: {
           createdAt: { $gte: startOFMonth, $lte: endOFMonth },
-          isDeleted: false,
-        },
-      },
+          isDeleted: false
+        }
+      }
     ]);
     users.map((val) => {
       // console.log(val);
@@ -456,9 +462,9 @@ async function getDashboard(data) {
       {
         $match: {
           createdAt: { $gte: startOFYear, $lte: endOFYear },
-          isDeleted: false,
-        },
-      },
+          isDeleted: false
+        }
+      }
     ]);
     users.map((val) => {
       let year = Math.ceil(Number(moment(val.createdAt).format("M")));
@@ -514,13 +520,13 @@ async function getDashboard(data) {
       sep: sep,
       oct: oct,
       nov: nov,
-      dec: dec,
+      dec: dec
     };
   } else if (data.query.personType == "yearly") {
     users = await Model.user.aggregate([
       { $match: { isDeleted: false } },
       { $addFields: { year: { $year: "$createdAt" } } },
-      { $group: { _id: "$year", total: { $sum: 1 } } },
+      { $group: { _id: "$year", total: { $sum: 1 } } }
     ]);
     var map = new Map();
     users.map((row) => {
@@ -543,9 +549,9 @@ async function getDashboard(data) {
         {
           $match: {
             createdAt: { $gte: StartofWeek, $lte: EndofWeek },
-            isDeleted: false,
-          },
-        },
+            isDeleted: false
+          }
+        }
       ]);
     users.map((val) => {
       let hour = moment(val.createdAt).format("dd");
@@ -581,20 +587,19 @@ async function getDashboard(data) {
       wed: we,
       thr: th,
       fri: fr,
-      sat: sa,
+      sat: sa
     };
   } else if (data.query.newPersonType == "weekly") {
     var w1 = 0,
       w2 = 0,
       w3 = 0,
       w4 = 0;
-    users = await Model.user.aggregate([
-      {
-        $match: {
-          createdAt: { $gte: startOFMonth, $lte: endOFMonth },
-          isDeleted: false,
-        },
-      },
+    users = await Model.user.aggregate([{
+      $match: {
+        createdAt: { $gte: startOFMonth, $lte: endOFMonth },
+        isDeleted: false
+      }
+    }
     ]);
     users.map((val) => {
       // console.log(val);
@@ -631,13 +636,12 @@ async function getDashboard(data) {
       oct = 0,
       nov = 0,
       dec = 0;
-    users = await Model.user.aggregate([
-      {
-        $match: {
-          createdAt: { $gte: startOFYear, $lte: endOFYear },
-          isDeleted: false,
-        },
-      },
+    users = await Model.user.aggregate([{
+      $match: {
+        createdAt: { $gte: startOFYear, $lte: endOFYear },
+        isDeleted: false
+      }
+    }
     ]);
     users.map((val) => {
       let year = Math.ceil(Number(moment(val.createdAt).format("M")));
@@ -693,13 +697,13 @@ async function getDashboard(data) {
       sep: sep,
       oct: oct,
       nov: nov,
-      dec: dec,
+      dec: dec
     };
   } else if (data.query.newPersonType == "yearly") {
     users = await Model.user.aggregate([
       { $match: { isDeleted: false } },
       { $addFields: { year: { $year: "$createdAt" } } },
-      { $group: { _id: "$year", total: { $sum: 1 } } },
+      { $group: { _id: "$year", total: { $sum: 1 } } }
     ]);
     var map = new Map();
     users.map((row) => {
@@ -729,7 +733,7 @@ async function getFaq(data) {
   if (data.query.search) {
     qry.$or = [
       { question: { $regex: data.query.search, $options: "i" } },
-      { answer: { $regex: data.query.search, $options: "i" } },
+      { answer: { $regex: data.query.search, $options: "i" } }
     ];
   }
   let faq;
@@ -786,7 +790,7 @@ async function getCategory(req) {
   if (type) {
     qry = {
       ...qry,
-      type: Number(type),
+      type: Number(type)
     };
   }
 
@@ -794,7 +798,7 @@ async function getCategory(req) {
   if (req.params.id) {
     category = await Model.category.findOne({
       _id: ObjectId(req.params.id),
-      ...qry,
+      ...qry
     });
   } else {
     let pipeline = [];
@@ -808,7 +812,7 @@ async function getCategory(req) {
 async function updateCategory(req) {
   let category = await Model.category.findOne({
     _id: req.params.id,
-    isDeleted: false,
+    isDeleted: false
   });
   if (!category) throw process.lang.INVALID_ID;
 
@@ -822,7 +826,7 @@ async function updateCategory(req) {
 async function deleteCategory(req) {
   let category = await Model.category.findOne({
     _id: req.params.id,
-    isDeleted: false,
+    isDeleted: false
   });
   if (!category) throw process.lang.INVALID_ID;
 
@@ -853,7 +857,7 @@ async function getBanner(req) {
   if (req.params.id) {
     banner = await Model.banner.findOne({
       _id: ObjectId(req.params.id),
-      ...qry,
+      ...qry
     });
   } else {
     let pipeline = [];
@@ -870,7 +874,7 @@ async function getBanner(req) {
 async function updateBanner(req) {
   let banner = await Model.banner.findOne({
     _id: req.params.id,
-    isDeleted: false,
+    isDeleted: false
   });
   if (!banner) throw process.lang.INVALID_ID;
 
@@ -884,7 +888,7 @@ async function updateBanner(req) {
 async function deleteBanner(req) {
   let banner = await Model.banner.findOne({
     _id: req.params.id,
-    isDeleted: false,
+    isDeleted: false
   });
   if (!banner) throw process.lang.INVALID_ID;
 
@@ -896,7 +900,131 @@ async function deleteBanner(req) {
   return {};
 }
 
+
+
+async function getUsers(req) {
+  let page = req.query.page;
+  let qry = { isDeleted: false, isProfileComplete: true };
+  let size = req.query.size;
+  let skip = parseInt(page - 1) || 0;
+  let limit = parseInt(size) || 10;
+  skip = skip * limit;
+  let pipeline = [];
+
+  if (req.query.search) {
+    qry.$or = [
+      { fullName: { $regex: req.query.search, $options: "i" } },
+      { firstName: { $regex: req.query.search, $options: "i" } },
+      { lastName: { $regex: req.query.search, $options: "i" } },
+      { email: { $regex: req.query.search, $options: "i" } },
+      { phone: { $regex: req.query.search, $options: "i" } }
+    ];
+  }
+  if (req.params.id) {
+    pipeline.push({ $match: { isDeleted: false, _id: ObjectId(req.params.id) } },
+      {
+        $lookup: {
+          from: "categories",
+          localField: "categoryId",
+          foreignField: "_id",
+          as: "categoryId"
+        }
+      },
+      {
+        $lookup: {
+          from: 'experiences',
+          let: { id: "$_id" },
+          pipeline: [{
+            $match: {
+              $expr: {
+                $eq: ["$$id", "$userId"]
+              },
+              isDeleted: false
+            }
+          }],
+          as: 'experiences'
+        }
+      },
+      {
+        $lookup: {
+          from: 'educations',
+          let: { id: "$_id" },
+          pipeline: [{
+            $match: {
+              $expr: {
+                $eq: ["$$id", "$userId"]
+              },
+              isDeleted: false
+            }
+          }],
+          as: 'educations'
+        }
+      },
+      // { $unwind: { path: "$categoryId", preserveNullAndEmptyArrays: true } },
+      // {
+      //   $lookup: {
+      //     from: "ratings",
+      //     localField: "classes._id",
+      //     foreignField: "classId",
+      //     as: "rating",
+      //   },
+      // },
+      // { $addFields: { ratingCount: { $size: "$rating" } } },
+      // { $addFields: { avgRating: { $avg: "$rating.rating" } } }
+      // {
+      //   $project: {
+      //     name: 1,
+      //     image: 1,
+      //     role: 1,
+      //     fullName: 1,
+      //     lastName: 1,
+      //     phone: 1,
+      //     categoryId: 1,
+      //     countryCode: 1,
+      //     email: 1,
+      //     educations: 1,
+      //     experiences: 1
+      //   }
+      // }
+    );
+    let [sps] = await Model.user.aggregate(pipeline);
+    return sps;
+  } else {
+    pipeline.push({ $match: { ...qry } });
+
+    if (req.query.isVerified) {
+      pipeline.push({ $match: { isVerified: req.query.isVerified } });
+    }
+    if (req.query.role) {
+      pipeline.push({ $match: { role: req.query.role } });
+    }
+    pipeline.push({ $sort: { _id: -1 } });
+
+    console.log('', JSON.stringify(pipeline));
+    pipeline = await common.pagination(pipeline, skip, limit);
+    let [detail] = await Model.user.aggregate(pipeline);
+    return detail;
+  }
+}
+
+async function updateUser(data) {
+  let user = await Model.user.findOne({ _id: data.params.id, isDeleted: false });
+  if (!user) throw process.lang.INVALID_USER;
+
+  return await Model.user.findOneAndUpdate({ _id: data.params.id, isDeleted: false }, data.body, { new: true });
+}
+async function deleteUser(data) {
+  let user = await Model.user.findOne({ _id: data.params.id, isDeleted: false });
+  if (!user) throw process.lang.INVALID_USER;
+
+  await Model.user.findOneAndUpdate({ _id: data.params.id, isDeleted: false }, { isDeleted: true }, { new: true });
+  return {};
+}
 module.exports = {
+  deleteUser,
+  updateUser,
+  getUsers,
+
   addBanner,
   getBanner,
   updateBanner,
@@ -925,4 +1053,6 @@ module.exports = {
   updateCms,
   getCms,
   getDashboard,
+  updateSetting,
+  getSetting
 };

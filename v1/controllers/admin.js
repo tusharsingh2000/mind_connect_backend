@@ -157,6 +157,23 @@ async function getCms(req, res, next) {
   }
 }
 
+async function updateSetting(req, res, next) {
+  try {
+    let data = await services.admin.updateSetting(req);
+    return response.sendSuccessResponse(req, res, data, responseCode.OK, process.lang.UPDATED_SUCCESSFULLY);
+  } catch (error) {
+    next(error);
+  }
+}
+async function getSetting(req, res, next) {
+  try {
+    let data = await services.admin.getSetting(req);
+    return response.sendSuccessResponse(req, res, data, responseCode.OK, process.lang.FETCH_SUCCESSFULLY);
+  } catch (error) {
+    next(error);
+  }
+}
+
 //***************************** Account Verifed **************************************//
 async function accountVerified(req, res, next) {
   try {
@@ -283,7 +300,36 @@ async function deleteBanner(req, res, next) {
 }
 
 
+async function getUsers(req, res, next) {
+  try {
+    let data = await services.admin.getUsers(req);
+    return response.sendSuccessResponse(req, res, data, responseCode.OK, process.lang.FETCH_SUCCESSFULLY);
+  } catch (error) {
+    next(error);
+  }
+}
+async function updateUser(req, res, next) {
+  try {
+    let data = await services.admin.updateUser(req);
+    return response.sendSuccessResponse(req, res, data, responseCode.OK, process.lang.UPDATED_SUCCESSFULLY);
+  } catch (error) {
+    next(error);
+  }
+}
+async function deleteUser(req, res, next) {
+  try {
+    let data = await services.admin.deleteUser(req);
+    return response.sendSuccessResponse(req, res, data, responseCode.OK, process.lang.UPDATED_SUCCESSFULLY);
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
+  deleteUser,
+  updateUser,
+  getUsers,
+  
   addBanner,
   getBanner,
   updateBanner,
@@ -314,5 +360,7 @@ module.exports = {
   addCms,
   updateCms,
   getCms,
-  getDashboard
+  getDashboard,
+  updateSetting,
+  getSetting
 };

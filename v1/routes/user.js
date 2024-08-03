@@ -73,4 +73,11 @@ router.put("/clearNotification", Service.authService.userAuth, Controllers.notif
 
 router.get("/cms", adminController.getCms);
 
+/* WISHLIST */
+router.post("/wishlist", Service.authService.userAuth, Controllers.wishList);
+router.get("/wishlist", Service.authService.userAuth, Controllers.getWishList);
+
+/* Rating */
+router.post("/rating", Service.authService.userAuth, Controllers.createRating);
+
 module.exports = router;

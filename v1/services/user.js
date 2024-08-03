@@ -1,3 +1,4 @@
+/* eslint-disable no-throw-literal */
 const Model = require("../../models");
 const responseCode = require("../../utility/responseCode");
 const Otp = require("../services/otp");
@@ -337,6 +338,19 @@ async function getProfileDetail(req) {
                         },
                         isDeleted: false
                     }
+                }, {
+                    $lookup: {
+                        from: "categories",
+                        localField: "categoryId",
+                        foreignField: "_id",
+                        as: "categoryId"
+                    }
+                },
+                {
+                    $project: {
+                        createdAt: 0,
+                        updatedAt: 0
+                    }
                 }],
                 as: 'experiences'
             }
@@ -358,19 +372,29 @@ async function getProfileDetail(req) {
         },
         {
             $lookup: {
-                from: 'categories',
-                let: { id: "$_id" },
-                pipeline: [{
-                    $match: {
-                        $expr: {
-                            $eq: ["$$id", "$userId"]
-                        },
-                        isDeleted: false
-                    }
-                }],
-                as: 'categories'
+                from: "addresses",
+                localField: "_id",
+                foreignField: "userId",
+                as: "addresses"
             }
         },
+        { $unwind: { path: "$addresses", preserveNullAndEmptyArrays: true } },
+
+        // {
+        //     $lookup: {
+        //         from: 'categories',
+        //         let: { id: "$_id" },
+        //         pipeline: [{
+        //             $match: {
+        //                 $expr: {
+        //                     $eq: ["$$id", "$userId"]
+        //                 },
+        //                 isDeleted: false
+        //             }
+        //         }],
+        //         as: 'categories'
+        //     }
+        // },
         {
             $lookup: {
                 from: 'documents',
@@ -523,6 +547,11 @@ async function dashboard(req) {
                         },
                         isDeleted: false
                     }
+                }, {
+                    $project: {
+                        createdAt: 0,
+                        updatedAt: 0
+                    }
                 }],
                 as: 'experiences'
             }
@@ -538,39 +567,68 @@ async function dashboard(req) {
                         },
                         isDeleted: false
                     }
+                }, {
+                    $project: {
+                        createdAt: 0,
+                        updatedAt: 0
+                    }
                 }],
                 as: 'educations'
             }
         },
-        // { $unwind: { path: "$categoryId", preserveNullAndEmptyArrays: true } },
-        // {
-        //   $lookup: {
-        //     from: "ratings",
-        //     localField: "classes._id",
-        //     foreignField: "classId",
-        //     as: "rating",
-        //   },
-        // },
-        // { $addFields: { ratingCount: { $size: "$rating" } } },
-        // { $addFields: { avgRating: { $avg: "$rating.rating" } } }
         {
-            $project: {
-                name: 1,
-                image: 1,
-                role: 1,
-                fullName: 1,
-                lastName: 1,
-                phone: 1,
-                categoryId: 1,
-                countryCode: 1,
-                email: 1,
-                educations : 1,
-                experiences:1
+            $lookup: {
+                from: "ratings",
+                localField: "_id",
+                foreignField: "spId",
+                as: "rating"
+            }
+        },
+        { $addFields: { ratingCount: { $size: "$rating" } } },
+        { $addFields: { avgRating: { $avg: "$rating.rating" } } },
+        {
+            $lookup: {
+                from: "wishlists",
+                localField: "_id",
+                foreignField: "spId",
+                as: "wishlists"
+            }
+        }, {
+        $addFields: {
+            isWishlist: {
+                $cond: {
+                    if: {
+                        $and: [{ $in: [ObjectId(req.user._id), "$wishlists.userId"] }]
+                    },
+                    then: true,
+                    else: false
+                }
             }
         }
-    );
+    }, {
+        $project: {
+            name: 1,
+            image: 1,
+            role: 1,
+            fullName: 1,
+            lastName: 1,
+            phone: 1,
+            categoryId: 1,
+            countryCode: 1,
+            email: 1,
+            educations: 1,
+            experiences: 1,
+            coverImage: 1,
+            ratingCount: 1,
+            avgRating: 1,
+            isWishlist: 1
+        }
+    });
     pipeline = await common.pagination(pipeline, skip, limit);
     let [sps] = await Model.user.aggregate(pipeline);
+
+    let setting = await Model.setting.findOne({ isDeleted: false }).select("-createdAt -updatedAt");
+    sps.setting = setting;
     return sps;
 
 }
@@ -647,8 +705,8 @@ async function serviceProviderDetail(req) {
                 categoryId: 1,
                 countryCode: 1,
                 email: 1,
-                educations :1,
-                experiences :1
+                educations: 1,
+                experiences: 1
             }
         }
     );
@@ -974,14 +1032,11 @@ async function getDocument(req) {
 
     let document;
     if (req.params.id) {
-        document = await Model.document
-            .findOne({ _id: ObjectId(req.params.id), ...qry })
+        document = await Model.document.findOne({ _id: ObjectId(req.params.id), ...qry })
             .select("-createdAt -updatedAt");
     } else {
         let pipeline = [];
-        pipeline.push({
-            $match: { isDeleted: false, userId: ObjectId(req.user._id) }
-        });
+        pipeline.push({ $match: { isDeleted: false, userId: ObjectId(req.user._id) } });
         pipeline = await common.pagination(pipeline, skip, limit);
         [document] = await Model.document.aggregate(pipeline);
     }
@@ -989,12 +1044,7 @@ async function getDocument(req) {
 }
 
 async function updateDocument(req) {
-    let document = await Model.document
-        .findOne({
-            _id: req.params.id,
-            isDeleted: false,
-            userId: ObjectId(req.user._id)
-        })
+    let document = await Model.document.findOne({ _id: req.params.id, isDeleted: false, userId: ObjectId(req.user._id) })
         .select("-createdAt -updatedAt");
     if (!document) throw process.lang.INVALID_ID;
 
@@ -1004,28 +1054,16 @@ async function updateDocument(req) {
     if (req.body.isProfileComplete) {
         await Model.user.findOneAndUpdate({ _id: ObjectId(req.user._id) }, { $set: { isProfileComplete: req.body.isProfileComplete } });
     }
-    document = await Model.document.findByIdAndUpdate(
-        { _id: document._id },
-        req.body,
-        { new: true }
-    );
+    document = await Model.document.findByIdAndUpdate({ _id: document._id }, req.body, { new: true });
     return document;
 }
 
 async function deleteDocument(req) {
-    let document = await Model.document
-        .findOne({
-            _id: req.params.id,
-            isDeleted: false,
-            userId: ObjectId(req.user._id)
-        })
+    let document = await Model.document.findOne({ _id: req.params.id, isDeleted: false, userId: ObjectId(req.user._id) })
         .select("-createdAt -updatedAt");
     if (!document) throw process.lang.INVALID_ID;
 
-    await Model.document.findByIdAndUpdate(
-        { _id: document._id, isDeleted: false },
-        { isDeleted: true }
-    );
+    await Model.document.findByIdAndUpdate({ _id: document._id, isDeleted: false }, { isDeleted: true });
     return {};
 }
 async function getCategory(req) {
@@ -1045,9 +1083,7 @@ async function getCategory(req) {
 async function addSlots(req) {
     req.body.userId = req.user._id;
     req.body.isDeleted = false;
-    return await Model.Slots.findOneAndUpdate(
-        { day: req.body.day, userId: req.user._id },
-        req.body,
+    return await Model.Slots.findOneAndUpdate({ day: req.body.day, userId: req.user._id }, req.body,
         { new: true, upsert: true }
     ).select("-createdAt -updatedAt");
 }
@@ -1117,7 +1153,90 @@ async function getBanner(req) {
     return category;
 }
 
+
+async function wishList(req) {
+    console.log("wishList   >>>>>>>>>>>>>>>", req.body, ">>>>>>>>>>>>>>>>>>>>");
+
+    req.body.userId = req.user._id;
+    req.body.isDeleted = false;
+    if (req.body.type === "REMOVE") {
+        return await Model.wishlist.findOneAndDelete({
+            userId: ObjectId(req.user._id), spId: ObjectId(req.body.spId)
+        });
+    } else {
+        let isWishlist = await Model.wishlist.findOne({
+            spId: ObjectId(req.body.spId), userId: req.user._id
+        });
+        if (isWishlist) {
+            throw "Already in wishlist";
+        }
+        return await Model.wishlist.create(req.body);
+    }
+}
+
+async function getWishList(req) {
+    let pipeline = [];
+    pipeline.push({ $match: { isDeleted: false, userId: ObjectId(req.user._id) } });
+    pipeline.push({
+        $lookup: {
+            from: "users",
+            foreignField: "_id",
+            localField: "spId",
+            as: "serviceProvider"
+        }
+    },
+        { $unwind: "$serviceProvider" },
+        {
+            $project: {
+                createdAt: 0,
+                updatedAt: 0,
+                "serviceProvider.createdAt": 0,
+                "serviceProvider.updatedAt": 0,
+                __v: 0,
+                "serviceProvider.types": 0,
+                "serviceProvider.longitude": 0,
+                "serviceProvider.latitude": 0,
+                "serviceProvider.isBlocked": 0,
+                "serviceProvider.isDeleted": 0,
+                "serviceProvider.categoryId": 0,
+                "serviceProvider.deviceToken": 0,
+                "serviceProvider.deviceType": 0,
+                "serviceProvider.dob": 0,
+                "serviceProvider.jti": 0,
+                "serviceProvider.address": 0,
+                "serviceProvider.isSocialLogin": 0,
+                "serviceProvider.location": 0,
+                "serviceProvider.isEmailVerify": 0,
+                "serviceProvider.isPhoneVerify": 0
+
+            }
+        }
+    );
+    let data = await Model.wishlist.aggregate(pipeline);
+    return data;
+}
+async function createRating(req) {
+    console.log("createRating  >>>>>>>>>>>>", req.body, ">>>>>>>>>>>>>>>>");
+    // let Booking = await Model.booking.findOne({
+    //   _id: ObjectId(req.body.bookingId),
+    //   isDeleted: false,
+    //   userId: ObjectId(req.user._id),
+    // });
+    // if (!Booking) throw process.lang.INVALID_BOOKING;
+
+    let sp = await Model.user.findOne({ _id: ObjectId(req.body.spId), isDeleted: false });
+    if (!sp) throw "Invalid service provider Id";
+
+    // req.body.instructorId = Booking.userId;
+    req.body.userId = req.user._id;
+    req.body.spId = sp._id;
+    await Model.rating.create(req.body);
+    return {};
+}
 module.exports = {
+    createRating,
+    wishList,
+    getWishList,
     getProfileDetail,
     getBanner,
     serviceProviderDetail,

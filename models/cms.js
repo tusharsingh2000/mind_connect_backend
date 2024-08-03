@@ -10,7 +10,7 @@ const cmsModel = new Schema(
     legal: { type: String, default: "" },
     email: { type: String, default: "" },
     phone: { type: String, default: "" },
-    isDeleted: { type: Boolean, default: false },
+    isDeleted: { type: Boolean, default: false }
   },
   { timestamps: true }
 );

@@ -30,6 +30,9 @@ router.post("/cms", Service.authService.adminAuth, adminController.addCms);
 router.put("/cms/:id", Service.authService.adminAuth, adminController.updateCms);
 router.get("/cms", Service.authService.adminAuth, adminController.getCms);
 
+// setting
+router.put("/setting", Service.authService.adminAuth, adminController.updateSetting);
+router.get("/setting", Service.authService.adminAuth, adminController.getSetting);
 
 // faq
 router.post("/faq", Service.authService.adminAuth, adminController.addFaq);
@@ -58,5 +61,11 @@ router.get("/banner/:id", Service.authService.adminAuth, adminController.getBann
 router.put("/banner/:id", Service.authService.adminAuth, adminController.updateBanner);
 router.delete("/banner/:id", Service.authService.adminAuth, adminController.deleteBanner);
 
+
+// ----------------------    users
+router.get("/users", Service.authService.adminAuth, adminController.getUsers);
+router.get("/users/:id", Service.authService.adminAuth, adminController.getUsers);
+router.put("/user/:id", Service.authService.adminAuth, adminController.updateUser);
+router.delete("/users/:id", Service.authService.adminAuth, adminController.deleteUser);
 
 module.exports = router;
