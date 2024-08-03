@@ -93,7 +93,7 @@ const socialLogin = async (req, property = "body") => {
 const wishList = async (req, property = 'body') => {
   let schema = joi.object().keys({
     spId: joi.string().required(),
-    desc: joi.string().optional(),
+    desc: joi.string().allow('', null).optional(),
     type: joi.string().valid('ADD', 'REMOVE').required()
   });
   return await validateSchema(req[property], schema);

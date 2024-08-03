@@ -14,7 +14,7 @@ const ratingModel = new Schema({
         default: 0,
         trim: true
     },
-    eemarks: {
+    remarks: {
         type: String,
         default: "",
         trim: true

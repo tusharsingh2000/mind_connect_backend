@@ -1164,9 +1164,29 @@ async function getWishList(req) {
             as: "serviceProvider"
         }
     },
-        { $unwind: "$serviceProvider" }
+        { $unwind: "$serviceProvider" },
+        {
+            $project: {
+                createdAt: 0,
+                updatedAt: 0,
+                __v: 0,
+                types: 0,
+                longitude: 0,
+                latitude: 0,
+                isBlocked: 0,
+                isDeleted: 0,
+                categoryId: 0,
+                deviceToken: 0,
+                deviceType: 0,
+                dob: 0,
+                jti: 0,
+                address: 0,
+                isSocialLogin: 0,
+                location: 0
+
+            }
+        }
     );
-    console.log("==========================pipeline", JSON.stringify(pipeline));
     let data = await Model.wishlist.aggregate(pipeline);
     return data;
 }
@@ -1183,7 +1203,6 @@ async function createRating(req) {
     if (!sp) throw "Invalid service provider Id";
 
     // req.body.instructorId = Booking.userId;
-    // req.body.instructorId = Booking.instructorId;
     req.body.userId = req.user._id;
     req.body.spId = sp._id;
     await Model.rating.create(req.body);
