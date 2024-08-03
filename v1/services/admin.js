@@ -921,7 +921,7 @@ async function getUsers(req) {
     ];
   }
   if (req.params.id) {
-    pipeline.push({ $match: { isDeleted: false, userId: ObjectId(req.params.id) } },
+    pipeline.push({ $match: { isDeleted: false, _id: ObjectId(req.params.id) } },
       {
         $lookup: {
           from: "categories",
