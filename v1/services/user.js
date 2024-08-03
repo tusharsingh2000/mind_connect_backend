@@ -582,6 +582,9 @@ async function dashboard(req) {
     );
     pipeline = await common.pagination(pipeline, skip, limit);
     let [sps] = await Model.user.aggregate(pipeline);
+
+    let setting = await Model.setting.findOne({ isDeleted: false });
+    sps.setting = setting;
     return sps;
 
 }

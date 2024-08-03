@@ -24,6 +24,11 @@ var mongoDbconnection = async function () {
     if (!cms) {
         await Model.cms.create({ isDeleted: false });
     }
+
+    let setting = await Model.setting.findOne({ isDeleted: false });
+    if (!setting) {
+        await Model.setting.create({ isDeleted: false });
+    }
 };
 
 module.exports = {

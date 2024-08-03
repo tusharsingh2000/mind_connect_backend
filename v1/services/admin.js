@@ -13,17 +13,17 @@ const responseCode = require("../../utility/responseCode");
 
 async function createAdmin(data) {
   let qry = {
-    isDeleted: false,
+    isDeleted: false
   };
   let or = [];
   if (data.email) {
     or.push({
-      email: data.email.toLowerCase(),
+      email: data.email.toLowerCase()
     });
   }
   if (data.phone) {
     or.push({
-      phone: data.phone,
+      phone: data.phone
     });
   }
 
@@ -31,7 +31,7 @@ async function createAdmin(data) {
   if (or.length > 0) {
     let admin = await Model.admin.findOne(qry, {
       email: 1,
-      phone: 1,
+      phone: 1
     });
 
     if (admin) {
@@ -54,7 +54,7 @@ async function createAdmin(data) {
   return {
     email: admin.email,
     phone: admin.phone,
-    _id: admin._id,
+    _id: admin._id
   };
 }
 const login = async (data) => {
@@ -115,7 +115,7 @@ async function resetPassword(data) {
       throw process.lang.REQUIRED_FILED_IS_MISSING;
     }
     return {
-      verificationType: 1,
+      verificationType: 1
     };
   } else {
     throw process.lang.REQUIRED_FILED_IS_MISSING;
@@ -328,17 +328,24 @@ async function addCms(data) {
   return await Model.cms.create(data.body);
 }
 async function updateCms(data) {
-  let cms = await Model.cms.findOne({ _id: data.params.id, isDeleted: false });
-  if (!cms) throw process.lang.CMS_NOT_FOUND;
-  cms = await Model.cms.findOneAndUpdate({ _id: data.params.id }, data.body, {
-    new: true,
+ let cms = await Model.cms.findOneAndUpdate({  isDeleted: false }, data.body, {
+    new: true
   });
   return cms;
 }
 async function getCms() {
-  return await Model.cms.find({ isDeleted: false });
+  return await Model.cms.findOne({ isDeleted: false });
 }
 
+async function updateSetting(data) {
+  let   setting = await Model.setting.findOneAndUpdate({ isDeleted : false }, data.body, {
+      new: true
+    });
+    return setting;
+  }
+  async function getSetting() {
+    return await Model.setting.findOne({ isDeleted: false });
+  }
 //************************************** DashBoard ************************************//
 
 async function getDashboard(data) {
@@ -925,4 +932,6 @@ module.exports = {
   updateCms,
   getCms,
   getDashboard,
+  updateSetting,
+  getSetting
 };

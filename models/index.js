@@ -13,6 +13,7 @@ module.exports = {
     category : require('./category'),
     document : require('./documents'),
     banner : require("./banner"),
-    Slots : require('./slotsTime')
+    Slots : require('./slotsTime'),
+    setting : require("./setting")
 
 };

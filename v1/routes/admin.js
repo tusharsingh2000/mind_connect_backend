@@ -30,6 +30,9 @@ router.post("/cms", Service.authService.adminAuth, adminController.addCms);
 router.put("/cms/:id", Service.authService.adminAuth, adminController.updateCms);
 router.get("/cms", Service.authService.adminAuth, adminController.getCms);
 
+// setting
+router.put("/setting", Service.authService.adminAuth, adminController.updateSetting);
+router.get("/setting", Service.authService.adminAuth, adminController.getSetting);
 
 // faq
 router.post("/faq", Service.authService.adminAuth, adminController.addFaq);
