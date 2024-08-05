@@ -640,6 +640,11 @@ async function dashboard(req) {
         avgRating: 1,
         isWishlist: 1,
       },
+    },
+    {
+      $sort: {
+        createdAt: -1,
+      },
     }
   );
   pipeline = await common.pagination(pipeline, skip, limit);
