@@ -1,30 +1,29 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const constant = require(".././utility/constant");
 
 let slotSchema = new Schema(
   {
     userId: { type: Schema.Types.ObjectId, ref: "user", index: true },
     day: {
       type: [String],
-      required: true,
+      required: true
     },
     openTime: {
       type: String,
-      default: "",
+      default: ""
     },
     closeTime: {
       type: String,
-      default: "",
+      default: ""
     },
     breakTime: {
       type: String,
-      default: "",
+      default: ""
     },
-    isDeleted: { type: Boolean, default: false, index: true },
+    isDeleted: { type: Boolean, default: false, index: true }
   },
   {
-    timestamps: true,
+    timestamps: true
   }
 );
 let driverSlot = mongoose.model("slotsTime", slotSchema);

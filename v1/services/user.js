@@ -6,7 +6,7 @@ const utility = require("../../utility/Utility");
 const mongoose = require("mongoose");
 // const emailServices = require("./emailService");
 const common = require("./common");
-// const moment = require("moment");
+const moment = require("moment");
 // const moment = require('moment-timezone');
 // const constant = require("../../utility/constant");
 // const notification = require('../../utility/pushNotifications');
@@ -533,15 +533,10 @@ async function dashboard(req) {
     if (req.query.categoryId) {
         pipeline.push({ $match: { categoryId: { $in: [req.query.categoryId] } } });
     }
-    pipeline.push(
-        {
-            $match: { role: "consultant", isDeleted: false, isProfileComplete: true }
-        },
-        {
-            $sort: {
-                createdAt: -1
-            }
-        },
+    pipeline.push({
+        $match: { role: "consultant", isDeleted: false, isProfileComplete: true }
+    },
+        { $sort: { createdAt: -1 } },
         {
             $lookup: {
                 from: "categories",
@@ -673,7 +668,7 @@ async function serviceProviderDetail(req) {
             $match: {
                 role: "consultant",
                 isDeleted: false,
-                userId: ObjectId(req.user._id)
+                _id: ObjectId(req.user._id)
             }
         },
         {
@@ -718,19 +713,40 @@ async function serviceProviderDetail(req) {
                 as: "educations"
             }
         },
-        // { $unwind: { path: "$categoryId", preserveNullAndEmptyArrays: true } },
-        // {
-        //   $lookup: {
-        //     from: "ratings",
-        //     localField: "classes._id",
-        //     foreignField: "classId",
-        //     as: "rating",
-        //   },
-        // },
-        // { $addFields: { ratingCount: { $size: "$rating" } } },
-        // { $addFields: { avgRating: { $avg: "$rating.rating" } } }
+        {
+            $lookup: {
+                from: "ratings",
+                localField: "_id",
+                foreignField: "spId",
+                as: "rating"
+            }
+        },
+        { $addFields: { ratingCount: { $size: "$rating" } } },
+        { $addFields: { avgRating: { $avg: "$rating.rating" } } },
+        {
+            $lookup: {
+                from: "wishlists",
+                localField: "_id",
+                foreignField: "spId",
+                as: "wishlists"
+            }
+        },
+        {
+            $addFields: {
+                isWishlist: {
+                    $cond: {
+                        if: {
+                            $and: [{ $in: [ObjectId(req.user._id), "$wishlists.userId"] }]
+                        },
+                        then: true,
+                        else: false
+                    }
+                }
+            }
+        },
         {
             $project: {
+                coverImage: 1,
                 name: 1,
                 image: 1,
                 role: 1,
@@ -741,7 +757,10 @@ async function serviceProviderDetail(req) {
                 countryCode: 1,
                 email: 1,
                 educations: 1,
-                experiences: 1
+                experiences: 1,
+                ratingCount: 1,
+                avgRating: 1,
+                isWishlist: 1
             }
         }
     );
@@ -1273,7 +1292,103 @@ async function createRating(req) {
     await Model.rating.create(req.body);
     return {};
 }
+
+async function getRating(req) {
+    let page = req.query.page;
+    let size = req.query.size;
+    let skip = parseInt(page - 1) || 0;
+    let limit = parseInt(size) || 10;
+    skip = skip * limit;
+
+    let pipeline = [];
+    pipeline.push({ $match: { isDeleted: false } });
+
+    if (req.params.id) {
+        pipeline.push({
+            $match: { spId: ObjectId(req.params.id) }
+        });
+    }
+    pipeline.push({ $sort: { createdAt: -1 } },
+        {
+            $lookup: {
+                from: "users",
+                foreignField: "_id",
+                localField: "userId",
+                as: "users"
+            }
+        },
+        { $unwind: "$users" },
+        {
+            $project: {
+                createdAt: 0,
+                updatedAt: 0,
+                "users.createdAt": 0,
+                "users.updatedAt": 0,
+                __v: 0,
+                "users.types": 0,
+                "users.longitude": 0,
+                "users.latitude": 0,
+                "users.isBlocked": 0,
+                "users.isDeleted": 0,
+                "users.categoryId": 0,
+                "users.deviceToken": 0,
+                "users.deviceType": 0,
+                "users.dob": 0,
+                "users.jti": 0,
+                "users.address": 0,
+                "users.isSocialLogin": 0,
+                "users.location": 0,
+                "users.isEmailVerify": 0,
+                "users.isPhoneVerify": 0
+            }
+        }
+    );
+    pipeline = await common.pagination(pipeline, skip, limit);
+    let data = await Model.rating.aggregate(pipeline);
+    return data;
+}
+
+async function getSP_Slots(req) {
+    let slots = await Model.Slots.findOne({ userId: ObjectId(req.params.id), isDeleted: false }).lean();
+    if (!slots) throw "No slots available";
+
+    let today = moment(req.query.date).format('dddd');
+    if (!slots.day?.includes(today)) {
+        throw "No slots available for today";
+    }
+    let setting = await Model.setting.findOne({ isDeleted: false }).lean();
+
+    let interval = Number(setting.slots_diff) + Number(slots.breakTime);
+
+    let startTime = slots.openTime;
+    let endTime = slots.closeTime;
+    var timeStops = [];
+
+    // startTime = moment(startTime, 'HH:mm');
+    // endTime = moment(endTime, 'HH:mm');
+
+    startTime = moment(startTime);
+    endTime = moment(endTime);
+
+    if (endTime.isBefore(startTime)) {
+        endTime.add(1, 'day');
+    }
+    console.log('startTime :   ', startTime);
+    console.log('endTime :   ', endTime);
+
+    while (startTime <= endTime) {
+        let timeToPush = new moment(startTime).format('LT');
+        timeStops.push(timeToPush);
+        startTime.add(interval, 'minutes');
+    }
+
+
+    console.log('startTime :   ', timeStops);
+    return slots;
+}
 module.exports = {
+    getSP_Slots,
+    getRating,
     createRating,
     wishList,
     getWishList,

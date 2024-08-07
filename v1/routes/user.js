@@ -60,6 +60,8 @@ router.delete("/slots/:id", Service.authService.userAuth, Controllers.deleteSlot
 router.get("/dashboard", Service.authService.userAuth, Controllers.dashboard);
 
 router.get("/sp/:id", Service.authService.userAuth, Controllers.serviceProviderDetail);
+router.get("/sp_slots/:id", Service.authService.userAuth, Controllers.getSP_Slots);
+
 
 // category
 router.get("/category", Service.authService.userAuth, Controllers.getCategory);
@@ -79,5 +81,7 @@ router.get("/wishlist", Service.authService.userAuth, Controllers.getWishList);
 
 /* Rating */
 router.post("/rating", Service.authService.userAuth, Controllers.createRating);
+router.get("/rating/:id?", Service.authService.userAuth, Controllers.getRating);  // sp side's API
+
 
 module.exports = router;

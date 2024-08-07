@@ -625,7 +625,26 @@ async function createRating(req, res, next) {
       next(error);
   }
 }
+async function getRating(req, res, next) {
+  try {
+    let data = await services.user.getRating(req);
+    return response.sendSuccessResponse(req, res, data, responseCode.OK, process.lang.FETCH_SUCCESSFULLY);
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function getSP_Slots(req, res, next) {
+  try {
+    let data = await services.user.getSP_Slots(req);
+    return response.sendSuccessResponse(req, res, data, responseCode.OK, process.lang.FETCH_SUCCESSFULLY);
+  } catch (error) {
+    next(error);
+  }
+}
 module.exports = {
+  getSP_Slots,
+  getRating,
   createRating,
   wishList,
   getWishList,
